@@ -1,0 +1,1784 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NOIR — Elite Partner Access</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* ══════════════════════════════════════════════
+   1. THE "PLATINUM MOCHA" DESIGN SYSTEM
+══════════════════════════════════════════════ */
+    :root {
+      --bg-body: #FDFBF8;
+      --bg-glass: rgba(255, 255, 255, 0.7);
+      --bg-panel: #FFFFFF;
+
+      --mocha-dark: #1A120B;
+      --mocha-mid: #3E2723;
+      --caramel: #C8893F;
+      --gold: #D4AF37;
+      --clay: #8D8D8D;
+
+      --border: rgba(198, 156, 109, 0.15);
+      --border-hi: rgba(198, 156, 109, 0.4);
+
+      --shadow-sm: 0 10px 30px rgba(26, 18, 11, 0.05);
+      --shadow-lg: 0 30px 60px rgba(26, 18, 11, 0.1);
+      --shadow-card: 0 40px 80px -10px rgba(62, 39, 35, 0.1);
+
+      --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
+      /*Navbar Variables*/
+      --nav-bg: rgba(255, 255, 255, 0.96);
+      --nav-blur: 20px;
+      --nav-text: #3E2F2B;
+      --nav-accent: #C9A46C;
+      --nav-border: rgba(198, 156, 109, 0.15);
+      --nav-drop-bg: #FFFFFF;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      outline: none;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg-body);
+      background-image: radial-gradient(circle at 10% 10%, rgba(198, 156, 109, 0.05), transparent 40%);
+      color: var(--mocha-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    .serif {
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    /* ══════════════════════════════════════════════
+   2. UI COMPONENTS & HOVERS
+══════════════════════════════════════════════ */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--mocha-dark);
+      color: #fff;
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: 0.4s var(--ease-lux);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+
+    /* Enhanced Hover */
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(198, 156, 109, 0.3);
+      background: var(--caramel);
+    }
+
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+
+    .btn-sec {
+      padding: 15px 35px;
+      background: transparent;
+      border: 1px solid var(--border-hi);
+      color: var(--mocha-dark);
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-sec:hover {
+      border-color: var(--caramel);
+      color: var(--caramel);
+      background: rgba(255, 255, 255, 0.8);
+      transform: translateY(-2px);
+    }
+
+    .tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--caramel);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .tag::before {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: var(--caramel);
+    }
+
+    .section-head {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 60px;
+    }
+
+    .section-head h2 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      line-height: 1;
+    }
+
+    .section-head p {
+      color: var(--clay);
+      font-size: 18px;
+    }
+
+    /* ══════════════════════════════════════════════
+   3. STANDARD NAVIGATION (From Instagram Page)
+══════════════════════════════════════════════ */
+    /* Navbar Variables */
+
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      color: var(--mocha);
+      background: var(--white);
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Playfair Display", serif;
+    }
+
+    /* ══════════════════════════════════════════════
+   MASTER NAVIGATION (Locked)
+══════════════════════════════════════════════ */
+    #master-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 9999;
+      padding: 15px 4%;
+      background: var(--nav-bg);
+      backdrop-filter: blur(var(--nav-blur));
+      border-bottom: 1px solid var(--nav-border);
+      transition: all 0.4s ease;
+    }
+
+    .nav-container {
+      max-width: 1600px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .nav-brand svg path {
+      fill: var(--nav-text);
+    }
+
+    .nav-brand svg text {
+      fill: var(--nav-accent);
+    }
+
+    .brand-text-col {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--nav-text);
+      letter-spacing: 1px;
+    }
+
+    .brand-sub {
+      font-family: 'Manrope', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--nav-accent);
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .nav-link {
+      font-family: 'Manrope', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--nav-text);
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.3s;
+      position: relative;
+      opacity: 0.85;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-link i {
+      font-size: 14px;
+      color: var(--nav-accent);
+      opacity: 0.8;
+      transition: 0.3s;
+    }
+
+    .nav-link:hover i {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--nav-accent);
+      opacity: 1;
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--nav-accent);
+    }
+
+    .nav-item {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .arrow-icon {
+      font-size: 10px;
+      margin-left: 2px;
+      transition: 0.3s;
+      opacity: 0.6;
+    }
+
+    .nav-item:hover .arrow-icon {
+      transform: rotate(180deg);
+      color: var(--nav-accent);
+      opacity: 1;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--nav-drop-bg);
+      min-width: 240px;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--nav-border);
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-item:hover .dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(5px);
+    }
+
+    .dropdown a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      color: var(--nav-text);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: 0.2s;
+      white-space: nowrap;
+      font-family: 'Manrope', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .dropdown a i {
+      color: var(--nav-accent);
+      width: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .dropdown a:hover {
+      background: rgba(198, 156, 109, 0.08);
+      color: var(--nav-accent);
+      padding-left: 20px;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+    }
+
+    .mobile-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .mobile-toggle span {
+      width: 28px;
+      height: 2px;
+      background: var(--nav-text);
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    @media(max-width: 1300px) {
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-toggle {
+        display: flex;
+      }
+    }
+
+    /* MOBILE MENU OVERLAY */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: var(--nav-drop-bg);
+      z-index: 10000;
+      transform: translateX(100%);
+      transition: 0.4s ease;
+      display: flex;
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    .mm-inner {
+      width: 100%;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      overflow-y: auto;
+      font-family: 'Manrope', sans-serif;
+    }
+
+    .mm-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: var(--nav-text);
+      cursor: pointer;
+    }
+
+    .mm-scroll a {
+      color: var(--nav-text);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 10px 0;
+    }
+
+    .mm-scroll hr {
+      width: 100%;
+      border: 0;
+      border-top: 1px solid var(--nav-border);
+      margin: 15px 0;
+    }
+
+    .mm-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--nav-accent);
+      margin-bottom: 5px;
+      display: block;
+      opacity: 0.8;
+    }
+
+    .sub-link {
+      font-size: 15px;
+      margin-left: 20px;
+      opacity: 0.9;
+    }
+
+
+    /* ══════════════════════════════════════════════
+   4. HERO SECTION
+══════════════════════════════════════════════ */
+    .hero {
+      padding: 180px 6% 100px;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(198, 156, 109, 0.05) 100%);
+    }
+
+    .hero-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: clamp(3.5rem, 8vw, 6rem);
+      line-height: 1;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, var(--mocha-dark) 0%, var(--mocha-mid) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--clay);
+      max-width: 600px;
+      margin: 0 auto 50px;
+    }
+
+    /* ══════════════════════════════════════════════
+   5. HOW IT WORKS
+══════════════════════════════════════════════ */
+    .steps-section {
+      padding: 100px 6%;
+      background: #fff;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+    }
+
+    .step-card {
+      text-align: center;
+      padding: 40px 20px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--bg-body);
+      transition: .4s;
+    }
+
+    .step-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--caramel);
+    }
+
+    .step-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--mocha-dark);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin: 0 auto 20px;
+      box-shadow: var(--shadow-sm);
+      transition: .4s;
+    }
+
+    .step-card:hover .step-icon {
+      background: var(--caramel);
+      transform: scale(1.1);
+    }
+
+    .step-card h4 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .step-card p {
+      font-size: 14px;
+      color: var(--clay);
+    }
+
+    /* ══════════════════════════════════════════════
+   6. MEMBERSHIP TIERS
+══════════════════════════════════════════════ */
+    .tiers-section {
+      padding: 120px 6%;
+      background: var(--bg-body);
+    }
+
+    .tiers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .tier-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 50px 40px;
+      position: relative;
+      transition: 0.5s var(--ease-lux);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tier-card:hover {
+      transform: translateY(-15px);
+      box-shadow: var(--shadow-card);
+      border-color: var(--caramel);
+    }
+
+    .tier-card.featured {
+      background: var(--mocha-dark);
+      color: #fff;
+      transform: scale(1.05);
+      z-index: 2;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .tier-card.featured:hover {
+      transform: scale(1.05) translateY(-10px);
+    }
+
+    .tier-card.featured h3,
+    .tier-card.featured .price {
+      color: #fff;
+    }
+
+    .tier-card.featured p,
+    .tier-card.featured li {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .tier-card.featured .btn-tier {
+      background: var(--caramel);
+      color: #fff;
+      border: none;
+    }
+
+    .tier-card.featured .btn-tier:hover {
+      background: #fff;
+      color: var(--mocha-dark);
+    }
+
+    .tier-badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gold);
+    }
+
+    .tier-card h3 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      font-family: 'Cormorant Garamond';
+    }
+
+    .tier-card .price {
+      font-size: 42px;
+      font-family: 'Cormorant Garamond';
+      margin-bottom: 30px;
+      display: block;
+      line-height: 1;
+    }
+
+    .tier-card .price span {
+      font-size: 16px;
+      font-family: 'Outfit';
+      color: var(--clay);
+    }
+
+    .features {
+      list-style: none;
+      margin-bottom: 40px;
+      flex-grow: 1;
+    }
+
+    .features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      color: var(--mocha-mid);
+    }
+
+    .features i {
+      color: var(--caramel);
+    }
+
+    .btn-tier {
+      width: 100%;
+      padding: 18px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: transparent;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-tier:hover {
+      background: var(--mocha-dark);
+      color: #fff;
+    }
+
+    /* ══════════════════════════════════════════════
+   7. CALCULATOR (INR EDITION)
+══════════════════════════════════════════════ */
+    .calc-section {
+      padding: 120px 6%;
+      background: var(--mocha-dark);
+      color: #fff;
+    }
+
+    .calc-box {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 30px;
+      padding: 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+
+    .calc-inputs h3 {
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+
+    .slider-group {
+      margin-bottom: 40px;
+    }
+
+    .slider-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+
+    .slider-val {
+      color: var(--caramel);
+      font-weight: 700;
+    }
+
+    input[type=range] {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      outline: none;
+      -webkit-appearance: none;
+      border-radius: 2px;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 24px;
+      height: 24px;
+      background: var(--caramel);
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(198, 156, 109, 0.5);
+      transition: .2s;
+    }
+
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    .calc-result {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .res-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      opacity: 0.6;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .res-amount {
+      font-family: 'Cormorant Garamond';
+      font-size: 64px;
+      line-height: 1;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .res-sub {
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    /* ══════════════════════════════════════════════
+   8. WHY JOIN
+══════════════════════════════════════════════ */
+    .why-section {
+      padding: 120px 6%;
+      background: #fff;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .why-card {
+      padding: 40px;
+      background: var(--bg-body);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      transition: .4s;
+    }
+
+    .why-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--caramel);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .why-icon {
+      font-size: 32px;
+      color: var(--caramel);
+      margin-bottom: 20px;
+    }
+
+    .why-card h4 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      font-family: 'Cormorant Garamond';
+      font-weight: 700;
+    }
+
+    .why-card p {
+      font-size: 14px;
+      color: var(--clay);
+    }
+
+    /* ══════════════════════════════════════════════
+   9. FAQ
+══════════════════════════════════════════════ */
+    .faq-section {
+      padding: 100px 6%;
+      background: var(--bg-body);
+    }
+
+    .faq-grid {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .faq-item {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: 0.3s;
+    }
+
+    .faq-item:hover {
+      border-color: var(--caramel);
+    }
+
+    .faq-q {
+      padding: 20px 25px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .faq-a {
+      padding: 0 25px 25px;
+      color: var(--clay);
+      font-size: 14px;
+      line-height: 1.6;
+      display: none;
+    }
+
+    .faq-item.active .faq-a {
+      display: block;
+    }
+
+    .faq-item.active .faq-q {
+      color: var(--caramel);
+    }
+
+    /* ══════════════════════════════════════════════
+   10. PAYMENT MODAL
+══════════════════════════════════════════════ */
+    .payment-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 18, 11, 0.6);
+      backdrop-filter: blur(15px);
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.5s var(--ease-lux);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .payment-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .payment-modal {
+      background: #fff;
+      width: 900px;
+      height: 550px;
+      border-radius: 30px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+      transform: scale(0.9) translateY(30px);
+      transition: 0.5s var(--ease-lux);
+      box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.3);
+    }
+
+    .payment-overlay.active .payment-modal {
+      transform: scale(1) translateY(0);
+    }
+
+    /* Summary Side */
+    .pay-summary {
+      background: #FDFBF8;
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--border);
+    }
+
+    .pay-product {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .prod-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 16px;
+      object-fit: cover;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .pay-total {
+      margin-top: auto;
+      padding-top: 30px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .total-price {
+      font-size: 32px;
+      font-family: 'Cormorant Garamond';
+      font-weight: 700;
+      color: var(--mocha-dark);
+    }
+
+    /* Card Side */
+    .pay-form-col {
+      padding: 60px;
+      position: relative;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      cursor: pointer;
+      font-size: 20px;
+      color: var(--clay);
+      transition: 0.3s;
+    }
+
+    .close-modal:hover {
+      color: var(--mocha-dark);
+      transform: rotate(90deg);
+    }
+
+    .card-wrapper {
+      margin-bottom: 30px;
+      perspective: 1000px;
+    }
+
+    .glass-card {
+      width: 100%;
+      height: 200px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #2E1D14, #1a120b);
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      padding: 25px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+      pointer-events: none;
+    }
+
+    .card-number-display {
+      font-family: 'Courier New', monospace;
+      font-size: 22px;
+      letter-spacing: 2px;
+      margin-bottom: 30px;
+      margin-top: 40px;
+      text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+
+    .input-grp {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 15px 15px 15px 45px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      background: #fff;
+    }
+
+    .input-field:focus {
+      border-color: var(--caramel);
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--clay);
+    }
+
+    .btn-pay {
+      width: 100%;
+      padding: 18px;
+      background: var(--mocha-dark);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-pay:hover {
+      background: var(--caramel);
+      transform: translateY(-2px);
+    }
+
+    /* Success Overlay */
+    .success-overlay {
+      position: absolute;
+      inset: 0;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.4s;
+    }
+
+    .success-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .checkmark {
+      width: 80px;
+      height: 80px;
+      background: #4CAF50;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 40px;
+      margin-bottom: 20px;
+    }
+
+    /* ══════════════════════════════════════════════
+   11. STANDARD FOOTER (From Instagram Page)
+══════════════════════════════════════════════ */
+    footer {
+      background: var(--mocha-dark);
+      padding: 80px 6% 40px;
+      color: #fff;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.8fr 1fr 1fr 1fr;
+      gap: 60px;
+      padding-bottom: 60px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .f-brand .logo-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      color: var(--bg-body);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .f-brand .logo-name span {
+      color: var(--caramel);
+    }
+
+    .f-brand .logo-sub {
+      font-size: 9px;
+      letter-spacing: .32em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      display: block;
+      margin-bottom: 18px;
+    }
+
+    .f-brand .f-desc {
+      font-size: .88rem;
+      color: rgba(255, 255, 255, 0.4);
+      line-height: 1.75;
+      max-width: 270px;
+      margin-bottom: 24px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+    }
+
+    .social-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .social-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 14px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all .3s;
+    }
+
+    .social-btn:hover {
+      border-color: var(--caramel);
+      color: var(--caramel);
+    }
+
+    .f-col h5 {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      margin-bottom: 22px;
+      display: block;
+    }
+
+    .f-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+
+    .f-col a {
+      font-size: .88rem;
+      color: rgba(255, 255, 255, 0.4);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color .3s;
+    }
+
+    .f-col a:hover {
+      color: var(--caramel);
+    }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 32px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-bottom p {
+      font-size: .7rem;
+      color: rgba(255, 255, 255, 0.25);
+      letter-spacing: .06em;
+    }
+
+    .footer-bottom div {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-bottom a {
+      font-size: .7rem;
+      color: rgba(255, 255, 255, 0.25);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color .3s;
+    }
+
+    .footer-bottom a:hover {
+      color: var(--caramel);
+    }
+
+    /* Responsive */
+    @media(max-width: 900px) {
+      .hero h1 {
+        font-size: 3.5rem;
+      }
+
+      .steps-grid,
+      .tiers-grid,
+      .calc-box,
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .payment-modal {
+        width: 95%;
+        grid-template-columns: 1fr;
+        height: auto;
+      }
+
+      .pay-summary {
+        display: none;
+      }
+
+      .pay-form-col {
+        padding: 40px 20px;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      nav {
+        padding: 15px 5%;
+      }
+
+      .nav-hire {
+        display: none;
+      }
+
+      /* Hide button on mobile nav */
+    }
+  </style>
+</head>
+
+<body>
+
+  <header id="master-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand">
+        <svg class="brand-mark" width="45" height="45" viewBox="0 0 100 100" fill="none">
+          <path d="M50 5C50 5 15 45 15 67C15 86.3 30.7 102 50 102C69.3 102 85 86.3 85 67C85 45 50 5 50 5Z"
+            fill="#3E2F2B" />
+          <text x="50" y="80" font-family="'Playfair Display', serif" font-weight="700" font-size="42" fill="#C9A46C"
+            text-anchor="middle">N</text>
+        </svg>
+        <div class="brand-text-col">
+          <span class="brand-name">NOIR</span>
+          <span class="brand-sub">Digital Studio</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="about.html" class="nav-link"><i class="fa-solid fa-circle-info"></i> About</a>
+
+        <div class="nav-item has-dropdown">
+          <span class="nav-link"><i class="fa-solid fa-layer-group"></i> Services <i
+              class="fa-solid fa-chevron-down arrow-icon"></i></span>
+          <div class="dropdown">
+
+            <a href="instagram.html"><i class="fa-brands fa-instagram"></i> Instagram Viral</a>
+            <a href="affiliate.html"><i class="fa-solid fa-users-viewfinder"></i> Affiliate Program</a>
+            <a href="email.html"><i class="fa-regular fa-envelope"></i> Email Marketing</a>
+            <a href="blog.html"><i class="fa-solid fa-pen-nib"></i> Blog Content</a>
+            <a href="calendar.html"><i class="fa-regular fa-calendar"></i> Launch Calendar</a>
+            <a href="video.html"><i class="fa-solid fa-video"></i> Video Marketing</a>
+          </div>
+        </div>
+
+        <div class="nav-item has-dropdown">
+          <span class="nav-link"><i class="fa-solid fa-star"></i> Celebrity <i
+              class="fa-solid fa-chevron-down arrow-icon"></i></span>
+          <div class="dropdown">
+            <a href="celebrity.html"><i class="fa-solid fa-gem"></i> Celebrity Perfumes</a>
+            <a href="campaign.html"><i class="fa-solid fa-film"></i> Campaign Videos</a>
+            <a href="project.html" class="nav-link">PROJECT</a>
+            <a href="icons.html"><i class="fa-solid fa-id-card"></i> Icon Profiles</a>
+          </div>
+        </div>
+
+        <a href="campaign.html" class="nav-link"><i class="fa-solid fa-clapperboard"></i> Campaigns</a>
+        <a href="blog.html" class="nav-link active" style="color:var(--nav-accent)"><i
+            class="fa-solid fa-newspaper"></i> Blog</a>
+        <a href="product.html" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Shop</a>
+        <a href="mobile.html" class="nav-link"><i class="fa-solid fa-mobile-screen"></i> App</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="mobile-toggle" onclick="toggleNav()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mm-inner">
+        <div class="mm-head">
+          <span class="brand-name" style="font-size:24px;">NOIR</span>
+          <button class="close-btn" onclick="toggleNav()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="mm-scroll">
+          <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+          <a href="about.html"><i class="fa-solid fa-circle-info"></i> About</a>
+          <hr>
+          <span class="mm-label">Services</span>
+          <a href="product.html" class="sub-link"><i class="fa-solid fa-bottle-droplet"></i> Product</a>
+          <a href="instagram.html" class="sub-link"><i class="fa-brands fa-instagram"></i> Instagram</a>
+          <a href="affiliate.html" class="sub-link"><i class="fa-solid fa-users"></i> Affiliates</a>
+          <a href="email.html" class="sub-link"><i class="fa-regular fa-envelope"></i> Email</a>
+          <hr>
+          <span class="mm-label">Talent</span>
+          <a href="celebrity.html" class="sub-link"><i class="fa-solid fa-star"></i> Celebrity</a>
+          <a href="campaign.html" class="sub-link"><i class="fa-solid fa-film"></i> Campaigns</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="tag" style="justify-content: center;">Partnership Program</div>
+      <h1>Monetize Your<br><em>Influence.</em></h1>
+      <p>Join the world's most exclusive fragrance affiliate network. Choose your tier, get your kit, and start earning
+        within 24 hours.</p>
+      <div>
+        <a href="#tiers" class="btn-primary">View Access Tiers</a>
+        <a href="#calc" class="btn-sec">Calculate Income</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="steps-section">
+    <div class="section-head">
+      <h2>How it Works</h2>
+      <p>Simple steps to your first commission.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-icon"><i class="fa-solid fa-user-plus"></i></div>
+        <h4>1. Join</h4>
+        <p>Select your tier and get instant access to your dashboard.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-icon"><i class="fa-solid fa-link"></i></div>
+        <h4>2. Link</h4>
+        <p>Generate your unique tracking link for any product.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-icon"><i class="fa-solid fa-share-nodes"></i></div>
+        <h4>3. Share</h4>
+        <p>Post on your social media using our premium assets.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-icon"><i class="fa-solid fa-wallet"></i></div>
+        <h4>4. Earn</h4>
+        <p>Get paid up to 25% commission on every single sale.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tiers-section" id="tiers">
+    <div class="section-head">
+      <h2>Choose Your Access</h2>
+      <p>Select the level that fits your ambition.</p>
+    </div>
+    <div class="tiers-grid">
+
+      <div class="tier-card">
+        <h3>Advocate</h3>
+        <span class="price">Free</span>
+        <ul class="features">
+          <li><i class="fa-solid fa-check"></i> Standard 10% Commission</li>
+          <li><i class="fa-solid fa-check"></i> Digital Asset Kit</li>
+          <li><i class="fa-solid fa-check"></i> Monthly Payouts</li>
+        </ul>
+        <button class="btn-tier" onclick="openPayment('Validation Fee', 100)">Join Free</button>
+      </div>
+
+      <div class="tier-card featured">
+        <div class="tier-badge">Recommended</div>
+        <h3>Noir Elite</h3>
+        <span class="price">₹9,999 <span>/ year</span></span>
+        <ul class="features">
+          <li><i class="fa-solid fa-check"></i> <strong>High 25% Commission</strong></li>
+          <li><i class="fa-solid fa-check"></i> Full Scent Box (₹15k Value)</li>
+          <li><i class="fa-solid fa-check"></i> 48hr Priority Payouts</li>
+          <li><i class="fa-solid fa-check"></i> Dedicated Manager</li>
+        </ul>
+        <button class="btn-tier" onclick="openPayment('Noir Elite Membership', 9999)">Join Elite</button>
+      </div>
+
+      <div class="tier-card">
+        <h3>Creator</h3>
+        <span class="price">₹4,999 <span>/ one-time</span></span>
+        <ul class="features">
+          <li><i class="fa-solid fa-check"></i> 15% Commission</li>
+          <li><i class="fa-solid fa-check"></i> Sample Discovery Kit</li>
+          <li><i class="fa-solid fa-check"></i> Custom Discount Code</li>
+        </ul>
+        <button class="btn-tier" onclick="openPayment('Creator Access', 4999)">Buy Access</button>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="calc-section" id="calc">
+    <div class="calc-box">
+      <div class="calc-inputs">
+        <h3>Forecast Earnings</h3>
+
+        <div class="slider-group">
+          <div class="slider-label"><span>Monthly Clicks</span> <span class="slider-val" id="clickVal">1,000</span>
+          </div>
+          <input type="range" id="clickRange" min="100" max="50000" value="1000" step="100">
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-label"><span>Avg Order Value</span> <span class="slider-val" id="orderVal">₹5,000</span>
+          </div>
+          <input type="range" id="orderRange" min="2000" max="20000" value="5000" step="500">
+        </div>
+
+        <p style="font-size:12px; opacity:0.6; margin-top:20px;">*Calculated based on Elite Tier (25%)</p>
+      </div>
+
+      <div class="calc-result">
+        <span class="res-title">Potential Monthly Income</span>
+        <div class="res-amount" id="totalVal">₹62,500</div>
+        <span class="res-sub">Based on 5% conversion rate</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="why-section">
+    <div class="section-head">
+      <h2>Why Partner With Noir?</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon"><i class="fa-solid fa-gem"></i></div>
+        <h4>Luxury Brand Value</h4>
+        <p>Promote a product that already has high demand and prestige.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><i class="fa-solid fa-cookie"></i></div>
+        <h4>30-Day Cookie</h4>
+        <p>Get paid even if your referral buys weeks after clicking.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon"><i class="fa-solid fa-chart-line"></i></div>
+        <h4>High Conversion</h4>
+        <p>Our premium site converts visitors into buyers at industry-leading rates.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="section-head">
+      <h2>Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-q">When do I get paid? <i class="fa-solid fa-plus"></i></div>
+        <div class="faq-a">Payments are processed every Friday via NEFT or UPI directly to your bank account.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do I need to buy the kit? <i class="fa-solid fa-plus"></i></div>
+        <div class="faq-a">The Advocate tier is free. Paid tiers include physical product kits to help you create better
+          content.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is this available globally? <i class="fa-solid fa-plus"></i></div>
+        <div class="faq-a">Yes, we ship worldwide and pay commissions in your local currency equivalent.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="f-brand">
+        <span class="logo-name">NOI<span>R</span></span>
+        <span class="logo-sub">Digital Studio</span>
+        <p class="f-desc">We take perfume brands and make them impossible to ignore. Content. Ads. Results. That's it.
+        </p>
+        <div class="social-row">
+          <a class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+          <a class="social-btn"><i class="fa-brands fa-tiktok"></i></a>
+          <a class="social-btn"><i class="fa-brands fa-linkedin"></i></a>
+          <a class="social-btn"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="f-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#">Content Creation</a></li>
+          <li><a href="#">Paid Advertising</a></li>
+          <li><a href="#">Brand Strategy</a></li>
+          <li><a href="#">Launch Planning</a></li>
+          <li><a href="#">Viral Campaigns</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#">Our Work</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="email.html">Hire Us</a></li>
+          <li><a href="affiliate.html">Partner Program</a></li>
+          <li><a href="#">Free Audit</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">@noirdigitalstudio</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 NOIR Digital Studio. All rights reserved.</p>
+      <div>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="payment-overlay" id="paymentOverlay">
+    <div class="payment-modal">
+
+      <div class="success-overlay" id="successScreen">
+        <div class="checkmark"><i class="fa-solid fa-check"></i></div>
+        <h2 style="margin-bottom:10px;">Payment Successful</h2>
+        <p style="color:var(--clay);">Welcome to the inner circle.</p>
+        <button class="btn-sec" onclick="closePayment()" style="margin-top:30px;">Go to Dashboard</button>
+      </div>
+
+      <div class="pay-summary">
+        <h3 style="margin-bottom:30px;">Order Summary</h3>
+        <div class="pay-product">
+          <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=150&q=80"
+            class="prod-img">
+          <div>
+            <h4 id="prodName">Noir Elite</h4>
+            <span style="font-size:13px; color:var(--caramel);">Membership</span>
+          </div>
+        </div>
+        <div class="pay-total">
+          <span>Total due</span>
+          <span class="total-price" id="totalPrice">₹9,999</span>
+        </div>
+      </div>
+
+      <div class="pay-form-col">
+        <div class="close-modal" onclick="closePayment()"><i class="fa-solid fa-xmark"></i></div>
+
+        <div class="card-wrapper">
+          <div class="glass-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
+              <div class="chip"></div>
+              <i class="fa-brands fa-cc-visa" style="font-size:30px; opacity:0.8;"></i>
+            </div>
+            <div class="card-number-display" id="displayCard">4242 **** **** 9821</div>
+            <div class="card-meta">
+              <span id="displayName">ALEXANDER NOIR</span>
+              <span>12/28</span>
+            </div>
+          </div>
+        </div>
+
+        <form onsubmit="processPayment(event)">
+          <div class="input-grp">
+            <i class="fa-regular fa-credit-card input-icon"></i>
+            <input type="text" class="input-field" placeholder="Card Number" id="inputCard" maxlength="19" required>
+          </div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+            <div class="input-grp">
+              <i class="fa-regular fa-calendar input-icon"></i>
+              <input type="text" class="input-field" placeholder="MM / YY" maxlength="5" required>
+            </div>
+            <div class="input-grp">
+              <i class="fa-solid fa-lock input-icon"></i>
+              <input type="text" class="input-field" placeholder="CVC" maxlength="3" required>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-pay">
+            <i class="fa-solid fa-lock"></i> Pay Securely
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // 1. HEADER SCROLL FX
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      header.classList.toggle('solid', window.scrollY > 50);
+    });
+
+    // 2. PAYMENT MODAL
+    const modal = document.getElementById('paymentOverlay');
+    const prodNameEl = document.getElementById('prodName');
+    const priceEl = document.getElementById('totalPrice');
+    const successScreen = document.getElementById('successScreen');
+
+    function openPayment(name, price) {
+      prodNameEl.innerText = name;
+      priceEl.innerText = '₹' + price.toLocaleString('en-IN');
+      modal.classList.add('active');
+      successScreen.classList.remove('active');
+    }
+
+    function closePayment() {
+      modal.classList.remove('active');
+    }
+
+    // 3. CARD UPDATE
+    const inputCard = document.getElementById('inputCard');
+    const displayCard = document.getElementById('displayCard');
+
+    inputCard.addEventListener('input', (e) => {
+      let val = e.target.value.replace(/\s/g, '').replace(/(\d{4})/g, '$1 ').trim();
+      e.target.value = val;
+      displayCard.innerText = val || '4242 **** **** 9821';
+    });
+
+    // 4. FAKE PAYMENT
+    function processPayment(e) {
+      e.preventDefault();
+      const btn = document.querySelector('.btn-pay');
+      btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Processing...';
+
+      setTimeout(() => {
+        successScreen.classList.add('active');
+        btn.innerHTML = '<i class="fa-solid fa-lock"></i> Pay Securely';
+      }, 2000);
+    }
+
+    // 5. CALCULATOR
+    const clickRange = document.getElementById('clickRange');
+    const orderRange = document.getElementById('orderRange');
+    const clickVal = document.getElementById('clickVal');
+    const orderVal = document.getElementById('orderVal');
+    const totalVal = document.getElementById('totalVal');
+
+    function updateCalc() {
+      const clicks = parseInt(clickRange.value);
+      const order = parseInt(orderRange.value);
+      clickVal.innerText = clicks.toLocaleString();
+      orderVal.innerText = "₹" + order.toLocaleString();
+
+      // Formula: Clicks * 5% Conv * Order * 25% Comm
+      const earnings = Math.floor(clicks * 0.05 * order * 0.25);
+      totalVal.innerText = "₹" + earnings.toLocaleString("en-IN");
+    }
+
+    clickRange.addEventListener('input', updateCalc);
+    orderRange.addEventListener('input', updateCalc);
+
+    // 6. FAQ
+    document.querySelectorAll('.faq-q').forEach(q => {
+      q.addEventListener('click', () => {
+        q.parentElement.classList.toggle('active');
+      });
+    });
+  </script>
+
+</body>
+
+</html>

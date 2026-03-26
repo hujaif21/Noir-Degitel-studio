@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Noir Digital Studio — Video Marketing</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* ════════════════════════════════════════════════
+       ROOT & RESET (Refined Gold Palette)
+    ════════════════════════════════════════════════ */
+    :root {
+      --gold: #C9A46C;
+      /* Tied to index.html caramel */
+      --gold-lt: #E4C594;
+      --gold-dk: #9A7B48;
+      --gold-glow: rgba(201, 164, 108, .38);
+      --gold-dim: rgba(201, 164, 108, .09);
+      --gold-border: rgba(201, 164, 108, .18);
+      --black: #050505;
+      --panel: #0a0a0a;
+      --card: #0d0d0d;
+      --text: #EFE5D8;
+      --muted: #8A7C74;
+      --subtle: rgba(255, 255, 255, .055);
+      --ease: cubic-bezier(.22, 1, .36, 1);
+      --glass-border: rgba(201, 164, 108, 0.15);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--black);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    img,
+    video {
+      display: block;
+    }
+
+    /* ════════════════════════════════════════════════
+       GRAIN
+    ════════════════════════════════════════════════ */
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9000;
+      opacity: .042;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ════════════════════════════════════════════════
+       SCROLL REVEAL & DIVIDER
+    ════════════════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .85s var(--ease), transform .85s var(--ease);
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: none;
+    }
+
+    .d1 {
+      transition-delay: .1s;
+    }
+
+    .d2 {
+      transition-delay: .2s;
+    }
+
+    .d3 {
+      transition-delay: .3s;
+    }
+
+    .d4 {
+      transition-delay: .4s;
+    }
+
+    .gold-div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 14px 0 48px;
+    }
+
+    .gold-div::before,
+    .gold-div::after {
+      content: '';
+      width: 55px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold));
+    }
+
+    .gold-div::after {
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+
+    .gold-div .gem {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      transform: rotate(45deg);
+    }
+
+    /* ════════════════════════════════════════════════
+       NAVIGATION (Kept identical to dark theme)
+    ════════════════════════════════════════════════ */
+    #master-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 8000;
+      padding: 16px 4%;
+      background: rgba(5, 5, 5, .88);
+      backdrop-filter: blur(28px);
+      border-bottom: 1px solid var(--gold-border);
+      transition: padding .4s;
+    }
+
+    #master-nav.scrolled {
+      padding: 10px 4%;
+    }
+
+    .nav-container {
+      max-width: 1540px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .mark-shape {
+      fill: var(--gold);
+    }
+
+    .mark-text {
+      fill: #000;
+    }
+
+    .brand-text-col {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 2px;
+    }
+
+    .brand-sub {
+      font-family: 'Manrope', sans-serif;
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 5px;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 26px;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-family: 'Manrope', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(239, 229, 216, .7);
+      text-decoration: none;
+      cursor: pointer;
+      transition: .3s;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      position: relative;
+    }
+
+    .nav-link i {
+      color: var(--gold);
+      font-size: 12px;
+      opacity: .75;
+      transition: .3s;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--gold);
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 100%;
+      height: 1.5px;
+      background: var(--gold);
+    }
+
+    .nav-link:hover i {
+      opacity: 1;
+    }
+
+    .nav-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .arrow-icon {
+      font-size: 9px;
+      transition: .3s;
+      opacity: .5;
+    }
+
+    .nav-item:hover .arrow-icon {
+      transform: rotate(180deg);
+      opacity: 1;
+      color: var(--gold);
+    }
+
+    .dropdown {
+      position: absolute;
+      top: calc(100% + 18px);
+      left: 50%;
+      transform: translateX(-50%) translateY(14px);
+      background: linear-gradient(160deg, #111, #0a0a0a);
+      min-width: 230px;
+      padding: 10px;
+      border-radius: 14px;
+      border: 1px solid var(--gold-border);
+      box-shadow: 0 22px 60px rgba(0, 0, 0, .6);
+      opacity: 0;
+      visibility: hidden;
+      transition: all .32s var(--ease);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-item:hover .dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .dropdown a {
+      font-family: 'Manrope', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 11px 15px;
+      color: rgba(239, 229, 216, .75);
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 9px;
+      transition: .22s;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+    }
+
+    .dropdown a i {
+      color: var(--gold);
+      width: 18px;
+      text-align: center;
+    }
+
+    .dropdown a:hover {
+      background: var(--gold-dim);
+      color: var(--gold);
+      padding-left: 20px;
+    }
+
+    .mobile-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .mobile-toggle span {
+      width: 26px;
+      height: 1.5px;
+      background: #ccc;
+      border-radius: 2px;
+      transition: .3s;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: #0a0a0a;
+      z-index: 10000;
+      transform: translateX(100%);
+      transition: .4s var(--ease);
+    }
+
+    .mobile-menu.open {
+      transform: none;
+    }
+
+    .mm-inner {
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      overflow-y: auto;
+      height: 100%;
+    }
+
+    .mm-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 22px;
+      color: #ccc;
+      cursor: pointer;
+    }
+
+    .mm-scroll a {
+      font-family: 'Manrope', sans-serif;
+      color: #ccc;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 0;
+    }
+
+    .mm-scroll hr {
+      border: 0;
+      border-top: 1px solid var(--subtle);
+      margin: 14px 0;
+    }
+
+    .mm-label {
+      font-family: 'Manrope', sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: var(--gold);
+    }
+
+    @media(max-width:1200px) {
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-toggle {
+        display: flex;
+      }
+    }
+
+    /* ════════════════════════════════════════════════
+       HERO
+    ════════════════════════════════════════════════ */
+    .vm-hero {
+      position: relative;
+      height: 100vh;
+      min-height: 620px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .vm-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(180deg, rgba(5, 5, 5, .12) 0%, rgba(5, 5, 5, .28) 45%, rgba(5, 5, 5, .98) 100%);
+    }
+
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .48;
+      z-index: 0;
+      transform: scale(1.05);
+      animation: heroZoom 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes heroZoom {
+      from {
+        transform: scale(1.05);
+      }
+
+      to {
+        transform: scale(1.13);
+      }
+    }
+
+    .vm-hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+      padding: 0 24px;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Manrope', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+      animation: fadeUp .9s var(--ease) .2s both;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 38px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .vm-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 6.2rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: #fff;
+      margin-bottom: 22px;
+      animation: fadeUp 1s var(--ease) .35s both;
+    }
+
+    .vm-hero h1 .accent {
+      background: linear-gradient(135deg, var(--gold-dk), var(--gold), var(--gold-lt));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-style: italic;
+    }
+
+    .hero-desc {
+      color: rgba(239, 229, 216, .6);
+      font-size: 15px;
+      line-height: 1.85;
+      max-width: 520px;
+      margin: 0 auto 44px;
+      animation: fadeUp 1s var(--ease) .5s both;
+    }
+
+    .hero-cta {
+      font-family: 'Manrope', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      padding: 14px 36px;
+      border: 1.5px solid var(--gold-border);
+      border-radius: 50px;
+      color: var(--gold);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all .4s var(--ease);
+      animation: fadeUp 1s var(--ease) .65s both;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--gold-dk), var(--gold));
+      opacity: 0;
+      transition: opacity .4s;
+    }
+
+    .hero-cta:hover::before {
+      opacity: 1;
+    }
+
+    .hero-cta:hover {
+      color: #000;
+      box-shadow: 0 12px 32px var(--gold-glow);
+      transform: translateY(-3px);
+    }
+
+    .hero-cta span,
+    .hero-cta i {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-scroll {
+      font-family: 'Manrope', sans-serif;
+      position: absolute;
+      bottom: 38px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(201, 164, 108, .6);
+      animation: scrollBounce 2.2s ease-in-out infinite;
+    }
+
+    .hero-scroll::after {
+      content: '';
+      width: 1px;
+      height: 44px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+
+    @keyframes scrollBounce {
+
+      0%,
+      100% {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      50% {
+        transform: translateX(-50%) translateY(8px);
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* ════════════════════════════════════════════════
+       TICKER
+    ════════════════════════════════════════════════ */
+    .ticker-wrap {
+      overflow: hidden;
+      background: linear-gradient(90deg, var(--gold-dk), var(--gold), var(--gold-lt), var(--gold), var(--gold-dk));
+      padding: 10px 0;
+    }
+
+    .ticker {
+      display: flex;
+      gap: 0;
+      animation: tickerMove 26s linear infinite;
+      white-space: nowrap;
+    }
+
+    .ticker-item {
+      font-family: 'Manrope', sans-serif;
+      padding: 0 38px;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #000;
+      border-right: 1px solid rgba(0, 0, 0, .18);
+      flex-shrink: 0;
+    }
+
+    @keyframes tickerMove {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* ════════════════════════════════════════════════
+       MANIFESTO
+    ════════════════════════════════════════════════ */
+    .manifesto {
+      padding: 80px 6%;
+      text-align: center;
+      background: linear-gradient(180deg, #080808, var(--black));
+    }
+
+    .manifesto-label {
+      font-family: 'Manrope', sans-serif;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 22px;
+    }
+
+    .manifesto blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.45rem);
+      font-style: italic;
+      font-weight: 300;
+      color: #fff;
+      line-height: 1.48;
+      max-width: 760px;
+      margin: 0 auto 22px;
+    }
+
+    .manifesto blockquote em {
+      color: var(--gold);
+      font-style: normal;
+      font-weight: 400;
+    }
+
+    .manifesto p {
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.88;
+    }
+
+    .manifesto strong {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    /* ════════════════════════════════════════════════
+       ★ THE NEW SHOWCASE REEL ★ (Glassmorphic Slate)
+    ════════════════════════════════════════════════ */
+    .showcase-section {
+      padding: 90px 4% 100px;
+      text-align: center;
+      position: relative;
+      background: radial-gradient(circle at center, var(--panel) 0%, var(--black) 100%);
+    }
+
+    .stage-eyebrow {
+      font-family: 'Manrope', sans-serif;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .stage-title {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .stage-sub {
+      font-family: 'Manrope', sans-serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .showcase-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      max-width: 1400px;
+      margin: 40px auto 0;
+    }
+
+    /* Glassmorphic Video Slate */
+    .video-slate {
+      position: relative;
+      width: 320px;
+      height: 640px;
+      border-radius: 24px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+      transition: all 0.8s var(--ease);
+    }
+
+    .video-slate::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 26px;
+      background: linear-gradient(135deg, var(--gold) 0%, transparent 40%, transparent 60%, var(--gold-dk) 100%);
+      z-index: -1;
+      opacity: 0.3;
+    }
+
+    .slate-screen {
+      width: 100%;
+      height: 100%;
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      background: #000;
+    }
+
+    .slate-screen video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.4s var(--ease);
+    }
+
+    /* Minimalist Floating UI */
+    .floating-ui {
+      position: absolute;
+      bottom: 20px;
+      left: 15px;
+      right: 15px;
+      background: rgba(10, 8, 7, 0.6);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 16px;
+      z-index: 10;
+      text-align: left;
+    }
+
+    .ui-tag {
+      font-family: 'Manrope', sans-serif;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .ui-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: #fff;
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .ui-desc {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Control Buttons Next to Slate */
+    .slate-controls {
+      position: absolute;
+      right: -70px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .ctrl-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--panel);
+      border: 1px solid var(--glass-border);
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s var(--ease);
+    }
+
+    .ctrl-btn:hover {
+      background: var(--gold);
+      color: #000;
+      transform: scale(1.1);
+    }
+
+    /* Film Strip Gallery */
+    .film-gallery {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      padding: 20px 0;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .gallery-item {
+      position: relative;
+      width: 65px;
+      height: 115px;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.5s var(--ease);
+      filter: grayscale(100%) brightness(0.5);
+    }
+
+    .gallery-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .gallery-item.active {
+      filter: grayscale(0%) brightness(1);
+      border-color: var(--gold);
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(201, 164, 108, 0.2);
+    }
+
+    .gallery-item:hover:not(.active) {
+      filter: grayscale(50%) brightness(0.8);
+      transform: translateY(-4px);
+    }
+
+    .gallery-num {
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Manrope', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      color: #fff;
+      z-index: 2;
+    }
+
+    /* ════════════════════════════════════════════════
+       PILLARS
+    ════════════════════════════════════════════════ */
+    .pillars {
+      padding: 80px 5%;
+      background: linear-gradient(180deg, #070707, var(--black));
+      border-top: 1px solid var(--subtle);
+      border-bottom: 1px solid var(--subtle);
+    }
+
+    .pillars h2 {
+      text-align: center;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .pillars-sub {
+      font-family: 'Manrope', sans-serif;
+      text-align: center;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    .pillar {
+      background: var(--card);
+      border: 1px solid var(--subtle);
+      border-radius: 14px;
+      padding: 30px 18px;
+      text-align: center;
+      transition: all .45s var(--ease);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pillar::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(145deg, rgba(201, 164, 108, .04), transparent);
+      opacity: 0;
+      transition: opacity .4s;
+    }
+
+    .pillar::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 15%;
+      right: 15%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity .4s;
+    }
+
+    .pillar:hover {
+      border-color: var(--gold-border);
+      transform: translateY(-7px);
+    }
+
+    .pillar:hover::before,
+    .pillar:hover::after {
+      opacity: 1;
+    }
+
+    .pillar-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 11px;
+      font-style: italic;
+      color: rgba(201, 164, 108, .4);
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+
+    .pillar-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--gold-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      color: var(--gold);
+      font-size: 16px;
+      transition: .4s;
+    }
+
+    .pillar:hover .pillar-icon {
+      background: var(--gold);
+      color: #000;
+    }
+
+    .pillar-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      color: #eee;
+      margin-bottom: 8px;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .pillar-desc {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ════════════════════════════════════════════════
+       STORY
+    ════════════════════════════════════════════════ */
+    .story {
+      padding: 80px 6%;
+      text-align: center;
+      background: linear-gradient(180deg, #070707, var(--black));
+    }
+
+    .story h2 {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .story-sub {
+      font-family: 'Manrope', sans-serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .story-text {
+      max-width: 660px;
+      margin: 0 auto 50px;
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.95;
+    }
+
+    .story-text strong {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .stats-strip {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      border: 1px solid var(--gold-border);
+      border-radius: 16px;
+      max-width: 780px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .stat {
+      flex: 1;
+      padding: 32px 20px;
+      text-align: center;
+      border-right: 1px solid var(--gold-border);
+      transition: background .35s;
+    }
+
+    .stat:last-child {
+      border-right: none;
+    }
+
+    .stat:hover {
+      background: var(--gold-dim);
+    }
+
+    .stat-val {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: var(--gold);
+      font-weight: 600;
+      display: block;
+      line-height: 1;
+    }
+
+    .stat-lbl {
+      font-family: 'Manrope', sans-serif;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 6px;
+      display: block;
+    }
+
+    /* ════════════════════════════════════════════════
+       CTA
+    ════════════════════════════════════════════════ */
+    .cta-section {
+      padding: 90px 6%;
+      text-align: center;
+      background: var(--black);
+      border-top: 1px solid var(--subtle);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 164, 108, .06), transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-eyebrow {
+      font-family: 'Manrope', sans-serif;
+      display: block;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: #fff;
+      margin-bottom: 16px;
+      line-height: 1.15;
+    }
+
+    .cta-section h2 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .cta-section p {
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 460px;
+      margin: 0 auto 36px;
+      line-height: 1.85;
+    }
+
+    .btn-gold {
+      font-family: 'Manrope', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 40px;
+      border: 1.5px solid var(--gold-border);
+      border-radius: 50px;
+      color: var(--gold);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all .4s var(--ease);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-gold::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--gold-dk), var(--gold), var(--gold-lt));
+      opacity: 0;
+      transition: .4s;
+    }
+
+    .btn-gold span,
+    .btn-gold i {
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-gold:hover {
+      color: #000;
+      transform: translateY(-3px);
+      box-shadow: 0 14px 36px var(--gold-glow);
+    }
+
+    .btn-gold:hover::before {
+      opacity: 1;
+    }
+
+    /* ════════════════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════════════════ */
+    .lux-footer {
+      background: #0a0907;
+      color: var(--text);
+      padding: 80px 6% 28px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid rgba(255, 255, 255, .04);
+    }
+
+    .lux-footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+
+    .footer-tagline {
+      font-size: 13px;
+      color: rgba(239, 229, 216, .5);
+      max-width: 460px;
+      margin: 0 auto 36px;
+      line-height: 1.85;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 44px;
+    }
+
+    .social-icons a {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid var(--subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      font-size: 15px;
+      text-decoration: none;
+      transition: all .4s var(--ease);
+    }
+
+    .social-icons a:hover {
+      background: var(--gold);
+      color: #000;
+      border-color: var(--gold);
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 10px 28px var(--gold-glow);
+    }
+
+    .footer-nav {
+      font-family: 'Manrope', sans-serif;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 24px;
+      margin-bottom: 36px;
+    }
+
+    .footer-nav a {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .3s;
+    }
+
+    .footer-nav a:hover {
+      color: var(--gold);
+    }
+
+    .footer-bottom {
+      font-family: 'Manrope', sans-serif;
+      padding-top: 22px;
+      border-top: 1px solid var(--subtle);
+      font-size: 11px;
+      color: rgba(255, 255, 255, .22);
+      letter-spacing: 1.5px;
+    }
+
+    /* ════════════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════════════ */
+    @media(max-width:1100px) {
+      .pillars-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media(max-width:800px) {
+      .slate-controls {
+        right: auto;
+        top: auto;
+        bottom: -60px;
+        left: 50%;
+        transform: translateX(-50%);
+        flex-direction: row;
+      }
+
+      .showcase-grid {
+        gap: 80px;
+      }
+
+      .pillars-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stats-strip {
+        flex-wrap: wrap;
+      }
+
+      .stat {
+        flex: 50%;
+        border-right: none;
+        border-bottom: 1px solid var(--gold-border);
+      }
+
+      .stat:last-child {
+        border-bottom: none;
+      }
+    }
+
+    @media(max-width:560px) {
+      .pillars-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .video-slate {
+        width: 280px;
+        height: 560px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="grain"></div>
+
+  <header id="master-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand">
+        <svg width="42" height="42" viewBox="0 0 100 100" fill="none">
+          <path d="M50 5C50 5 15 45 15 67C15 86.3 30.7 102 50 102C69.3 102 85 86.3 85 67C85 45 50 5 50 5Z"
+            class="mark-shape" />
+          <text x="50" y="80" font-family="'Playfair Display',serif" font-weight="700" font-size="42" class="mark-text"
+            text-anchor="middle">N</text>
+        </svg>
+        <div class="brand-text-col">
+          <span class="brand-name">NOIR</span>
+          <span class="brand-sub">Digital Studio</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li class="nav-item">
+          <span class="nav-link">Services <i class="fa-solid fa-chevron-down arrow-icon"></i></span>
+          <div class="dropdown">
+            <a href="instagram.html"><i class="fa-brands fa-instagram"></i> Instagram Viral</a>
+            <a href="email.html"><i class="fa-regular fa-envelope"></i> Email Marketing</a>
+            <a href="affiliate.html"><i class="fa-solid fa-users-viewfinder"></i> Affiliate Program</a>
+            <a href="mobile.html"><i class="fa-solid fa-mobile-screen"></i> Mobile Strategy</a>
+            <a href="video-marketing.html" style="color:var(--gold)"><i class="fa-solid fa-video"></i> Video
+              Marketing</a>
+            <a href="calander.html"><i class="fa-regular fa-calendar"></i> Launch Calendar</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <span class="nav-link">Celebrity <i class="fa-solid fa-chevron-down arrow-icon"></i></span>
+          <div class="dropdown">
+            <a href="icons.html"><i class="fa-regular fa-id-card"></i> Icon Profiles</a>
+            <a href="celebrity.html"><i class="fa-solid fa-gem"></i> Signature Scents</a>
+          </div>
+        </li>
+        <li><a href="campaign.html" class="nav-link">Campaigns</a></li>
+        <a href="project.html" class="nav-link">PROJECT</a>
+        <li><a href="blog.html" class="nav-link">Blog</a></li>
+        <li><a href="product.html" class="nav-link">Shop</a></li>
+      </ul>
+      <button class="mobile-toggle" onclick="toggleNav()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mm-inner">
+        <div class="mm-head">
+          <span class="brand-name">NOIR</span>
+          <button class="close-btn" onclick="toggleNav()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="mm-scroll">
+          <a href="index.html"><i class="fa-solid fa-house" style="color:var(--gold)"></i> Home</a>
+          <a href="about.html"><i class="fa-solid fa-circle-info" style="color:var(--gold)"></i> About</a>
+          <hr>
+          <span class="mm-label">Services</span>
+          <a href="instagram.html"><i class="fa-brands fa-instagram" style="color:var(--gold)"></i> Instagram</a>
+          <a href="email.html"><i class="fa-regular fa-envelope" style="color:var(--gold)"></i> Email</a>
+          <a href="affiliate.html"><i class="fa-solid fa-users" style="color:var(--gold)"></i> Affiliates</a>
+          <a href="video-marketing.html" style="color:var(--gold)"><i class="fa-solid fa-video"
+              style="color:var(--gold)"></i> Video</a>
+          <hr>
+          <a href="campaign.html"><i class="fa-solid fa-bullhorn" style="color:var(--gold)"></i> Campaigns</a>
+          <a href="blog.html"><i class="fa-solid fa-newspaper" style="color:var(--gold)"></i> Journal</a>
+          <a href="product.html"><i class="fa-solid fa-bag-shopping" style="color:var(--gold)"></i> Shop</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="vm-hero">
+    <video class="hero-video" autoplay muted loop playsinline src="vid-header.mp4"></video>
+    <div class="vm-hero-inner">
+      <div class="hero-eyebrow">Video Marketing</div>
+      <h1>Scent. <span class="accent">Story.</span><br>Screen.</h1>
+      <p class="hero-desc">We craft cinematic vertical campaigns that make audiences <em>feel</em> the fragrance through
+        their screens — where luxury meets the language of the scroll.</p>
+      <a href="#stage" class="hero-cta"><span>Watch the Reels</span><i class="fa-solid fa-arrow-down"></i></a>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <div class="ticker-wrap" aria-hidden="true">
+    <div class="ticker">
+      <span class="ticker-item">Brand Story</span>
+      <span class="ticker-item">Signature Film</span>
+      <span class="ticker-item">The Collection</span>
+      <span class="ticker-item">Craft &amp; Process</span>
+      <span class="ticker-item">Audience First</span>
+      <span class="ticker-item">Vertical Cinema</span>
+      <span class="ticker-item">Shorter Is Better</span>
+      <span class="ticker-item">Publish Everywhere</span>
+      <span class="ticker-item">Track Every Result</span>
+      <span class="ticker-item">Brand Story</span>
+      <span class="ticker-item">Signature Film</span>
+      <span class="ticker-item">The Collection</span>
+      <span class="ticker-item">Craft &amp; Process</span>
+      <span class="ticker-item">Audience First</span>
+      <span class="ticker-item">Vertical Cinema</span>
+      <span class="ticker-item">Shorter Is Better</span>
+      <span class="ticker-item">Publish Everywhere</span>
+      <span class="ticker-item">Track Every Result</span>
+    </div>
+  </div>
+
+  <section class="manifesto">
+    <span class="manifesto-label reveal">The Noir Philosophy</span>
+    <blockquote class="reveal d1">
+      "Scent is invisible allure.<br>We make it <em>visually undeniably</em> —<br>so audiences covet it before the first
+      spritz."
+    </blockquote>
+    <div class="gold-div reveal d2">
+      <div class="gem"></div>
+    </div>
+    <p class="reveal d2">
+      Every frame is an asset. Every second buys attention. We engineer viral desire in vertical formats—because in the
+      opening three seconds, your brand either establishes dominance or is effortlessly ignored.
+    </p>
+  </section>
+
+  <section class="showcase-section" id="stage">
+    <div class="reveal">
+      <span class="stage-eyebrow">The Reels</span>
+      <h2 class="stage-title">Five Chapters in Vertical Cinema</h2>
+      <p class="stage-sub">Noir Digital Studio — Tap a frame to experience it</p>
+      <div class="gold-div">
+        <div class="gem"></div>
+      </div>
+    </div>
+
+    <div class="showcase-grid">
+      <div class="video-slate reveal d1" id="mainPlayer">
+        <div class="slate-screen">
+          <video id="stage-vid" autoplay muted loop playsinline src="denvor-vid.mp4"></video>
+
+          <div class="floating-ui">
+            <span class="ui-tag" id="ui-tag">Denver X Noir</span>
+            <h3 class="ui-title" id="ui-title">The Power of Denver</h3>
+            <p class="ui-desc" id="ui-desc">Unleash the majestic aura. A scent designed for those who command the room.
+              A statement of pure dominance.</p>
+          </div>
+        </div>
+
+        <div class="slate-controls">
+          <button class="ctrl-btn" onclick="togglePlay()" title="Play/Pause"><i class="fa-solid fa-pause"
+              id="playIcon"></i></button>
+          <button class="ctrl-btn" onclick="toggleMute()" title="Mute/Unmute"><i class="fa-solid fa-volume-xmark"
+              id="muteIcon"></i></button>
+        </div>
+      </div>
+
+      <div class="film-gallery reveal d2">
+        <div class="gallery-item active" onclick="switchVideo(0)">
+          <video src="denvor-vid.mp4" muted loop playsinline></video>
+          <span class="gallery-num">01</span>
+        </div>
+        <div class="gallery-item" onclick="switchVideo(1)">
+          <video src="vid2.mp4" muted loop playsinline></video>
+          <span class="gallery-num">02</span>
+        </div>
+        <div class="gallery-item" onclick="switchVideo(2)">
+          <video src="vid-5.mp4" muted loop playsinline></video>
+          <span class="gallery-num">03</span>
+        </div>
+        <div class="gallery-item" onclick="switchVideo(3)">
+          <video src="salman-frsh.mp4" muted loop playsinline></video>
+          <span class="gallery-num">04</span>
+        </div>
+        <div class="gallery-item" onclick="switchVideo(4)">
+          <video src="srk-reel.mp4" muted loop playsinline></video>
+          <span class="gallery-num">05</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pillars">
+    <h2 class="reveal">The Strategy</h2>
+    <p class="pillars-sub reveal d1">Five pillars behind every Noir campaign</p>
+    <div class="gold-div reveal d1">
+      <div class="gem"></div>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar reveal">
+        <div class="pillar-num">01</div>
+        <div class="pillar-icon"><i class="fa-solid fa-bullseye"></i></div>
+        <div class="pillar-title">Designate Resources</div>
+        <p class="pillar-desc">Budget, talent and tools — every masterpiece begins with the right foundation before a
+          single frame is captured.</p>
+      </div>
+      <div class="pillar reveal d1">
+        <div class="pillar-num">02</div>
+        <div class="pillar-icon"><i class="fa-solid fa-feather"></i></div>
+        <div class="pillar-title">Build Your Story</div>
+        <p class="pillar-desc">Luxury, mystery, allure — every Noir campaign breathes a single narrative identity that
+          audiences feel before they read.</p>
+      </div>
+      <div class="pillar reveal d2">
+        <div class="pillar-num">03</div>
+        <div class="pillar-icon"><i class="fa-solid fa-users"></i></div>
+        <div class="pillar-title">Plan Engagement</div>
+        <p class="pillar-desc">Know your audience intimately. Build content that stops the thumb, opens the heart and
+          drives action without asking.</p>
+      </div>
+      <div class="pillar reveal d3">
+        <div class="pillar-num">04</div>
+        <div class="pillar-icon"><i class="fa-solid fa-bolt"></i></div>
+        <div class="pillar-title">Shorter Is Better</div>
+        <p class="pillar-desc">Hook in 3 seconds. Captivate in 15. Convert in 30. Reels, Shorts and TikToks demand
+          precision — we deliver it.</p>
+      </div>
+      <div class="pillar reveal d4">
+        <div class="pillar-num">05</div>
+        <div class="pillar-icon"><i class="fa-solid fa-chart-line"></i></div>
+        <div class="pillar-title">Publish &amp; Track</div>
+        <p class="pillar-desc">Distribute everywhere. Measure relentlessly. Every view, save and share informs the next
+          campaign until results compound.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="story">
+    <h2 class="reveal">The Noir Authority</h2>
+    <p class="story-sub reveal d1">The architects of viral elegance</p>
+    <div class="gold-div reveal d1">
+      <div class="gem"></div>
+    </div>
+    <p class="story-text reveal d2">
+      <strong>Noir Digital Studio</strong> was forged to solve one challenge — how to sell an invisible luxury on a
+      visible medium.
+      We design high-retention video architectures that make audiences <strong>obsess over your fragrance</strong>
+      through pure aesthetics.
+      We fuse data-driven algorithms with cinematic grace to convert passive scrolling into unyielding brand loyalty.
+    </p>
+    <div class="stats-strip reveal d3">
+      <div class="stat"><span class="stat-val">50+</span><span class="stat-lbl">Videos Produced</span></div>
+      <div class="stat"><span class="stat-val">2.4M</span><span class="stat-lbl">Total Reach</span></div>
+      <div class="stat"><span class="stat-val">18%</span><span class="stat-lbl">Avg. Engagement</span></div>
+      <div class="stat"><span class="stat-val">12</span><span class="stat-lbl">Brands Served</span></div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <span class="cta-eyebrow reveal">Ready to Begin?</span>
+    <h2 class="reveal d1">Let's Build <em>Your</em><br>Cinematic Story</h2>
+    <p class="reveal d2">Partner with Noir Digital Studio. From strategy to screen — we handle every frame, every
+      platform, every result.</p>
+    <a href="contact.html" class="btn-gold reveal d3"><span>Start the Conversation</span><i
+        class="fa-solid fa-arrow-right"></i></a>
+  </section>
+
+  <footer class="lux-footer">
+    <div class="footer-logo">Noir Digital Studio</div>
+    <p class="footer-tagline">A luxury-focused digital studio crafting premium branding, high-impact social presence and
+      visually rich storytelling for modern lifestyle and fragrance brands.</p>
+    <div class="social-icons">
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+    </div>
+    <nav class="footer-nav">
+      <a href="index.html">Home</a><a href="about.html">About</a>
+      <a href="instagram.html">Instagram</a><a href="email.html">Email</a>
+      <a href="campaign.html">Campaigns</a><a href="blog.html">Journal</a>
+      <a href="product.html">Shop</a><a href="contact.html">Contact</a>
+    </nav>
+    <div class="footer-bottom">© 2026 Noir Digital Studio — Luxury Branding &amp; Social Media Marketing</div>
+  </footer>
+
+  <script>
+    /* ── REEL DATA & LOGIC ── */
+    const videosData = [
+      { src: 'denvor-vid.mp4', tag: 'Denver X Noir', title: 'The Power of Denver', desc: 'Unleash the majestic aura. A scent designed for those who command the room. A statement of pure dominance.' },
+      { src: 'vid2.mp4', tag: 'Signature Film', title: 'Noir Identity', desc: 'Where darkness meets desire. Our signature brand film — the visual manifesto of everything Noir stands for in one breathtaking minute.' },
+      { src: 'vid-5.mp4', tag: 'Celebrity Collab', title: 'Iconic Aura', desc: 'From Paris rooftops to Tokyo midnight streets — Noir fragrances follow those who refuse to be ordinary. Global life. One scent.' },
+      { src: 'salman-frsh.mp4', tag: 'The Collection', title: 'Full Lineup 2026', desc: 'Curated for every mood, every room, every memory — the complete Noir fragrance collection in pure vertical cinema.' },
+      { src: 'srk-reel.mp4', tag: 'Limited Edition', title: 'The Obsidian', desc: 'Our rarest chapter. The Obsidian — a fragrance so exclusive it was made for those who have already found everything else.' }
+    ];
+
+    const mainVideo = document.getElementById('stage-vid');
+    const items = document.querySelectorAll('.gallery-item');
+    const uiTag = document.getElementById('ui-tag');
+    const uiTitle = document.getElementById('ui-title');
+    const uiDesc = document.getElementById('ui-desc');
+    const playIcon = document.getElementById('playIcon');
+    const muteIcon = document.getElementById('muteIcon');
+
+    function switchVideo(index) {
+      // Update UI Text
+      uiTag.textContent = videosData[index].tag;
+      uiTitle.textContent = videosData[index].title;
+      uiDesc.textContent = videosData[index].desc;
+
+      // Update Video
+      mainVideo.style.opacity = '0';
+      setTimeout(() => {
+        mainVideo.src = videosData[index].src;
+        mainVideo.play();
+        mainVideo.style.opacity = '1';
+        playIcon.className = 'fa-solid fa-pause';
+      }, 300);
+
+      // Update Gallery Active State
+      items.forEach((item, i) => {
+        item.classList.toggle('active', i === index);
+      });
+    }
+
+    function togglePlay() {
+      if (mainVideo.paused) {
+        mainVideo.play();
+        playIcon.className = 'fa-solid fa-pause';
+      } else {
+        mainVideo.pause();
+        playIcon.className = 'fa-solid fa-play';
+      }
+    }
+
+    function toggleMute() {
+      mainVideo.muted = !mainVideo.muted;
+      muteIcon.className = mainVideo.muted ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-high';
+    }
+
+    /* ── SCROLL REVEAL ── */
+    const revObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revObs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+    /* ── NAV SCROLL ── */
+    window.addEventListener('scroll', () => {
+      document.getElementById('master-nav').classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    /* ── MOBILE ── */
+    function toggleNav() { document.getElementById('mobileMenu').classList.toggle('open'); }
+  </script>
+</body>
+
+</html>

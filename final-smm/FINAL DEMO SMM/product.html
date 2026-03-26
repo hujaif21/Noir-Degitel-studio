@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Noir Aroma — Luxury Perfume Collection</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --mocha: #3E2F2B;
+      --coffee: #6A5648;
+      --caramel: #C9A46C;
+      --beige: #EFE5D8;
+      --linen: #FBF7F2;
+      --white: #ffffff;
+      /*Navbar Variables*/
+      --nav-bg: rgba(255, 255, 255, 0.96);
+      --nav-blur: 20px;
+      --nav-text: #3E2F2B;
+      --nav-accent: #C9A46C;
+      --nav-border: rgba(198, 156, 109, 0.15);
+      --nav-drop-bg: #FFFFFF;
+    }
+
+    /* GLOBAL */
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      color: var(--mocha);
+      background: var(--white);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* DESKTOP OPTIMIZED CONTAINER */
+    .container {
+      max-width: 1150px;
+      margin: 0 auto;
+    }
+
+    /* ══════════════════════════════════════════════
+   MASTER NAVIGATION (Locked)
+══════════════════════════════════════════════ */
+    #master-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 9999;
+      padding: 15px 4%;
+      background: var(--nav-bg);
+      backdrop-filter: blur(var(--nav-blur));
+      border-bottom: 1px solid var(--nav-border);
+      transition: all 0.4s ease;
+    }
+
+    .nav-container {
+      max-width: 1600px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .nav-brand svg path {
+      fill: var(--nav-text);
+    }
+
+    .nav-brand svg text {
+      fill: var(--nav-accent);
+    }
+
+    .brand-text-col {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--nav-text);
+      letter-spacing: 1px;
+    }
+
+    .brand-sub {
+      font-family: 'Manrope', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--nav-accent);
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .nav-link {
+      font-family: 'Manrope', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--nav-text);
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.3s;
+      position: relative;
+      opacity: 0.85;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-link i {
+      font-size: 14px;
+      color: var(--nav-accent);
+      opacity: 0.8;
+      transition: 0.3s;
+    }
+
+    .nav-link:hover i {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--nav-accent);
+      opacity: 1;
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--nav-accent);
+    }
+
+    .nav-item {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .arrow-icon {
+      font-size: 10px;
+      margin-left: 2px;
+      transition: 0.3s;
+      opacity: 0.6;
+    }
+
+    .nav-item:hover .arrow-icon {
+      transform: rotate(180deg);
+      color: var(--nav-accent);
+      opacity: 1;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--nav-drop-bg);
+      min-width: 240px;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--nav-border);
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-item:hover .dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(5px);
+    }
+
+    .dropdown a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      color: var(--nav-text);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: 0.2s;
+      white-space: nowrap;
+      font-family: 'Manrope', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .dropdown a i {
+      color: var(--nav-accent);
+      width: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .dropdown a:hover {
+      background: rgba(198, 156, 109, 0.08);
+      color: var(--nav-accent);
+      padding-left: 20px;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+    }
+
+    .mobile-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .mobile-toggle span {
+      width: 28px;
+      height: 2px;
+      background: var(--nav-text);
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    @media(max-width: 1300px) {
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-toggle {
+        display: flex;
+      }
+    }
+
+    /* MOBILE MENU OVERLAY */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: var(--nav-drop-bg);
+      z-index: 10000;
+      transform: translateX(100%);
+      transition: 0.4s ease;
+      display: flex;
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    .mm-inner {
+      width: 100%;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      overflow-y: auto;
+      font-family: 'Manrope', sans-serif;
+    }
+
+    .mm-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: var(--nav-text);
+      cursor: pointer;
+    }
+
+    .mm-scroll a {
+      color: var(--nav-text);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 10px 0;
+    }
+
+    .mm-scroll hr {
+      width: 100%;
+      border: 0;
+      border-top: 1px solid var(--nav-border);
+      margin: 15px 0;
+    }
+
+    .mm-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--nav-accent);
+      margin-bottom: 5px;
+      display: block;
+      opacity: 0.8;
+    }
+
+    .sub-link {
+      font-size: 15px;
+      margin-left: 20px;
+      opacity: 0.9;
+    }
+
+
+    /* HERO SECTION - Adjusted for new header */
+    .hero {
+      background: linear-gradient(to right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.6)),
+        url("brand.avif") center/cover;
+      height: 70vh;
+      display: flex;
+      align-items: center;
+      padding: 0 8%;
+      margin-top: 90px;
+      /* MATCHES HEADER HEIGHT so content isn't hidden */
+    }
+
+    .hero-content {
+      max-width: 550px;
+    }
+
+    .hero h2 {
+      color: var(--mocha);
+      font-size: 42px;
+      line-height: 1.2;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      line-height: 1.6;
+      color: #554840;
+      font-size: 16px;
+      margin-bottom: 25px;
+    }
+
+    /* BUTTONS */
+    .btn {
+      padding: 12px 25px;
+      border: none;
+      background: var(--coffee);
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: "Poppins", sans-serif;
+      font-size: 14px;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(106, 86, 72, .15);
+    }
+
+    .btn:hover {
+      background: var(--caramel);
+      transform: translateY(-2px);
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 70px 8%;
+    }
+
+    section h2 {
+      text-align: center;
+      color: var(--mocha);
+      margin-bottom: 40px;
+      font-size: 32px;
+    }
+
+    /* GRID LAYOUT */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 25px;
+    }
+
+    /* PRODUCT CARDS */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--beige);
+      border-radius: 4px;
+      padding: 15px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, .08);
+      border-color: var(--caramel);
+    }
+
+    .card img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      color: var(--mocha);
+      margin: 10px 0 5px;
+      font-size: 20px;
+    }
+
+    .tag {
+      font-size: 12px;
+      color: var(--coffee);
+      margin-bottom: 10px;
+    }
+
+    .price {
+      margin: 10px 0;
+      font-weight: 600;
+      color: var(--caramel);
+      font-size: 16px;
+    }
+
+    .card .btn {
+      width: 100%;
+      margin-top: 10px;
+      background: var(--white);
+      color: var(--coffee);
+      border: 1px solid var(--coffee);
+      box-shadow: none;
+    }
+
+    .card .btn:hover {
+      background: var(--coffee);
+      color: #fff;
+    }
+
+    /* CELEBRITY BUTTON CONTAINER */
+    .celeb-container {
+      text-align: center;
+      margin-top: 10px;
+      padding-bottom: 60px;
+    }
+
+    .btn-gold {
+      background: var(--caramel);
+      color: #fff;
+    }
+
+    .btn-gold:hover {
+      background: var(--coffee);
+    }
+
+    /* FRAGRANCE NOTES */
+    #notes {
+      background: var(--linen);
+    }
+
+    .notes {
+      background: var(--white);
+      border-left: 3px solid var(--caramel);
+      padding: 35px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, .05);
+    }
+
+    .notes-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .note-box {
+      padding: 15px;
+      border-bottom: 1px solid var(--beige);
+    }
+
+    .note-box b {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      color: var(--mocha);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .note-box span {
+      font-size: 13px;
+      color: #666;
+    }
+
+    /* REVIEWS */
+    .review {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--white);
+      padding: 30px;
+      border: 1px solid var(--beige);
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-style: italic;
+      color: var(--coffee);
+    }
+
+    .reviewer {
+      display: block;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      color: var(--caramel);
+      margin-top: 10px;
+      text-transform: uppercase;
+    }
+
+    /* CTA */
+    .cta {
+      text-align: center;
+      background: linear-gradient(to right, #faf7f2, #ffffff);
+      border-top: 1px solid var(--beige);
+      padding: 70px 8%;
+    }
+
+    /* FOOTER */
+    .lux-footer {
+      background: var(--mocha);
+      color: var(--linen);
+      padding: 60px 8% 20px;
+      text-align: center;
+    }
+
+    .footer-content h3 {
+      color: var(--caramel);
+      margin-bottom: 15px;
+      font-size: 24px;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-icons a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--linen);
+      font-size: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-bottom {
+      margin-top: 40px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 12px;
+      opacity: .6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header id="master-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand">
+        <svg class="brand-mark" width="45" height="45" viewBox="0 0 100 100" fill="none">
+          <path d="M50 5C50 5 15 45 15 67C15 86.3 30.7 102 50 102C69.3 102 85 86.3 85 67C85 45 50 5 50 5Z"
+            fill="#3E2F2B" />
+          <text x="50" y="80" font-family="'Playfair Display', serif" font-weight="700" font-size="42" fill="#C9A46C"
+            text-anchor="middle">N</text>
+        </svg>
+        <div class="brand-text-col">
+          <span class="brand-name">NOIR</span>
+          <span class="brand-sub">Digital Studio</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="about.html" class="nav-link"><i class="fa-solid fa-circle-info"></i> About</a>
+
+        <div class="nav-item has-dropdown">
+          <span class="nav-link"><i class="fa-solid fa-layer-group"></i> Services <i
+              class="fa-solid fa-chevron-down arrow-icon"></i></span>
+          <div class="dropdown">
+
+            <a href="instagram.html"><i class="fa-brands fa-instagram"></i> Instagram Viral</a>
+            <a href="affiliate.html"><i class="fa-solid fa-users-viewfinder"></i> Affiliate Program</a>
+            <a href="email.html"><i class="fa-regular fa-envelope"></i> Email Marketing</a>
+            <a href="blog.html"><i class="fa-solid fa-pen-nib"></i> Blog Content</a>
+            <a href="calendar.html"><i class="fa-regular fa-calendar"></i> Launch Calendar</a>
+            <a href="video.html"><i class="fa-solid fa-video"></i> Video Marketing</a>
+          </div>
+        </div>
+
+        <div class="nav-item has-dropdown">
+          <span class="nav-link"><i class="fa-solid fa-star"></i> Celebrity <i
+              class="fa-solid fa-chevron-down arrow-icon"></i></span>
+          <div class="dropdown">
+            <a href="celebrity.html"><i class="fa-solid fa-gem"></i> Celebrity Perfumes</a>
+            <a href="campaign.html"><i class="fa-solid fa-film"></i> Campaign Videos</a>
+            <a href="icons.html"><i class="fa-solid fa-id-card"></i> Icon Profiles</a>
+          </div>
+        </div>
+
+        <a href="campaign.html" class="nav-link"><i class="fa-solid fa-clapperboard"></i> Campaigns</a>
+        <a href="project.html" class="nav-link">PROJECT</a>
+        <a href="blog.html" class="nav-link"><i class="fa-solid fa-newspaper"></i> Blog</a>
+        <a href="product.html" class="nav-link active"><i class="fa-solid fa-bag-shopping"></i> Shop</a>
+        <a href="mobile.html" class="nav-link"><i class="fa-solid fa-mobile-screen"></i> App</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="mobile-toggle" onclick="toggleNav()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mm-inner">
+        <div class="mm-head">
+          <span class="brand-name" style="font-size:24px;">NOIR</span>
+          <button class="close-btn" onclick="toggleNav()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="mm-scroll">
+          <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+          <a href="about.html"><i class="fa-solid fa-circle-info"></i> About</a>
+          <hr>
+          <span class="mm-label">Services</span>
+          <a href="product.html" class="sub-link"><i class="fa-solid fa-bottle-droplet"></i> Product</a>
+          <a href="instagram.html" class="sub-link"><i class="fa-brands fa-instagram"></i> Instagram</a>
+          <a href="affiliate.html" class="sub-link"><i class="fa-solid fa-users"></i> Affiliates</a>
+          <a href="email.html" class="sub-link"><i class="fa-regular fa-envelope"></i> Email</a>
+          <hr>
+          <span class="mm-label">Talent</span>
+          <a href="celebrity.html" class="sub-link"><i class="fa-solid fa-star"></i> Celebrity</a>
+          <a href="campaign.html" class="sub-link"><i class="fa-solid fa-film"></i> Campaigns</a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="hero">
+    <div class="hero-content">
+      <h2>Luxury Perfumes for Signature Personalities</h2>
+      <p>Experience refined fragrances crafted with premium oils, designed to leave a long-lasting and unforgettable
+        impression.</p>
+      <button class="btn" onclick="scrollToSection('collection')">Explore Collection</button>
+    </div>
+  </div>
+
+  <section id="collection">
+    <div class="container">
+      <h2>Our Best Sellers</h2>
+      <div class="grid">
+
+        <div class="card">
+          <img src="midnight.webp" alt="Midnight Oud">
+          <h3>Midnight Oud</h3>
+          <p class="tag">Woody • Royal • Bold</p>
+          <p class="price">₹999</p>
+          <button class="btn" onclick="order('Midnight Oud')">Order Now</button>
+        </div>
+
+        <div class="card">
+          <img src="royal-final.jfif" alt="Royal Musk">
+          <h3>Royal Musk</h3>
+          <p class="tag">Warm • Premium • Sensual</p>
+          <p class="price">₹1099</p>
+          <button class="btn" onclick="order('Royal Musk')">Order Now</button>
+        </div>
+
+        <div class="card">
+          <img src="amber-night.jpg" alt="Amber Night">
+          <h3>Amber Night</h3>
+          <p class="tag">Sweet • Oriental • Elegant</p>
+          <p class="price">₹899</p>
+          <button class="btn" onclick="order('Amber Night')">Order Now</button>
+        </div>
+
+        <div class="card">
+          <img src="velvet-rose.jpg" alt="Velvet Rose">
+          <h3>Velvet Rose</h3>
+          <p class="tag">Floral • Soft • Romantic</p>
+          <p class="price">₹949</p>
+          <button class="btn" onclick="order('Velvet Rose')">Order Now</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="celeb-container">
+    <button class="btn btn-gold" onclick="window.location.href='celebrity.html'">
+      <i class="fa-solid fa-star" style="margin-right: 8px;"></i> Explore Celebrity Buys
+    </button>
+  </div>
+
+  <section id="notes">
+    <div class="container">
+      <h2>Fragrance Notes</h2>
+      <div class="notes">
+        <div class="notes-row">
+          <div class="note-box">
+            <b>Top Notes</b>
+            <span>Citrus • Bergamot • Fresh Spice<br>The first scent you smell when you spray.</span>
+          </div>
+          <div class="note-box">
+            <b>Heart Notes</b>
+            <span>Oud • Amber • Jasmine<br>The main smell that lasts for hours.</span>
+          </div>
+          <div class="note-box">
+            <b>Base Notes</b>
+            <span>Musk • Vanilla • Sandalwood<br>The warm scent that stays on your skin all day.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <div class="container">
+      <h2>Customer Reviews</h2>
+      <div class="review">
+        "Soft, elegant and incredibly long-lasting. This fragrance feels premium and sophisticated. I get compliments
+        all the time!"
+        <span class="reviewer">— Aarav Shah</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="order">
+    <div class="container">
+      <h2>Ready to Order?</h2>
+      <p style="margin-bottom: 25px; color: #666;">Free delivery on prepaid orders • COD available</p>
+      <button class="btn" onclick="order()">Order on WhatsApp</button>
+    </div>
+  </section>
+
+  <footer class="lux-footer">
+    <div class="container">
+      <div class="footer-content">
+        <h3>Noir Digital Studio</h3>
+        <p style="opacity: 0.8; font-size: 14px; max-width: 600px; margin: 0 auto;">A luxury-focused digital studio
+          crafting premium branding, high-impact social media presence and visually rich storytelling.</p>
+
+        <div class="social-icons">
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        © 2025 Noir Aroma — Luxury Perfume Collection
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+    }
+    function order(product) {
+      const msg = product
+        ? `Hi, I want to order the ${product} perfume.`
+        : "Hi, I want to place an order.";
+      alert(msg);
+    }
+  </script>
+
+</body>
+
+</html>
