@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Strategic Project Portfolio — Noir Digital Studio</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@300;400;500;600&family=Manrope:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ══════════════════════════════════════════════
+   1. NOIR DESIGN SYSTEM (Variables)
+══════════════════════════════════════════════ */
+        :root {
+            /* Content Colors — matched to home.html */
+            --mocha: #3E2F2B;
+            --coffee: #6A5648;
+            --caramel: #C9A46C;
+            --gold: #D4AF37;
+            --beige: #EFE5D8;
+            --linen: #FBF7F2;
+            --paper: #FDFBF8;
+            --white: #ffffff;
+
+            /* Navbar Variables */
+            --nav-bg: rgba(255, 255, 255, 0.96);
+            --nav-blur: 20px;
+            --nav-text: #3E2F2B;
+            --nav-accent: #C9A46C;
+            --nav-border: rgba(198, 156, 109, 0.15);
+            --nav-drop-bg: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            color: var(--mocha);
+            background: var(--paper);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* ══════════════════════════════════════════════
+   2. MASTER NAVIGATION (Exactly as requested)
+══════════════════════════════════════════════ */
+        #master-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            padding: 15px 4%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(var(--nav-blur));
+            border-bottom: 1px solid var(--nav-border);
+            transition: all 0.4s ease;
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+        }
+
+        .nav-brand svg path {
+            fill: var(--nav-text);
+        }
+
+        .nav-brand svg text {
+            fill: var(--nav-accent);
+        }
+
+        .brand-text-col {
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+        }
+
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--nav-text);
+            letter-spacing: 1px;
+        }
+
+        .brand-sub {
+            font-family: 'Manrope', sans-serif;
+            font-size: 10px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--nav-accent);
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-family: 'Manrope', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--nav-text);
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+            opacity: 0.85;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link i {
+            font-size: 14px;
+            color: var(--nav-accent);
+            opacity: 0.8;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover i {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--nav-accent);
+            opacity: 1;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--nav-accent);
+        }
+
+        .nav-item {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .arrow-icon {
+            font-size: 10px;
+            margin-left: 2px;
+            transition: 0.3s;
+            opacity: 0.6;
+        }
+
+        .nav-item:hover .arrow-icon {
+            transform: rotate(180deg);
+            color: var(--nav-accent);
+            opacity: 1;
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--nav-drop-bg);
+            min-width: 240px;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid var(--nav-border);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(5px);
+        }
+
+        .dropdown a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: var(--nav-text);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: 0.2s;
+            white-space: nowrap;
+            font-family: 'Manrope', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .dropdown a i {
+            color: var(--nav-accent);
+            width: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .dropdown a:hover {
+            background: rgba(198, 156, 109, 0.08);
+            color: var(--nav-accent);
+            padding-left: 20px;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .mobile-toggle span {
+            width: 28px;
+            height: 2px;
+            background: var(--nav-text);
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        @media(max-width: 1300px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+        }
+
+        .mobile-menu {
+            position: fixed;
+            inset: 0;
+            background: var(--nav-drop-bg);
+            z-index: 10000;
+            transform: translateX(100%);
+            transition: 0.4s ease;
+            display: flex;
+        }
+
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        .mm-inner {
+            width: 100%;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            overflow-y: auto;
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .mm-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--nav-text);
+            cursor: pointer;
+        }
+
+        .mm-scroll a {
+            color: var(--nav-text);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px 0;
+        }
+
+        .mm-scroll hr {
+            width: 100%;
+            border: 0;
+            border-top: 1px solid var(--nav-border);
+            margin: 15px 0;
+        }
+
+        .mm-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--nav-accent);
+            margin-bottom: 5px;
+            display: block;
+            opacity: 0.8;
+        }
+
+        .sub-link {
+            font-size: 15px;
+            margin-left: 20px;
+            opacity: 0.9;
+        }
+
+
+        /* ══════════════════════════════════════════════
+   3. INTERNAL TASK NAVIGATION (Sub-menu)
+══════════════════════════════════════════════ */
+        .task-nav-wrapper {
+            position: sticky;
+            top: 75px;
+            z-index: 990;
+            background: rgba(251, 247, 242, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--beige);
+            padding: 15px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+        }
+
+        .task-nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .task-nav a {
+            text-decoration: none;
+            color: var(--mocha);
+            font-family: 'Manrope', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .task-nav a i {
+            color: var(--caramel);
+        }
+
+        .task-nav a:hover {
+            color: var(--caramel);
+            transform: translateY(-2px);
+        }
+
+        /* ══════════════════════════════════════════════
+   4. GLOBAL ANIMATIONS
+══════════════════════════════════════════════ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        .delay-4 {
+            transition-delay: 0.4s;
+        }
+
+
+        /* ══════════════════════════════════════════════
+   5. PAGE SECTIONS
+══════════════════════════════════════════════ */
+        section {
+            padding: 120px 6%;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .sec-badge {
+            display: inline-block;
+            background: var(--caramel);
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 10px;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .sec-title {
+            font-size: 48px;
+            color: var(--mocha);
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .sec-title span {
+            color: var(--caramel);
+            font-style: italic;
+        }
+
+        .sec-desc {
+            font-size: 16px;
+            color: #666;
+            max-width: 600px;
+            margin-bottom: 60px;
+        }
+
+        /* --- HERO --- */
+        .hero {
+            padding: 180px 6% 120px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--linen) 0%, var(--white) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(200, 137, 63, 0.08) 0%, transparent 70%);
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 em {
+            color: var(--caramel);
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #555;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        /* --- TASK 2: SWOT --- */
+        #swot {
+            background: var(--white);
+        }
+
+        .swot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .swot-card {
+            background: var(--paper);
+            border: 1px solid var(--beige);
+            border-radius: 12px;
+            padding: 40px 30px;
+            transition: 0.4s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+        }
+
+        .swot-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--caramel);
+            box-shadow: 0 20px 50px rgba(200, 137, 63, 0.1);
+        }
+
+        .swot-head {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--beige);
+            padding-bottom: 15px;
+        }
+
+        .swot-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--linen);
+            color: var(--caramel);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .swot-card h3 {
+            font-size: 24px;
+            color: var(--mocha);
+        }
+
+        /* Specific Requirement: UL / LI styling */
+        .swot-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .swot-card li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .swot-card li::before {
+            content: '◈';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--caramel);
+            font-size: 10px;
+        }
+
+        /* --- TASK 3: SEO BLOG --- */
+        #seo {
+            background: var(--linen);
+        }
+
+        .blog-wrapper {
+            background: var(--white);
+            border-radius: 16px;
+            border: 1px solid var(--beige);
+            padding: 60px;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.04);
+        }
+
+        .blog-wrapper h1 {
+            font-size: 42px;
+            color: var(--mocha);
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .blog-wrapper .author-meta {
+            font-family: 'Manrope', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--caramel);
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            display: block;
+        }
+
+        .blog-content h2 {
+            font-size: 28px;
+            color: var(--coffee);
+            margin: 40px 0 15px;
+        }
+
+        .blog-content h3 {
+            font-size: 22px;
+            color: var(--mocha);
+            margin: 30px 0 10px;
+        }
+
+        .blog-content p {
+            font-size: 16px;
+            color: #444;
+            line-height: 1.9;
+            margin-bottom: 20px;
+        }
+
+        /* LSI Keyword Highlight for Academic Proof */
+        .lsi-key {
+            background: rgba(200, 137, 63, 0.1);
+            border-bottom: 1px solid var(--caramel);
+            color: var(--mocha);
+            font-weight: 600;
+            padding: 0 4px;
+        }
+
+        /* --- TASK 4: REPUTATION --- */
+        #reputation {
+            background: var(--white);
+        }
+
+        .rep-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .rep-media-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .media-box {
+            padding: 30px;
+            background: var(--paper);
+            border: 1px solid var(--beige);
+            border-radius: 8px;
+            transition: 0.3s;
+            border-top: 3px solid var(--caramel);
+        }
+
+        .media-box:hover {
+            background: var(--linen);
+            transform: translateY(-5px);
+        }
+
+        .media-box h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .media-box h3 i {
+            color: var(--caramel);
+            font-size: 16px;
+        }
+
+        .media-box p {
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* Testimonial Box Requirement */
+        .test-box {
+            background: var(--mocha);
+            color: var(--white);
+            padding: 50px 40px;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+        }
+
+        .test-box::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 30px;
+            font-family: 'Playfair Display', serif;
+            font-size: 120px;
+            color: rgba(255, 255, 255, 0.05);
+            line-height: 1;
+        }
+
+        .test-stars {
+            color: var(--caramel);
+            font-size: 24px;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+        }
+
+        .test-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-style: italic;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        .test-author {
+            font-family: 'Manrope', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--beige);
+        }
+
+        /* --- TASK 5: ASO / APP --- */
+        #app {
+            background: var(--mocha);
+            color: var(--white);
+            overflow: hidden;
+        }
+
+        #app .sec-title {
+            color: var(--white);
+        }
+
+        .aso-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .app-content h3 {
+            font-size: 28px;
+            color: var(--caramel);
+            margin-bottom: 20px;
+        }
+
+        .app-desc {
+            font-size: 16px;
+            color: #ccc;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .aso-tags {
+            margin-bottom: 30px;
+        }
+
+        .aso-tags strong {
+            display: block;
+            font-family: 'Manrope', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .aso-tags span {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 12px;
+            margin: 0 5px 10px 0;
+            color: #eee;
+        }
+
+        .app-ratings {
+            font-size: 18px;
+            color: var(--gold);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .app-ratings span {
+            color: #aaa;
+            font-size: 13px;
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .download-btn {
+            background: var(--caramel);
+            color: #fff;
+            border: none;
+            padding: 16px 35px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .download-btn:hover {
+            background: #fff;
+            color: var(--mocha);
+            transform: translateY(-3px);
+        }
+
+        /* ─── KNOW MORE BUTTON ─── */
+        .know-more-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            background: linear-gradient(135deg, var(--caramel) 0%, var(--gold) 50%, var(--caramel) 100%);
+            background-size: 200% auto;
+            color: #fff;
+            padding: 16px 34px;
+            border-radius: 6px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 6px 24px rgba(201, 164, 108, 0.35);
+            transition: background-position 0.5s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* shimmer sweep */
+        .know-more-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.6s ease;
+        }
+
+        .know-more-btn:hover::before {
+            left: 130%;
+        }
+
+        .know-more-btn:hover {
+            background-position: right center;
+            transform: translateY(-4px);
+            box-shadow: 0 14px 40px rgba(201, 164, 108, 0.55);
+            color: #fff;
+        }
+
+        .know-more-btn i:first-child {
+            font-size: 18px;
+        }
+
+        .know-more-arrow {
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .know-more-btn:hover .know-more-arrow {
+            transform: translateX(5px);
+        }
+
+        .phone-mockup {
+            width: 300px;
+            margin: 0 auto;
+            border: 8px solid #333;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .phone-mockup img {
+            width: 100%;
+            display: block;
+        }
+
+        /* --- TASK 6: CAREERS --- */
+        #careers {
+            background: var(--paper);
+        }
+
+        .career-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .career-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--white);
+            border: 1px solid var(--beige);
+            padding: 35px 40px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .career-card:hover {
+            border-color: var(--caramel);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.03);
+            transform: translateX(10px);
+        }
+
+        .career-info h3 {
+            font-size: 24px;
+            color: var(--mocha);
+            margin-bottom: 8px;
+        }
+
+        .career-info p {
+            font-size: 14px;
+            color: #666;
+            max-width: 600px;
+        }
+
+        .apply-btn {
+            font-family: 'Manrope', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--caramel);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: 0.3s;
+        }
+
+        .apply-btn:hover {
+            border-bottom-color: var(--caramel);
+        }
+
+        /* --- FOOTER --- */
+        .lux-footer {
+            background: var(--mocha);
+            color: var(--linen);
+            padding: 80px 8% 30px;
+            text-align: center;
+        }
+
+        .footer-content h3 {
+            color: var(--caramel);
+            letter-spacing: 3px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .footer-content p {
+            line-height: 1.9;
+            font-size: 15px;
+            opacity: .85;
+            margin-bottom: 40px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-icons a {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--linen);
+            font-size: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-6px);
+            background: var(--caramel);
+            color: #fff;
+            border-color: var(--caramel);
+        }
+
+        .footer-bottom {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 13px;
+            opacity: .5;
+            letter-spacing: 1px;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 900px) {
+
+            .rep-grid,
+            .aso-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .career-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .blog-wrapper {
+                padding: 30px;
+            }
+
+            .task-nav {
+                display: none;
+            }
+
+            /* Hide subnav on mobile to save space */
+        }
+    </style>
+</head>
+
+<body>
+
+    <header id="master-nav">
+        <div class="nav-container">
+            <a href="home.html" class="nav-brand">
+                <svg class="brand-mark" width="45" height="45" viewBox="0 0 100 100" fill="none">
+                    <path d="M50 5C50 5 15 45 15 67C15 86.3 30.7 102 50 102C69.3 102 85 86.3 85 67C85 45 50 5 50 5Z"
+                        class="mark-shape" />
+                    <text x="50" y="80" font-family="'Playfair Display', serif" font-weight="700" font-size="42"
+                        class="mark-text" text-anchor="middle">N</text>
+                </svg>
+                <div class="brand-text-col">
+                    <span class="brand-name">NOIR</span>
+                    <span class="brand-sub">Digital Studio</span>
+                </div>
+            </a>
+
+            <nav class="nav-links">
+                <a href="home.html" class="nav-link">HOME</a>
+                <a href="about.html" class="nav-link">ABOUT</a>
+                <div class="nav-item has-dropdown">
+                    <span class="nav-link">SERVICES <i class="fa-solid fa-chevron-down arrow-icon"></i></span>
+                    <div class="dropdown">
+                        <a href="instagram.html"><span class="icon-box"><i class="fa-brands fa-instagram"></i></span>
+                            Instagram Viral</a>
+                        <a href="email.html"><span class="icon-box"><i class="fa-regular fa-envelope"></i></span> Email
+                            Marketing</a>
+                        <a href="affiliate.html"><span class="icon-box"><i
+                                    class="fa-solid fa-users-viewfinder"></i></span> Affiliate Program</a>
+                        <a href="mobile.html"><span class="icon-box"><i class="fa-solid fa-mobile-screen"></i></span>
+                            Mobile Strategy</a>
+                        <a href="video.html"><span class="icon-box"><i class="fa-solid fa-video"></i></span> Video
+                            Production</a>
+                        <a href="calander.html"><span class="icon-box"><i class="fa-regular fa-calendar"></i></span>
+                            Launch Calendar</a>
+                    </div>
+                </div>
+                <div class="nav-item has-dropdown">
+                    <span class="nav-link">CELEBRITY <i class="fa-solid fa-chevron-down arrow-icon"></i></span>
+                    <div class="dropdown">
+                        <a href="icons.html"><span class="icon-box"><i class="fa-regular fa-id-card"></i></span> Icon
+                            Profiles</a>
+                        <a href="celebrity.html"><span class="icon-box"><i class="fa-solid fa-gem"></i></span> Signature
+                            Scents</a>
+                    </div>
+                </div>
+                <a href="campaign.html" class="nav-link">CAMPAIGNS</a>
+                <a href="project.html" class="nav-link active">PROJECT</a>
+                <a href="blog.html" class="nav-link">BLOG</a>
+                <a href="product.html" class="nav-link">SHOP</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="mobile-toggle" onclick="toggleNav()">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mm-inner">
+                <div class="mm-head">
+                    <span class="brand-name" style="font-size:24px;">NOIR</span>
+                    <button class="close-btn" onclick="toggleNav()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="mm-scroll">
+                    <a href="home.html">HOME</a>
+                    <a href="about.html">ABOUT</a>
+                    <hr>
+                    <span class="mm-label">Agency Services</span>
+                    <a href="instagram.html" class="sub-link"><i class="fa-brands fa-instagram"></i> Instagram</a>
+                    <a href="email.html" class="sub-link"><i class="fa-regular fa-envelope"></i> Email</a>
+                    <a href="affiliate.html" class="sub-link"><i class="fa-solid fa-users"></i> Affiliates</a>
+                    <a href="video.html" class="sub-link"><i class="fa-solid fa-video"></i> Video</a>
+                    <hr>
+                    <a href="campaign.html">CAMPAIGNS</a>
+                    <a href="blog.html">BLOG</a>
+                    <a href="product.html">SHOP</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="task-nav-wrapper">
+        <ul class="task-nav">
+            <li><a href="#hero"><i class="fa-solid fa-house"></i> Home</a></li>
+            <li><a href="#swot"><i class="fa-solid fa-chart-pie"></i> SWOT Analysis</a></li>
+            <li><a href="#seo"><i class="fa-solid fa-magnifying-glass"></i> SEO Blog</a></li>
+            <li><a href="#reputation"><i class="fa-solid fa-shield-halved"></i> Reputation</a></li>
+            <li><a href="#app"><i class="fa-solid fa-mobile-screen"></i> ASO App</a></li>
+            <li><a href="#careers"><i class="fa-solid fa-briefcase"></i> Careers</a></li>
+        </ul>
+    </div>
+
+    <main>
+
+        <section class="hero" id="hero">
+            <div class="container reveal">
+                <span class="sec-badge">Academic Showcase</span>
+                <h1>Comprehensive <em>Digital Strategy</em> Portfolio</h1>
+                <p>This master document demonstrates Noir Digital Studio's proficiency in SEO structure, market
+                    analysis, reputation management, and app store optimization.</p>
+            </div>
+        </section>
+
+        <section id="swot">
+            <div class="container">
+                <div class="reveal">
+                    <span class="sec-badge">Task 2</span>
+                    <h2 class="sec-title">Strategic <span>SWOT</span> Analysis</h2>
+                    <p class="sec-desc">An honest evaluation of Noir Digital Studio's market position within the luxury
+                        fragrance niche.</p>
+                </div>
+
+                <div class="swot-grid">
+                    <div class="swot-card reveal delay-1">
+                        <div class="swot-head">
+                            <div class="swot-icon"><i class="fa-solid fa-gem"></i></div>
+                            <h3>Strengths</h3>
+                        </div>
+                        <ul>
+                            <li>Niche expertise in luxury fragrance aesthetics and visual branding.</li>
+                            <li>Established network of high-end celebrity influencers.</li>
+                            <li>In-house cinematic video production capabilities.</li>
+                        </ul>
+                    </div>
+
+                    <div class="swot-card reveal delay-2">
+                        <div class="swot-head">
+                            <div class="swot-icon"><i class="fa-solid fa-link-slash"></i></div>
+                            <h3>Weaknesses</h3>
+                        </div>
+                        <ul>
+                            <li>Premium pricing models restrict access to mass-market clients.</li>
+                            <li>Highly specialized focus prevents taking on generic e-commerce brands.</li>
+                            <li>Resource-intensive boutique approach limits scalability.</li>
+                        </ul>
+                    </div>
+
+                    <div class="swot-card reveal delay-3">
+                        <div class="swot-head">
+                            <div class="swot-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                            <h3>Opportunities</h3>
+                        </div>
+                        <ul>
+                            <li>Rising demand for niche/indie perfume brands needing digital presence.</li>
+                            <li>Capitalizing on the viral aesthetic trends of TikTok "PerfumeTok".</li>
+                            <li>Integration of AI-driven tools for high-net-worth audience targeting.</li>
+                        </ul>
+                    </div>
+
+                    <div class="swot-card reveal delay-4">
+                        <div class="swot-head">
+                            <div class="swot-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                            <h3>Threats</h3>
+                        </div>
+                        <ul>
+                            <li>Rapidly changing social media algorithms favoring non-curated content.</li>
+                            <li>Economic downturns impacting luxury discretionary spending.</li>
+                            <li>Emergence of copycat agencies diluting the aesthetic standard.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="seo">
+            <div class="container reveal">
+                <div style="text-align:center; margin-bottom:40px;">
+                    <span class="sec-badge">Task 3</span>
+                </div>
+
+                <div class="blog-wrapper">
+                    <span class="author-meta">Noir Editorial • LSI Strategy Implementation</span>
+
+                    <h1>The Scent of Success: Mastering Luxury Perfume Marketing</h1>
+
+                    <div class="blog-content">
+                        <p>In the highly competitive world of high-end cosmetics, having a superior product is merely
+                            the baseline. To truly dominate the market, a brand must excel in <strong>luxury perfume
+                                marketing</strong>. At Noir Digital Studio, we engineer campaigns that turn visual
+                            aesthetics into measurable revenue, utilizing advanced semantic strategies to ensure our
+                            clients are always discovered first.</p>
+
+                        <h2>What Drives <span class="lsi-key">Fragrance Brand Visibility</span>?</h2>
+                        <p>Visibility in the modern era is dictated by search engines and social algorithms alike. When
+                            affluent consumers search for signature scents, your brand cannot afford to be relegated to
+                            the second page. Achieving dominance requires a sophisticated <span class="lsi-key">digital
+                                marketing strategy</span> that goes far beyond standard keyword insertion.</p>
+
+                        <h3>Technical On-Page Optimization</h3>
+                        <p>The foundation of any successful campaign is technical excellence. We deploy deep <span
+                                class="lsi-key">keyword research</span> to uncover the exact terminology high-net-worth
+                            individuals use. From optimizing meta descriptions to ensuring image alt-texts reflect your
+                            <span class="lsi-key">digital aesthetic</span>, every pixel is designed to signal authority
+                            to search engine crawlers. We refer to this meticulous structural work as <span
+                                class="lsi-key">cosmetic SEO</span>, ensuring your website functions as flawlessly as a
+                            perfectly balanced fragrance formula.
+                        </p>
+
+                        <h2>The Role of <span class="lsi-key">Organic Search Ranking</span></h2>
+                        <p>While paid media offers immediate gratification, the true hallmark of a legacy brand is its
+                            <span class="lsi-key">organic search ranking</span>. When a brand ranks naturally for
+                            competitive terms, it inherently builds consumer trust. It signals that you are an industry
+                            leader, not just a sponsor.
+                        </p>
+
+                        <h3><span class="lsi-key">Scent Storytelling</span> & Content Marketing</h3>
+                        <p>Search engines now prioritize user intent and content depth. Therefore, we integrate rich
+                            <span class="lsi-key">scent storytelling</span> into your blog articles and product
+                            descriptions. By weaving narratives around your top, heart, and base notes, we keep users
+                            engaged on your site longer. This increased dwell time acts as a massive positive ranking
+                            signal, ultimately driving the <span class="lsi-key">high-ticket conversions</span> required
+                            to scale your <span class="lsi-key">luxury e-commerce strategy</span>.
+                        </p>
+
+                        <p>Ultimately, by mastering these LSI integrations and focusing on <span class="lsi-key">niche
+                                audience targeting</span>, Noir Digital Studio ensures your brand's digital footprint is
+                            as enduring as your signature fragrance.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="reputation">
+            <div class="container">
+                <div class="reveal">
+                    <span class="sec-badge">Task 4</span>
+                    <h2 class="sec-title">Brand <span>Reputation</span> Management</h2>
+                    <p class="sec-desc">How Noir Digital Studio orchestrates the PESO model (Paid, Earned, Shared,
+                        Owned) to protect and elevate luxury brand equity.</p>
+                </div>
+
+                <div class="rep-grid">
+                    <div class="rep-media-grid">
+                        <div class="media-box reveal delay-1">
+                            <h3><i class="fa-solid fa-laptop-code"></i> Owned Media</h3>
+                            <p>We maintain absolute control over the brand narrative by designing ultra-premium
+                                websites, writing the authoritative 'Noir Gazette' blog, and curating exclusive VIP
+                                email newsletters.</p>
+                        </div>
+                        <div class="media-box reveal delay-2">
+                            <h3><i class="fa-solid fa-award"></i> Earned Media</h3>
+                            <p>We secure organic authority through features in GQ and Vogue, while monitoring and
+                                amplifying authentic 5-star customer reviews on Google and Trustpilot.</p>
+                        </div>
+                        <div class="media-box reveal delay-3">
+                            <h3><i class="fa-solid fa-share-nodes"></i> Shared Media</h3>
+                            <p>We dominate the 'PerfumeTok' community and Instagram Reels, tracking user-generated
+                                content and brand mentions to ensure our aesthetic remains uncompromised.</p>
+                        </div>
+                        <div class="media-box reveal delay-4">
+                            <h3><i class="fa-solid fa-bullhorn"></i> Paid Media</h3>
+                            <p>We deploy high-budget, cinematic video campaigns across Meta and YouTube pre-rolls,
+                                strictly monitoring competitor placements to defend our market share.</p>
+                        </div>
+                    </div>
+
+                    <div class="test-box reveal">
+                        <div class="test-stars">★★★★★</div>
+                        <p class="test-quote">"Noir Digital Studio took our signature scent and transformed it into a
+                            global digital sensation. Their mastery of brand reputation is unmatched."</p>
+                        <span class="test-author">Elena Rostova — Founder, Maison De L'Aura</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="app">
+            <div class="container">
+                <div class="reveal" style="text-align:center; margin-bottom: 60px;">
+                    <span class="sec-badge" style="background:var(--gold); color:#000;">Task 5</span>
+                    <h2 class="sec-title" style="color:var(--white);">Noir <span>Analytics</span> App</h2>
+                </div>
+
+                <div class="aso-layout">
+                    <div class="app-content reveal delay-1">
+                        <h3>The Executive Dashboard</h3>
+                        <p class="app-desc"><strong>Description:</strong> Noir Analytics Pro is the definitive mobile
+                            application for luxury brand owners. Seamlessly track your aesthetic campaigns, monitor
+                            influencer ROI, execute social media planning, and analyze organic SEO reach—all from one
+                            elegantly designed interface.</p>
+
+                        <div class="aso-tags">
+                            <strong>Targeted ASO Keywords:</strong>
+                            <div>
+                                <span>luxury analytics</span>
+                                <span>influencer tracker</span>
+                                <span>aesthetic planner</span>
+                                <span>brand ROI</span>
+                                <span>marketing app</span>
+                                <span>SEO tools</span>
+                            </div>
+                        </div>
+
+                        <div class="app-ratings">
+                            ★★★★☆ <span>(4.8/5 from 1,250 Elite Users)</span>
+                        </div>
+
+                        <a href="mobile.html" class="know-more-btn" id="know-more-app-btn">
+                            <i class="fa-brands fa-apple"></i>
+                            <span>Know More About App</span>
+                            <i class="fa-solid fa-arrow-right know-more-arrow"></i>
+                        </a>
+                    </div>
+
+                    <div class="reveal delay-2">
+                        <div class="phone-mockup">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80"
+                                alt="Noir Analytics Dashboard Interface">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="careers">
+            <div class="container">
+                <div class="reveal">
+                    <span class="sec-badge">Task 6</span>
+                    <h2 class="sec-title">Career <span>Options</span> at Noir</h2>
+                    <p class="sec-desc">Join an elite team of digital architects shaping the future of luxury fragrance
+                        marketing.</p>
+                </div>
+
+                <div class="career-grid">
+                    <div class="career-card reveal delay-1">
+                        <div class="career-info">
+                            <h3>Search Engine Optimization (SEO) Director</h3>
+                            <p><strong>Role:</strong> SEO specialists at Noir are responsible for improving website
+                                rankings for high-ticket clients. You will manage deep technical audits, semantic
+                                content mapping, and authoritative link-building to secure organic dominance.</p>
+                        </div>
+                        <a href="#" class="apply-btn">Submit Portfolio <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+
+                    <div class="career-card reveal delay-2">
+                        <div class="career-info">
+                            <h3>Pay Per Click (PPC) Account Manager</h3>
+                            <p><strong>Role:</strong> PPC experts manage exclusive, high-budget paid advertisements. You
+                                will oversee luxury ad spend across Google Search and Meta, utilizing strict audience
+                                targeting to ensure maximum return on ad spend (ROAS).</p>
+                        </div>
+                        <a href="#" class="apply-btn">Submit Portfolio <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+
+                    <div class="career-card reveal delay-3">
+                        <div class="career-info">
+                            <h3>Social Media Marketing (SMM) Executive</h3>
+                            <p><strong>Role:</strong> SMM executives handle our clients' aesthetic social platforms. You
+                                will curate visually stunning Instagram grids, script viral TikTok concepts, coordinate
+                                luxury photoshoots, and engage directly with the fragrance community.</p>
+                        </div>
+                        <a href="#" class="apply-btn">Submit Portfolio <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="lux-footer">
+        <div class="footer-content">
+            <h3>Noir Digital Studio</h3>
+            <p>A luxury-focused digital studio crafting premium branding, high-impact social media presence, and
+                visually rich storytelling.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 Digital Marketing Agency (Noir Digital Studio) — Academic Showcase
+        </div>
+    </footer>
+
+    <script>
+        // 1. MOBILE MENU TOGGLE
+        function toggleNav() {
+            document.getElementById('mobileMenu').classList.toggle('open');
+        }
+
+        // 2. SCROLL ANIMATIONS (Intersection Observer)
+        document.addEventListener("DOMContentLoaded", function () {
+            const reveals = document.querySelectorAll(".reveal");
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                        // Optional: Stop observing once revealed
+                        // observer.unobserve(entry.target); 
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            });
+
+            reveals.forEach(reveal => {
+                observer.observe(reveal);
+            });
+        });
+    </script>
+
+</body>
+
+</html>

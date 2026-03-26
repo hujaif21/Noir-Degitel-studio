@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noir Production — The Visual Atelier</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        /* ==========================================================================
+   1. THE "WHITE MOCHA" PALETTE
+   ========================================================================== */
+        @font-face {
+            font-family: 'Playfair Display';
+            src: url('fonts/playfair-display-v40-latin-regular.woff2') format('woff2');
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: 'Playfair Display';
+            src: url('fonts/playfair-display-v40-latin-600.woff2') format('woff2');
+            font-weight: 600;
+        }
+
+        @font-face {
+            font-family: 'Manrope';
+            src: url('fonts/manrope-v13-latin-regular.woff2') format('woff2');
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: 'Manrope';
+            src: url('fonts/manrope-v13-latin-500.woff2') format('woff2');
+            font-weight: 500;
+        }
+
+        :root {
+            /* Backgrounds */
+            --bg-main: #FDFBF8;
+            /* Creamy White */
+            --bg-surface: #F3EFE9;
+            /* Linen */
+            --bg-card: #FFFFFF;
+            /* Pure White */
+
+            /* Text & Accents */
+            --mocha: #3B2F2F;
+            /* Deep Brown (Primary Text) */
+            --clay: #8A7E7D;
+            /* Muted Taupe (Secondary Text) */
+            --caramel: #C69C6D;
+            /* Luxury Accent */
+            --gold-leaf: #D4AF37;
+            /* Metallic Accent */
+
+            /* UI FX */
+            --shadow-soft: 0 20px 60px rgba(59, 47, 47, 0.08);
+            --shadow-hover: 0 30px 80px rgba(59, 47, 47, 0.15);
+            --radius: 20px;
+            --ease: cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--mocha);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--mocha);
+            line-height: 1.2;
+        }
+
+        /* ==========================================================================
+   2. HEADER
+   ========================================================================== */
+        header {
+            padding: 25px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(253, 251, 248, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(198, 156, 109, 0.1);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .brand-icon {
+            width: 35px;
+            height: 35px;
+            background: var(--mocha);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display';
+            border-radius: 4px;
+        }
+
+        .brand-text {
+            font-family: 'Playfair Display';
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--mocha);
+            letter-spacing: 0.5px;
+        }
+
+        nav a {
+            margin-left: 35px;
+            text-decoration: none;
+            color: var(--clay);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: .3s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--caramel);
+        }
+
+        /* ==========================================================================
+   3. HERO: THE CINEMA ATELIER
+   ========================================================================== */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            align-items: center;
+            padding: 120px 0 0 6%;
+            background: linear-gradient(to right, var(--bg-main) 40%, var(--bg-surface) 40%);
+            overflow: hidden;
+        }
+
+        .hero-text {
+            padding-right: 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-label {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 50px;
+            background: rgba(198, 156, 109, 0.1);
+            color: var(--caramel);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 72px;
+            margin-bottom: 30px;
+        }
+
+        h1 span {
+            font-style: italic;
+            color: var(--caramel);
+        }
+
+        .hero-desc {
+            font-size: 18px;
+            color: var(--clay);
+            margin-bottom: 50px;
+            max-width: 500px;
+        }
+
+        .btn-play-hero {
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            padding: 15px 40px;
+            background: var(--mocha);
+            color: #fff;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: .4s;
+        }
+
+        .btn-play-hero:hover {
+            background: var(--caramel);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        /* Hero Video Container */
+        .hero-visual {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            clip-path: inset(20px 0 20px 20px round 40px 0 0 40px);
+            box-shadow: -20px 0 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ==========================================================================
+   4. CHANNEL FILTER (STICKY)
+   ========================================================================== */
+        .channel-bar {
+            position: sticky;
+            top: 85px;
+            z-index: 900;
+            background: rgba(253, 251, 248, 0.95);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .channel-link {
+            color: var(--clay);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: .3s;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .channel-link.active,
+        .channel-link:hover {
+            color: var(--caramel);
+        }
+
+        .channel-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--caramel);
+        }
+
+        /* ==========================================================================
+   5. VERTICAL CINEMA (THE CONTENT)
+   ========================================================================== */
+        .cinema-block {
+            padding: 140px 6%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        /* Alternating Layout */
+        .cinema-block.alt {
+            direction: rtl;
+            background: var(--bg-surface);
+        }
+
+        .cinema-block.alt .cinema-text {
+            direction: ltr;
+        }
+
+        /* Visual Side */
+        .cinema-visual {
+            position: relative;
+            height: 650px;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .cinema-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s var(--ease);
+        }
+
+        .cinema-visual:hover .cinema-video {
+            transform: scale(1.05);
+        }
+
+        /* Play Button Overlay */
+        .play-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: .3s;
+            cursor: pointer;
+        }
+
+        .play-circle {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: .4s;
+        }
+
+        .cinema-visual:hover .play-circle {
+            transform: scale(1.1);
+            background: #fff;
+            color: var(--caramel);
+        }
+
+        /* Text Side */
+        .cinema-text {
+            padding: 20px;
+        }
+
+        .c-label {
+            color: var(--caramel);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .c-title {
+            font-size: 48px;
+            margin-bottom: 30px;
+            color: var(--mocha);
+        }
+
+        .c-desc {
+            color: var(--clay);
+            font-size: 16px;
+            margin-bottom: 40px;
+            max-width: 480px;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 40px;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--mocha);
+        }
+
+        .feature-list i {
+            color: var(--caramel);
+            background: rgba(198, 156, 109, 0.1);
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 10px;
+        }
+
+
+        /* ==========================================================================
+   6. INTERACTIVE AR SECTION
+   ========================================================================== */
+        .ar-section {
+            padding: 140px 6%;
+            text-align: center;
+            background: #fff;
+            background-image: radial-gradient(#F3EFE9 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .ar-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            max-width: 1100px;
+            margin: 60px auto 0;
+            text-align: left;
+        }
+
+        .phone-mockup {
+            width: 320px;
+            height: 640px;
+            margin: 0 auto;
+            background: #000;
+            border-radius: 40px;
+            border: 8px solid #333;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-hover);
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.5s;
+        }
+
+        .ar-overlay-ui {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: url('https://cdn-icons-png.flaticon.com/512/114/114903.png') center/50px no-repeat;
+            /* Target Icon */
+            opacity: 0;
+            transition: .5s;
+            filter: invert(1);
+        }
+
+        .phone-mockup:hover .phone-screen {
+            opacity: 0.6;
+        }
+
+        .phone-mockup:hover .ar-overlay-ui {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+
+        /* ==========================================================================
+   FOOTER
+   ========================================================================== */
+        footer {
+            background: var(--mocha);
+            color: #fff;
+            padding: 100px 6% 40px;
+        }
+
+        .foot-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 60px;
+        }
+
+        .foot-brand h3 {
+            color: #fff;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .foot-brand p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            max-width: 300px;
+        }
+
+        .foot-col h4 {
+            color: var(--caramel);
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        .foot-col a {
+            display: block;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 12px;
+            text-decoration: none;
+            font-size: 13px;
+            transition: .3s;
+        }
+
+        .foot-col a:hover {
+            color: #fff;
+            transform: translateX(5px);
+        }
+
+        .foot-copy {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 12px;
+            opacity: 0.4;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 140px;
+            }
+
+            .hero-visual {
+                display: none;
+            }
+
+            .cinema-block,
+            .cinema-block.alt {
+                grid-template-columns: 1fr;
+                direction: ltr;
+                gap: 40px;
+            }
+
+            .cinema-visual {
+                height: 400px;
+            }
+
+            .ar-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .foot-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header id="header">
+        <a href="home.html" class="brand">
+            <div class="brand-icon">N</div>
+            <span class="brand-text">NOIR</span>
+        </a>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="campaign.html">Strategy</a>
+            <a href="production.html" style="color:var(--caramel)">Production</a>
+            <a href="affiliate.html">Partners</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <span class="hero-label">Production House</span>
+            <h1>Visualizing the <br><span>Invisible.</span></h1>
+            <p class="hero-desc">We don't just shoot video; we engineer desire. From hyper-real CGI ingredients to
+                cinematic lifestyle events, we create assets that turn viewers into obsessed collectors.</p>
+            <a href="#animation" class="btn-play-hero"><i class="fa-solid fa-play"></i> Watch Showreel</a>
+        </div>
+        <div class="hero-visual">
+            <video class="hero-video" autoplay muted loop playsinline src="video-animation.mp4"></video>
+        </div>
+    </section>
+
+    <div class="channel-bar">
+        <div class="channel-link active" onclick="scrollToSec('animation')">Animation</div>
+        <div class="channel-link" onclick="scrollToSec('explanation')">Rituals</div>
+        <div class="channel-link" onclick="scrollToSec('demo')">Unboxing</div>
+        <div class="channel-link" onclick="scrollToSec('event')">Events</div>
+        <div class="channel-link" onclick="scrollToSec('ar')">Future AR</div>
+    </div>
+
+    <section class="cinema-block" id="animation">
+        <div class="cinema-visual">
+            <video class="cinema-video" autoplay muted loop playsinline src="video-animation.mp4"></video>
+            <div class="play-overlay">
+                <div class="play-circle"><i class="fa-solid fa-play"></i></div>
+            </div>
+        </div>
+        <div class="cinema-text">
+            <span class="c-label">01. 3D Visualization</span>
+            <h2 class="c-title">Liquid Gold.</h2>
+            <p class="c-desc">We don't just show the bottle; we show the soul of the scent. Hyper-realistic 3D renders
+                of ingredients colliding in zero gravity. Visual ASMR that triggers the senses before the customer even
+                smells the product.</p>
+            <ul class="feature-list">
+                <li><i class="fa-solid fa-check"></i> Ingredient Macro Shots</li>
+                <li><i class="fa-solid fa-check"></i> Fluid Simulation</li>
+                <li><i class="fa-solid fa-check"></i> Zero-Gravity Aesthetics</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="cinema-block alt" id="explanation">
+        <div class="cinema-visual">
+            <video class="cinema-video" autoplay muted loop playsinline src="video-tutorial.mp4"></video>
+            <div class="play-overlay">
+                <div class="play-circle"><i class="fa-solid fa-play"></i></div>
+            </div>
+        </div>
+        <div class="cinema-text">
+            <span class="c-label">02. Educational Series</span>
+            <h2 class="c-title">The Art of Ritual.</h2>
+            <p class="c-desc">Education is the highest form of marketing. Our cinematic tutorials teach the art of
+                application—pulse points, layering, and longevity. We turn a routine into a luxury ritual, establishing
+                your brand as the authority.</p>
+            <ul class="feature-list">
+                <li><i class="fa-solid fa-check"></i> Model Demonstration</li>
+                <li><i class="fa-solid fa-check"></i> Soft, Intimate Lighting</li>
+                <li><i class="fa-solid fa-check"></i> Expert Voiceover</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="cinema-block" id="demo">
+        <div class="cinema-visual">
+            <video class="cinema-video" autoplay muted loop playsinline src="video-animation.mp4"></video>
+            <div class="play-overlay">
+                <div class="play-circle"><i class="fa-solid fa-play"></i></div>
+            </div>
+        </div>
+        <div class="cinema-text">
+            <span class="c-label">03. The First Touch</span>
+            <h2 class="c-title">Tactile Luxury.</h2>
+            <p class="c-desc">The weight of the glass. The magnetic click of the cap. The texture of the packaging. We
+                use highly amplified sound design (ASMR) and macro cinematography to sell the physicality of your
+                product through a screen.</p>
+            <ul class="feature-list">
+                <li><i class="fa-solid fa-check"></i> Sound Design Focus</li>
+                <li><i class="fa-solid fa-check"></i> Texture Close-ups</li>
+                <li><i class="fa-solid fa-check"></i> Packaging Reveal</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="cinema-block alt" id="event">
+        <div class="cinema-visual">
+            <video class="cinema-video" autoplay muted loop playsinline src="video-event.mp4"></video>
+            <div class="play-overlay">
+                <div class="play-circle"><i class="fa-solid fa-play"></i></div>
+            </div>
+        </div>
+        <div class="cinema-text">
+            <span class="c-label">04. Brand World</span>
+            <h2 class="c-title">Midnight in Paris.</h2>
+            <p class="c-desc">Capture the energy of the exclusive. Fast-paced, high-flash edits of launch parties, red
+                carpet moments, and celebrity interactions. We sell the FOMO (Fear Of Missing Out) that drives desire.
+            </p>
+            <ul class="feature-list">
+                <li><i class="fa-solid fa-check"></i> Fast-Paced Editing</li>
+                <li><i class="fa-solid fa-check"></i> Flash Photography Style</li>
+                <li><i class="fa-solid fa-check"></i> Social Media Vertical Crops</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="ar-section" id="ar">
+        <span class="c-label">05. Future Tech</span>
+        <h2 class="c-title" style="margin-bottom:10px;">Your Virtual Vanity.</h2>
+        <p style="color:var(--clay); max-width:600px; margin:0 auto;">Try before you buy. Our WebAR technology lets
+            users place a photorealistic bottle in their own space.</p>
+
+        <div class="ar-grid">
+            <div class="ar-text">
+                <h3>No App Required.</h3>
+                <p style="margin-bottom:30px; color:var(--clay);">Seamlessly integrated into the mobile web browser. 35%
+                    higher conversion rates for products viewed in AR.</p>
+                <a href="#" class="btn-play-hero" style="background:var(--caramel);">Try Demo</a>
+            </div>
+            <div class="phone-mockup">
+                <img src="https://images.unsplash.com/photo-1616084403167-275d2729e246?auto=format&fit=crop&w=800&q=80"
+                    class="phone-screen" alt="AR Room">
+                <div class="ar-overlay-ui"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="foot-grid">
+            <div class="foot-brand">
+                <h3>NOIR</h3>
+                <p>A cinematic branding agency for the world's finest perfumes.</p>
+            </div>
+            <div class="foot-col">
+                <h4>Services</h4>
+                <a href="#">Production</a>
+                <a href="#">Strategy</a>
+                <a href="#">Identity</a>
+            </div>
+            <div class="foot-col">
+                <h4>Company</h4>
+                <a href="#">About</a>
+                <a href="#">Careers</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="foot-col">
+                <h4>Social</h4>
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">Vimeo</a>
+            </div>
+        </div>
+        <div class="foot-copy">© 2026 Noir Digital Studio. Production House.</div>
+    </footer>
+
+    <script>
+        // SMOOTH SCROLL FILTER
+        function scrollToSec(id) {
+            const el = document.getElementById(id);
+            const offset = 120; // Header offset
+            const bodyRect = document.body.getBoundingClientRect().top;
+            const elementRect = el.getBoundingClientRect().top;
+            const elementPosition = elementRect - bodyRect;
+            const offsetPosition = elementPosition - offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+
+            // Update Active Link
+            document.querySelectorAll('.channel-link').forEach(l => l.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // HEADER SCROLL
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.style.padding = '15px 6%';
+                header.style.boxShadow = '0 10px 30px rgba(0,0,0,0.05)';
+            } else {
+                header.style.padding = '25px 6%';
+                header.style.boxShadow = 'none';
+            }
+        });
+    </script>
+
+</body>
+
+</html>

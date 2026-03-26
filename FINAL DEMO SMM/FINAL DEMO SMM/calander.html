@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Command Center — Noir Digital Studio</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* NOIR MASTER THEME - DARK DASHBOARD MODE */
+    :root {
+      --mocha: #3E2F2B;
+      --gold: #D4AF37;
+      --bg-dark: #050505;
+      --card-bg: #111;
+      --border: #222;
+      --text-main: #eee;
+      --text-muted: #888;
+      /* Dark Nav Variables */
+      --nav-bg: rgba(5, 5, 5, 0.96);
+      --nav-blur: 20px;
+      --nav-text: #ffffff;
+      --nav-accent: #D4AF37;
+      --nav-border: rgba(212, 175, 55, 0.15);
+      --nav-drop-bg: #111111;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      color: var(--text-main);
+      background: var(--bg-dark);
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* ══════════════════════════════════════════════
+   MASTER NAVIGATION — DARK / GOLD THEME
+══════════════════════════════════════════════ */
+    #master-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 9999;
+      padding: 15px 4%;
+      background: var(--nav-bg);
+      backdrop-filter: blur(var(--nav-blur));
+      border-bottom: 1px solid var(--nav-border);
+      transition: all 0.4s ease;
+      display: block;
+    }
+
+    #master-nav.scrolled {
+      padding: 10px 4%;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .nav-container {
+      max-width: 1600px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .mark-shape {
+      fill: var(--nav-accent);
+      transition: .3s;
+    }
+
+    .mark-text {
+      fill: var(--bg-dark);
+      transition: .3s;
+    }
+
+    .brand-text-col {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--nav-text);
+      letter-spacing: 1px;
+    }
+
+    .brand-sub {
+      font-family: 'Poppins', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--nav-accent);
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .nav-link {
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--nav-text);
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.3s;
+      position: relative;
+      opacity: 0.7;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-link i {
+      font-size: 14px;
+      color: var(--nav-accent);
+      opacity: 0.8;
+      transition: 0.3s;
+    }
+
+    .nav-link:hover i {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--nav-accent);
+      opacity: 1;
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--nav-accent);
+    }
+
+    .nav-item {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .arrow-icon {
+      font-size: 10px;
+      margin-left: 2px;
+      transition: 0.3s;
+      opacity: 0.6;
+    }
+
+    .nav-item:hover .arrow-icon {
+      transform: rotate(180deg);
+      color: var(--nav-accent);
+      opacity: 1;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--nav-drop-bg);
+      min-width: 240px;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--nav-border);
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-item:hover .dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(5px);
+    }
+
+    .dropdown a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: 0.2s;
+      white-space: nowrap;
+      font-family: 'Poppins', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .dropdown a i {
+      color: var(--nav-accent);
+      width: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .dropdown a:hover {
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--nav-accent);
+      padding-left: 20px;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+    }
+
+    .mobile-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .mobile-toggle span {
+      width: 28px;
+      height: 2px;
+      background: var(--nav-text);
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* MOBILE MENU — DARK */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: #0a0a0a;
+      z-index: 10000;
+      transform: translateX(100%);
+      transition: 0.4s ease;
+      display: flex;
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    .mm-inner {
+      width: 100%;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      overflow-y: auto;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .mm-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .mm-scroll a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 10px 0;
+    }
+
+    .mm-scroll a:hover {
+      color: var(--nav-accent);
+    }
+
+    .mm-scroll hr {
+      width: 100%;
+      border: 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      margin: 15px 0;
+    }
+
+    .mm-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--nav-accent);
+      margin-bottom: 5px;
+      display: block;
+      opacity: 0.8;
+    }
+
+    .sub-link {
+      font-size: 15px;
+      margin-left: 20px;
+      opacity: 0.9;
+    }
+
+    @media(max-width: 1300px) {
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-toggle {
+        display: flex;
+      }
+    }
+
+    /* DASHBOARD HERO */
+    .dashboard-hero {
+      padding: 140px 8% 60px;
+      background: linear-gradient(to bottom, #0f0f0f, #050505);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .hero-text h2 {
+      font-size: 42px;
+      color: #fff;
+      margin: 0 0 10px;
+    }
+
+    .hero-text p {
+      color: var(--text-muted);
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    .stats-bar {
+      display: flex;
+      gap: 40px;
+    }
+
+    .stat h4 {
+      font-size: 28px;
+      color: var(--gold);
+      margin: 0;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .stat span {
+      font-size: 10px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* CALENDAR GRID */
+    .calendar-section {
+      padding: 60px 8%;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 30px;
+    }
+
+    /* LUXURY POST CARD */
+    .post-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .post-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--gold);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    /* IMAGE PREVIEW */
+    .card-img-wrapper {
+      position: relative;
+      height: 280px;
+      overflow: hidden;
+    }
+
+    .card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s;
+      opacity: 0.85;
+    }
+
+    .post-card:hover .card-img {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+
+    .platform-tag {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* CONTENT */
+    .card-body {
+      padding: 25px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      font-size: 10px;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+    }
+
+    .concept-title {
+      color: #fff;
+      font-size: 20px;
+      margin: 0 0 15px;
+      line-height: 1.3;
+    }
+
+    .caption-preview {
+      background: #1a1a1a;
+      padding: 20px;
+      border-left: 2px solid var(--gold);
+      font-size: 13px;
+      color: #aaa;
+      line-height: 1.7;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    .hashtags {
+      font-size: 11px;
+      color: #555;
+      margin-bottom: 20px;
+      line-height: 1.6;
+      font-family: monospace;
+    }
+
+    /* FOOTER ACTIONS */
+    .card-footer {
+      padding: 20px 25px;
+      border-top: 1px solid #222;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0e0e0e;
+    }
+
+    .goal-badge {
+      font-size: 9px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: 1px solid #333;
+      padding: 6px 12px;
+      border-radius: 2px;
+    }
+
+    .copy-btn {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 8px 18px;
+      border-radius: 2px;
+      cursor: pointer;
+      font-size: 10px;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: .3s;
+    }
+
+    .copy-btn:hover {
+      background: var(--gold);
+      color: #000;
+    }
+
+    /* FOOTER */
+    .lux-footer {
+      background: #000;
+      color: #666;
+      padding: 60px 8% 30px;
+      text-align: center;
+      border-top: 1px solid #222;
+    }
+
+    @media(max-width:768px) {
+      .dashboard-hero {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header id="master-nav">
+    <div class="nav-container">
+      <a href="home.html" class="nav-brand">
+        <svg class="brand-mark" width="45" height="45" viewBox="0 0 100 100" fill="none">
+          <path d="M50 5C50 5 15 45 15 67C15 86.3 30.7 102 50 102C69.3 102 85 86.3 85 67C85 45 50 5 50 5Z"
+            class="mark-shape" />
+          <text x="50" y="80" font-family="'Playfair Display', serif" font-weight="700" font-size="42" class="mark-text"
+            text-anchor="middle">N</text>
+        </svg>
+        <div class="brand-text-col">
+          <span class="brand-name">NOIR</span>
+          <span class="brand-sub">Digital Studio</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="home.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="about.html" class="nav-link"><i class="fa-solid fa-circle-info"></i> About</a>
+
+        <div class="nav-item has-dropdown">
+          <span class="nav-link active"><i class="fa-solid fa-layer-group"></i> Services <i
+              class="fa-solid fa-chevron-down arrow-icon"></i></span>
+          <div class="dropdown">
+
+            <a href="instagram.html"><i class="fa-brands fa-instagram"></i> Instagram Viral</a>
+            <a href="affiliate.html"><i class="fa-solid fa-users-viewfinder"></i> Affiliate Program</a>
+            <a href="email.html"><i class="fa-regular fa-envelope"></i> Email Marketing</a>
+            <a href="blog.html"><i class="fa-solid fa-pen-nib"></i> Blog Content</a>
+            <a href="calander.html"><i class="fa-regular fa-calendar"></i> Launch Calendar</a>
+            <a href="video-marketing.html"><i class="fa-solid fa-video"></i> Video Marketing</a>
+          </div>
+        </div>
+
+        <div class="nav-item has-dropdown">
+          <span class="nav-link"><i class="fa-solid fa-star"></i> Celebrity <i
+              class="fa-solid fa-chevron-down arrow-icon"></i></span>
+          <div class="dropdown">
+            <a href="celebrity.html"><i class="fa-solid fa-gem"></i> Celebrity Perfumes</a>
+            <a href="campaign.html"><i class="fa-solid fa-film"></i> Campaign Videos</a>
+            <a href="icons.html"><i class="fa-solid fa-id-card"></i> Icon Profiles</a>
+          </div>
+        </div>
+
+        <a href="campaign.html" class="nav-link"><i class="fa-solid fa-clapperboard"></i> Campaigns</a>
+        <a href="project.html" class="nav-link">PROJECT</a>
+        <a href="blog.html" class="nav-link"><i class="fa-solid fa-newspaper"></i> Blog</a>
+        <a href="product.html" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Shop</a>
+        <a href="mobile.html" class="nav-link"><i class="fa-solid fa-mobile-screen"></i> App</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="mobile-toggle" onclick="toggleNav()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mm-inner">
+        <div class="mm-head">
+          <span class="brand-name" style="font-size:24px;">NOIR</span>
+          <button class="close-btn" onclick="toggleNav()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="mm-scroll">
+          <a href="home.html"><i class="fa-solid fa-house"></i> Home</a>
+          <a href="about.html"><i class="fa-solid fa-circle-info"></i> About</a>
+          <hr>
+          <span class="mm-label">Services</span>
+          <a href="product.html" class="sub-link"><i class="fa-solid fa-bottle-droplet"></i> Product</a>
+          <a href="instagram.html" class="sub-link"><i class="fa-brands fa-instagram"></i> Instagram</a>
+          <a href="affiliate.html" class="sub-link"><i class="fa-solid fa-users"></i> Affiliates</a>
+          <a href="email.html" class="sub-link"><i class="fa-regular fa-envelope"></i> Email</a>
+          <a href="calander.html" class="sub-link" style="color:var(--nav-accent);"><i
+              class="fa-regular fa-calendar"></i> Calendar</a>
+          <hr>
+          <span class="mm-label">Talent</span>
+          <a href="celebrity.html" class="sub-link"><i class="fa-solid fa-star"></i> Celebrity</a>
+          <a href="campaign.html" class="sub-link"><i class="fa-solid fa-film"></i> Campaigns</a>
+          <hr>
+          <a href="blog.html"><i class="fa-solid fa-newspaper"></i> Blog</a>
+          <a href="product.html"><i class="fa-solid fa-bag-shopping"></i> Shop</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="dashboard-hero">
+    <div class="hero-text">
+      <h2>Content Command Center</h2>
+      <p>Weekly Strategy • <span style="color:var(--gold)">Feb 03 - Feb 09, 2026</span></p>
+    </div>
+    <div class="stats-bar">
+      <div class="stat">
+        <h4>7</h4><span>Active Posts</span>
+      </div>
+      <div class="stat">
+        <h4>Reels</h4><span>Focus Format</span>
+      </div>
+      <div class="stat">
+        <h4>+24%</h4><span>Growth MoM</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="calendar-section">
+    <div class="calendar-grid">
+
+      <div class="post-card">
+        <div class="card-img-wrapper">
+          <span class="platform-tag"><i class="fa-brands fa-instagram"></i> Static</span>
+          <img src="https://images.unsplash.com/photo-1547887538-e3a2f32cb1cc?auto=format&fit=crop&w=800&q=80"
+            class="card-img" alt="Luxury minimalist texture">
+        </div>
+        <div class="card-body">
+          <div class="meta-row">
+            <span>Monday • Day 1</span>
+            <span><i class="fa-regular fa-clock"></i> 09:00 AM</span>
+          </div>
+          <h3 class="concept-title">The Noir Manifesto</h3>
+          <div class="caption-preview">
+            "Luxury isn't loud. It's felt. 🌑 Introducing Noir Digital Studio—where we turn premium brands into
+            cinematic legacies. Stop competing on noise. Start winning on aura."
+          </div>
+          <div class="hashtags">#noirdigital #quietluxury #brandmanifesto</div>
+        </div>
+        <div class="card-footer">
+          <span class="goal-badge">Goal: Awareness</span>
+          <button class="copy-btn" onclick="copyText(this)">Copy Caption</button>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="card-img-wrapper">
+          <span class="platform-tag"><i class="fa-solid fa-film"></i> Reel</span>
+          <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=800&q=80"
+            class="card-img" alt="Gold liquid texture">
+        </div>
+        <div class="card-body">
+          <div class="meta-row">
+            <span>Tuesday • Day 2</span>
+            <span><i class="fa-regular fa-clock"></i> 12:30 PM</span>
+          </div>
+          <h3 class="concept-title">Color Psychology: Gold & Noir</h3>
+          <div class="caption-preview">
+            "Why do top heritage brands use Mocha and Gold? It's not a trend; it's psychology. Swipe to see the palette
+            that builds trust instantly. 🎨✨"
+          </div>
+          <div class="hashtags">#luxurybranding #colorpsychology #designstrategy</div>
+        </div>
+        <div class="card-footer">
+          <span class="goal-badge">Goal: Education</span>
+          <button class="copy-btn" onclick="copyText(this)">Copy Caption</button>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="card-img-wrapper">
+          <span class="platform-tag"><i class="fa-solid fa-layer-group"></i> Carousel</span>
+          <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=80"
+            class="card-img" alt="Website showcase">
+        </div>
+        <div class="card-body">
+          <div class="meta-row">
+            <span>Wednesday • Day 3</span>
+            <span><i class="fa-regular fa-clock"></i> 06:00 PM</span>
+          </div>
+          <h3 class="concept-title">Case Study: Digital Renovation</h3>
+          <div class="caption-preview">
+            "We don't just post. We renovate identity. Swipe to see how we transformed a generic perfume brand into a
+            digital icon. 🕯️ Ready for your audit?"
+          </div>
+          <div class="hashtags">#casestudy #webdesign #beforeandafter</div>
+        </div>
+        <div class="card-footer">
+          <span class="goal-badge">Goal: Leads</span>
+          <button class="copy-btn" onclick="copyText(this)">Copy Caption</button>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="card-img-wrapper">
+          <span class="platform-tag"><i class="fa-brands fa-instagram"></i> Story</span>
+          <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80"
+            class="card-img" alt="Agency workspace dark mode">
+        </div>
+        <div class="card-body">
+          <div class="meta-row">
+            <span>Thursday • Day 4</span>
+            <span><i class="fa-regular fa-clock"></i> 10:00 AM</span>
+          </div>
+          <h3 class="concept-title">BTS: The Developer's Desk</h3>
+          <div class="caption-preview">
+            "The discipline behind the design. Coding the future of digital luxury today. ☕💻 #developerlife"
+          </div>
+          <div class="hashtags">#agencyowner #bts #codinglife</div>
+        </div>
+        <div class="card-footer">
+          <span class="goal-badge">Goal: Trust</span>
+          <button class="copy-btn" onclick="copyText(this)">Copy Caption</button>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="card-img-wrapper">
+          <span class="platform-tag"><i class="fa-solid fa-film"></i> Reel</span>
+          <img src="https://images.unsplash.com/photo-1596462502278-27bfdd403cc2?auto=format&fit=crop&w=800&q=80"
+            class="card-img" alt="Perfume bottle mist">
+        </div>
+        <div class="card-body">
+          <div class="meta-row">
+            <span>Friday • Day 5</span>
+            <span><i class="fa-regular fa-clock"></i> 05:00 PM</span>
+          </div>
+          <h3 class="concept-title">Problem/Solution: Scent</h3>
+          <div class="caption-preview">
+            "The #1 mistake fragrance brands make? They sell ingredients, not feelings. 🥀 Don't tell me it smells like
+            rose; show me the romance."
+          </div>
+          <div class="hashtags">#fragrancebusiness #marketingtips #perfumery</div>
+        </div>
+        <div class="card-footer">
+          <span class="goal-badge">Goal: Saves</span>
+          <button class="copy-btn" onclick="copyText(this)">Copy Caption</button>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="card-img-wrapper">
+          <span class="platform-tag"><i class="fa-regular fa-comments"></i> Post</span>
+          <img src="https://images.unsplash.com/photo-1507643179173-46b77c056d99?auto=format&fit=crop&w=800&q=80"
+            class="card-img" alt="Luxury architecture">
+        </div>
+        <div class="card-body">
+          <div class="meta-row">
+            <span>Saturday • Day 6</span>
+            <span><i class="fa-regular fa-clock"></i> 01:00 PM</span>
+          </div>
+          <h3 class="concept-title">Engagement: Aesthetic Debate</h3>
+          <div class="caption-preview">
+            "Left or Right? Which aesthetic speaks 'Premium' to you? Minimalist Noir or Gilded Opulence? Let's settle
+            the debate in the comments. 👇"
+          </div>
+          <div class="hashtags">#designinspiration #thisorthat #aesthetic</div>
+        </div>
+        <div class="card-footer">
+          <span class="goal-badge">Goal: Comments</span>
+          <button class="copy-btn" onclick="copyText(this)">Copy Caption</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="lux-footer">
+    <h3>Noir Digital Studio</h3>
+    <div class="footer-bottom">
+      © 2026 Internal Strategy Dashboard
+    </div>
+  </footer>
+
+  <script>
+    // MOBILE NAV TOGGLE
+    function toggleNav() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    // NAVBAR SCROLL EFFECT
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('master-nav');
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    function copyText(btn) {
+      const card = btn.closest('.post-card');
+      const text = card.querySelector('.caption-preview').innerText;
+      navigator.clipboard.writeText(text);
+
+      const original = btn.innerText;
+      btn.innerText = "COPIED";
+      btn.style.background = "#D4AF37";
+      btn.style.color = "#000";
+
+      setTimeout(() => {
+        btn.innerText = original;
+        btn.style.background = "transparent";
+        btn.style.color = "#D4AF37";
+      }, 2000);
+    }
+  </script>
+
+</body>
+
+</html>

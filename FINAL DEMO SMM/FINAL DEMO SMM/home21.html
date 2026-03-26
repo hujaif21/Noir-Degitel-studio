@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Noir Digital Studio — Luxury Social Media Marketing</title>
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* 1. FONTS */
+    @font-face {
+      font-family: 'Cinzel';
+      src: url('fonts/cinzel-v26-latin-regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Playfair Display';
+      src: url('fonts/playfair-display-v40-latin-regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Poppins';
+      src: url('fonts/poppins-v24-latin-regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Manrope';
+      src: url('https://fonts.gstatic.com/s/manrope/v14/xn7_YHE41ni1AdIRqAuZuw1Bx9mbZk79FN_C.woff2') format('woff2');
+      font-weight: 500;
+    }
+
+    /* 2. VARIABLES */
+    :root {
+      /* Content Colors */
+      --mocha: #3E2F2B;
+      --coffee: #6A5648;
+      --caramel: #C9A46C;
+      --beige: #EFE5D8;
+      --linen: #FBF7F2;
+      --white: #ffffff;
+
+      /* Navbar Specific Variables */
+      --nav-bg: rgba(255, 255, 255, 0.96);
+      --nav-blur: 20px;
+      --nav-text: #3E2F2B;
+      /* Mocha */
+      --nav-accent: #C9A46C;
+      /* Caramel */
+      --nav-border: rgba(198, 156, 109, 0.15);
+      --nav-drop-bg: #FFFFFF;
+    }
+
+    /* GLOBAL */
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      color: var(--mocha);
+      background: var(--white);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* ══════════════════════════════════════════════
+   NEW MASTER NAVIGATION STYLES
+══════════════════════════════════════════════ */
+    #master-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 9999;
+      padding: 15px 4%;
+      background: var(--nav-bg);
+      backdrop-filter: blur(var(--nav-blur));
+      border-bottom: 1px solid var(--nav-border);
+      transition: all 0.4s ease;
+      display: block;
+      /* Ensure it overrides any old flex settings */
+    }
+
+    .nav-container {
+      max-width: 1600px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* BRAND LOGO */
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .mark-shape {
+      fill: var(--nav-text);
+      transition: .3s;
+    }
+
+    .mark-text {
+      fill: var(--nav-accent);
+      transition: .3s;
+    }
+
+    .brand-text-col {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--nav-text);
+      letter-spacing: 1px;
+    }
+
+    .brand-sub {
+      font-family: 'Manrope', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--nav-accent);
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    /* NAV LINKS */
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .nav-link {
+      font-family: 'Manrope', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--nav-text);
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.3s;
+      position: relative;
+      opacity: 0.85;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-link i {
+      font-size: 14px;
+      color: var(--nav-accent);
+      opacity: 0.8;
+      transition: 0.3s;
+    }
+
+    .nav-link:hover i {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--nav-accent);
+      opacity: 1;
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--nav-accent);
+    }
+
+    /* DROPDOWNS */
+    .nav-item {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .arrow-icon {
+      font-size: 10px;
+      margin-left: 2px;
+      transition: 0.3s;
+      opacity: 0.6;
+    }
+
+    .nav-item:hover .arrow-icon {
+      transform: rotate(180deg);
+      color: var(--nav-accent);
+      opacity: 1;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--nav-drop-bg);
+      min-width: 240px;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--nav-border);
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-item:hover .dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(5px);
+    }
+
+    /* Dropdown Items */
+    .dropdown a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      color: var(--nav-text);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: 0.2s;
+      white-space: nowrap;
+      font-family: 'Manrope', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .dropdown a i {
+      color: var(--nav-accent);
+      width: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .dropdown a:hover {
+      background: rgba(198, 156, 109, 0.08);
+      color: var(--nav-accent);
+      padding-left: 20px;
+    }
+
+    /* MOBILE MENU TOGGLE */
+    .nav-actions {
+      display: flex;
+      align-items: center;
+    }
+
+    .mobile-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .mobile-toggle span {
+      width: 28px;
+      height: 2px;
+      background: var(--nav-text);
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* MOBILE MENU OVERLAY */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: var(--nav-drop-bg);
+      z-index: 10000;
+      transform: translateX(100%);
+      transition: 0.4s ease;
+      display: flex;
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    .mm-inner {
+      width: 100%;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      overflow-y: auto;
+      font-family: 'Manrope', sans-serif;
+    }
+
+    .mm-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: var(--nav-text);
+      cursor: pointer;
+    }
+
+    .mm-scroll a {
+      color: var(--nav-text);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 10px 0;
+    }
+
+    .mm-scroll hr {
+      width: 100%;
+      border: 0;
+      border-top: 1px solid var(--nav-border);
+      margin: 15px 0;
+    }
+
+    .mm-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--nav-accent);
+      margin-bottom: 5px;
+      display: block;
+      opacity: 0.8;
+    }
+
+    .sub-link {
+      font-size: 15px;
+      margin-left: 20px;
+      opacity: 0.9;
+    }
+
+    @media(max-width: 1300px) {
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-toggle {
+        display: flex;
+      }
+    }
+
+    /* ══════════════════════════════════════════════
+   EXISTING PAGE STYLES
+══════════════════════════════════════════════ */
+
+    /* CINEMATIC HERO */
+    .hero {
+      background: linear-gradient(to right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.4)),
+        url("https://images.unsplash.com/photo-1615634260167-c8cdede054de?auto=format&fit=crop&w=1600&q=80") center/cover fixed;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 0 8%;
+      padding-top: 80px;
+      /* Offset for fixed header */
+    }
+
+    .hero-content {
+      max-width: 650px;
+      animation: fadeUp 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero h2 {
+      color: var(--mocha);
+      font-size: 56px;
+      line-height: 1.1;
+      margin-bottom: 25px;
+      font-weight: 700;
+    }
+
+    .hero p {
+      line-height: 1.8;
+      color: #554840;
+      font-size: 18px;
+      margin-bottom: 35px;
+      font-weight: 300;
+    }
+
+    /* LUXURY BUTTONS */
+    .btn {
+      padding: 16px 36px;
+      border: none;
+      background: var(--coffee);
+      color: #fff;
+      border-radius: 2px;
+      cursor: pointer;
+      font-family: "Poppins", sans-serif;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      box-shadow: 0 4px 15px rgba(106, 86, 72, .15);
+    }
+
+    .btn:hover {
+      background: var(--mocha);
+      transform: translateY(-4px);
+      box-shadow: 0 15px 30px rgba(62, 47, 43, .25);
+    }
+
+    /* SECTION GLOBAL */
+    section {
+      padding: 110px 8%;
+    }
+
+    section h2 {
+      text-align: center;
+      color: var(--mocha);
+      margin-bottom: 60px;
+      font-size: 38px;
+      font-weight: 600;
+    }
+
+    /* GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 35px;
+    }
+
+    /* SERVICES */
+    #services {
+      background: var(--linen);
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid rgba(239, 229, 216, 0.8);
+      border-radius: 4px;
+      padding: 45px 30px;
+      text-align: center;
+      transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    /* Icon Styling */
+    .card i {
+      font-size: 32px;
+      color: var(--caramel);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .card h3 {
+      color: var(--mocha);
+      margin-bottom: 15px;
+      font-size: 24px;
+    }
+
+    .card p {
+      color: #666;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, .08);
+      border-color: var(--caramel);
+    }
+
+    /* BRAND IDENTITY BOX */
+    .brand-box {
+      background: linear-gradient(135deg, var(--coffee), var(--mocha));
+      color: var(--linen);
+      padding: 70px 50px;
+      border-radius: 4px;
+      text-align: center;
+      font-size: 24px;
+      line-height: 1.6;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      box-shadow: 0 20px 40px rgba(62, 47, 43, 0.15);
+    }
+
+    .brand-box span {
+      color: var(--caramel);
+      font-weight: 700;
+    }
+
+    /* CASE STUDIES */
+    .case {
+      background: #faf7f2;
+      padding: 35px;
+      border-radius: 4px;
+      border-left: 3px solid var(--caramel);
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .badge {
+      background: var(--caramel);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* PRICING */
+    .price-box {
+      background: #ffffff;
+      padding: 45px 30px;
+      border-radius: 4px;
+      border: 1px solid var(--beige);
+      text-align: center;
+      transition: all 0.4s ease;
+    }
+
+    .price-box:hover {
+      transform: translateY(-8px);
+      border-color: var(--caramel);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, .05);
+    }
+
+    .price {
+      font-size: 36px;
+      color: var(--caramel);
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      margin: 15px 0;
+    }
+
+    /* INSIGHTS SECTION */
+    #insights {
+      background: #fff;
+      border-top: 1px solid var(--beige);
+    }
+
+    .insight-card {
+      background: #fff;
+      border: 1px solid rgba(239, 229, 216, 0.8);
+      overflow: hidden;
+      text-align: left;
+      transition: .4s;
+      text-decoration: none;
+      display: block;
+    }
+
+    .insight-img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+    }
+
+    .insight-body {
+      padding: 30px;
+    }
+
+    .insight-date {
+      font-size: 11px;
+      color: var(--caramel);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    .insight-card h3 {
+      font-size: 22px;
+      color: var(--mocha);
+      margin: 10px 0;
+      line-height: 1.3;
+    }
+
+    .insight-link {
+      font-size: 12px;
+      color: var(--coffee);
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-top: 15px;
+      display: block;
+    }
+
+    .insight-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    }
+
+    /* CTA SECTION */
+    .cta {
+      text-align: center;
+      background: linear-gradient(to right, #faf7f2, #ffffff);
+      border-top: 1px solid var(--beige);
+      padding: 90px 8%;
+    }
+
+    /* FOOTER */
+    .lux-footer {
+      background: var(--mocha);
+      color: var(--linen);
+      padding: 80px 8% 30px;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .footer-content h3 {
+      color: var(--caramel);
+      letter-spacing: 3px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    .footer-content p {
+      line-height: 1.9;
+      font-size: 15px;
+      opacity: .85;
+      margin-bottom: 40px;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .social-icons a {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--linen);
+      font-size: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.4s ease;
+    }
+
+    .social-icons a:hover {
+      transform: translateY(-6px);
+      background: var(--caramel);
+      color: #fff;
+      border-color: var(--caramel);
+    }
+
+    .footer-bottom {
+      margin-top: 60px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 13px;
+      opacity: .5;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header id="master-nav">
+    <div class="nav-container">
+
+      <a href="home.html" class="nav-brand">
+        <svg class="brand-mark" width="45" height="45" viewBox="0 0 100 100" fill="none">
+          <path d="M50 5C50 5 15 45 15 67C15 86.3 30.7 102 50 102C69.3 102 85 86.3 85 67C85 45 50 5 50 5Z"
+            class="mark-shape" />
+          <text x="50" y="80" font-family="'Playfair Display', serif" font-weight="700" font-size="42" class="mark-text"
+            text-anchor="middle">N</text>
+        </svg>
+        <div class="brand-text-col">
+          <span class="brand-name">NOIR</span>
+          <span class="brand-sub">Digital Studio</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="home.html" class="nav-link">HOME</a>
+        <a href="about.html" class="nav-link">ABOUT</a>
+
+        <div class="nav-item has-dropdown">
+          <span class="nav-link">SERVICES <i class="fa-solid fa-chevron-down arrow-icon"></i></span>
+          <div class="dropdown">
+            <a href="instagram.html">
+              <span class="icon-box"><i class="fa-brands fa-instagram"></i></span>
+              Instagram Viral
+            </a>
+            <a href="email.html">
+              <span class="icon-box"><i class="fa-regular fa-envelope"></i></span>
+              Email Marketing
+            </a>
+            <a href="affiliate.html">
+              <span class="icon-box"><i class="fa-solid fa-users-viewfinder"></i></span>
+              Affiliate Program
+            </a>
+            <a href="mobile.html">
+              <span class="icon-box"><i class="fa-solid fa-mobile-screen"></i></span>
+              Mobile Strategy
+            </a>
+            <a href="video.html">
+              <span class="icon-box"><i class="fa-solid fa-video"></i></span>
+              Video Production
+            </a>
+            <a href="calander.html">
+              <span class="icon-box"><i class="fa-regular fa-calendar"></i></span>
+              Launch Calendar
+            </a>
+          </div>
+        </div>
+
+        <div class="nav-item has-dropdown">
+          <span class="nav-link">CELEBRITY <i class="fa-solid fa-chevron-down arrow-icon"></i></span>
+          <div class="dropdown">
+            <a href="icons.html">
+              <span class="icon-box"><i class="fa-regular fa-id-card"></i></span>
+              Icon Profiles
+            </a>
+            <a href="celebrity.html">
+              <span class="icon-box"><i class="fa-solid fa-gem"></i></span>
+              Signature Scents
+            </a>
+          </div>
+        </div>
+
+        <a href="campaign.html" class="nav-link">CAMPAIGNS</a>
+        <a href="blog.html" class="nav-link">BLOG</a>
+        <a href="product.html" class="nav-link">SHOP</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="mobile-toggle" onclick="toggleNav()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mm-inner">
+        <div class="mm-head">
+          <span class="brand-name" style="font-size:24px;">NOIR</span>
+          <button class="close-btn" onclick="toggleNav()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="mm-scroll">
+          <a href="home.html">HOME</a>
+          <a href="about.html">ABOUT</a>
+          <hr>
+          <span class="mm-label">Agency Services</span>
+          <a href="instagram.html" class="sub-link"><i class="fa-brands fa-instagram"></i> Instagram</a>
+          <a href="email.html" class="sub-link"><i class="fa-regular fa-envelope"></i> Email</a>
+          <a href="affiliate.html" class="sub-link"><i class="fa-solid fa-users"></i> Affiliates</a>
+          <a href="video.html" class="sub-link"><i class="fa-solid fa-video"></i> Video</a>
+          <hr>
+          <a href="campaign.html">CAMPAIGNS</a>
+          <a href="blog.html">JOURNAL</a>
+          <a href="product.html">SHOP</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="hero-content">
+      <h2>Luxury Branding & Social Media Growth Studio</h2>
+      <p>We help premium brands — perfumes, fashion & lifestyle — build identity, grow audience, and increase
+        conversions through creative content and performance marketing.</p>
+      <button class="btn" onclick="scrollToSection('services')">Explore Services</button>
+    </div>
+  </div>
+
+  <section id="services">
+    <h2>Our Core Services</h2>
+    <div class="grid">
+      <div class="card">
+        <i class="fa-brands fa-instagram"></i>
+        <h3>Instagram Growth</h3>
+        <p>Organic brand awareness, reels strategy & audience building.</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-bullhorn"></i>
+        <h3>Paid Advertising</h3>
+        <p>Facebook & Instagram ads designed for leads and conversions.</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        <h3>Content & Branding</h3>
+        <p>Premium visuals, brand aesthetics, product storytelling.</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-chart-line"></i>
+        <h3>Analytics & Reports</h3>
+        <p>Performance growth, ROI tracking & optimization insights.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="branding">
+    <h2>Luxury Brand Identity Focus</h2>
+    <div class="brand-box">
+      We craft visual presence that feels <span>premium, elegant and emotionally engaging</span>.
+      From product storytelling to social media moodboards — your brand becomes a lifestyle experience.
+    </div>
+  </section>
+
+  <section id="insights">
+    <h2>Noir Insights</h2>
+    <div class="grid">
+      <a href="post1.html" class="insight-card">
+        <img src="https://images.unsplash.com/photo-1504198458649-3128b932f49e?auto=format&fit=crop&w=800&q=80"
+          class="insight-img" alt="Fashion aesthetic">
+        <div class="insight-body">
+          <span class="insight-date">Visual Strategy</span>
+          <h3>Beyond the Logo: The Art of Quiet Luxury</h3>
+          <span class="insight-link">Read Article →</span>
+        </div>
+      </a>
+      <a href="post2.html" class="insight-card">
+        <img src="https://images.unsplash.com/photo-1616084403167-275d2729e246?auto=format&fit=crop&w=800&q=80"
+          class="insight-img" alt="Perfume science">
+        <div class="insight-body">
+          <span class="insight-date">Product Engineering</span>
+          <h3>The Science of Longevity: 12+ Hour Scent</h3>
+          <span class="insight-link">Read Article →</span>
+        </div>
+      </a>
+      <a href="blog.html" class="insight-card"
+        style="display:flex; align-items:center; justify-content:center; background:#1a1a1a; border:none;">
+        <div style="text-align:center; padding:40px;">
+          <i class="fa-solid fa-arrow-right-long" style="color:#C9A46C; font-size:32px; margin-bottom:20px;"></i>
+          <h3 style="color:#fff; margin:0;">View All<br>Editorials</h3>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section id="cases">
+    <h2>Case Studies</h2>
+    <div class="grid">
+      <div class="case">
+        <span class="badge">Perfume Brand</span><br><br>
+        Increased followers from 1,200 → 10,000 in 3 months with luxury-themed content & reels marketing.
+      </div>
+      <div class="case">
+        <span class="badge">Fashion Store</span><br><br>
+        Generated 285+ leads using targeted Facebook Ads & influencer creatives.
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <h2>Packages</h2>
+    <div class="grid">
+      <div class="price-box">
+        <h3>Starter</h3>
+        <p class="price">₹2999 / month</p>
+        <p>Social posts + Basic growth</p>
+      </div>
+      <div class="price-box">
+        <h3>Growth</h3>
+        <p class="price">₹5999 / month</p>
+        <p>Reels + Ads + Strategy</p>
+      </div>
+      <div class="price-box">
+        <h3>Premium Brand</h3>
+        <p class="price">₹9999 / month</p>
+        <p>Full branding + campaigns</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="contact">
+    <h2>Let’s Build Your Brand Identity</h2>
+    <p style="margin-bottom: 25px; color: #666;">Book a free consultation call</p>
+    <button class="btn" onclick="contact()">Contact on WhatsApp</button>
+  </section>
+
+  <footer class="lux-footer">
+    <div class="footer-content">
+      <h3>Noir Digital Studio</h3>
+      <p>
+        A luxury-focused digital studio crafting premium branding,
+        high-impact social media presence and visually rich storytelling
+        for modern lifestyle & fragrance brands.
+      </p>
+      <div class="social-icons">
+        <a href="#" class="insta" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="twitter" aria-label="Twitter X"><i class="fa-brands fa-twitter"></i></i></a>
+        <a href="#" class="facebook" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Noir Digital Studio — Luxury Branding & Social Media Marketing
+    </div>
+  </footer>
+
+  <script>
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+    }
+    function contact() {
+      alert("Contact us via WhatsApp to get started!");
+    }
+    // MOBILE NAV TOGGLE
+    function toggleNav() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+  </script>
+
+</body>
+
+</html>

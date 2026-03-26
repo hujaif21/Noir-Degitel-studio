@@ -1,0 +1,2465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NOIR Digital Studio — We Make Perfume Go Viral</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* ============================================================
+   DESIGN SYSTEM — WHITE MOCHA CARAMEL
+   ============================================================ */
+    :root {
+      --cream: #FDFAF5;
+      --linen: #F4EEE4;
+      --card: #FFFFFF;
+      --mocha: #2E1D14;
+      --mocha-mid: #5C3D2E;
+      --caramel: #C8893F;
+      --caramel-lt: #E8B876;
+      --gold: #D4AF37;
+      --clay: #9A8070;
+      --border: rgba(200, 137, 63, 0.18);
+      --shadow: 0 20px 60px rgba(46, 29, 20, 0.07);
+      --shadow-hover: 0 32px 80px rgba(46, 29, 20, 0.14);
+      --ease: cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--cream);
+      color: var(--mocha);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ============================================================
+   CUSTOM CURSOR
+   ============================================================ */
+    .cur {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .cur-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--caramel);
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: transform .15s;
+    }
+
+    .cur-ring {
+      width: 40px;
+      height: 40px;
+      border: 1.5px solid rgba(200, 137, 63, .4);
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width .35s var(--ease), height .35s var(--ease);
+    }
+
+    body.on-cta .cur-dot {
+      transform: translate(-50%, -50%) scale(3);
+      opacity: .35;
+    }
+
+    body.on-cta .cur-ring {
+      width: 64px;
+      height: 64px;
+      border-color: rgba(200, 137, 63, .6);
+    }
+
+    /* ============================================================
+   SCROLL PROGRESS BAR
+   ============================================================ */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      z-index: 9000;
+      background: linear-gradient(90deg, var(--mocha), var(--caramel), var(--caramel-lt));
+      width: 0%;
+      transition: width .1s linear;
+    }
+
+    /* ============================================================
+   BOTTOM TICKER
+   ============================================================ */
+    .ticker-wrap {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 800;
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      padding: 11px 0;
+      overflow: hidden;
+    }
+
+    .ticker-inner {
+      display: inline-flex;
+      white-space: nowrap;
+      animation: ticker 32s linear infinite;
+    }
+
+    .ticker-item {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--mocha);
+      padding: 0 48px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ticker-item .hi {
+      color: var(--caramel);
+    }
+
+    .ticker-dot {
+      color: var(--caramel);
+      font-size: 8px;
+    }
+
+    /* ============================================================
+   MASTER NAVIGATION — CONSISTENT WITH HOME
+   ============================================================ */
+    #master-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 9999;
+      padding: 15px 4%;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(198, 156, 109, 0.15);
+      transition: all 0.4s ease;
+      display: block;
+    }
+
+    #master-nav.scrolled {
+      padding: 10px 4%;
+      box-shadow: 0 4px 30px rgba(62, 47, 43, 0.08);
+    }
+
+    .nav-container {
+      max-width: 1600px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .mark-shape {
+      fill: var(--mocha);
+      transition: .3s;
+    }
+
+    .mark-text {
+      fill: var(--caramel);
+      transition: .3s;
+    }
+
+    .brand-text-col {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--mocha);
+      letter-spacing: 1px;
+    }
+
+    .brand-sub {
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--caramel);
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    .mn-nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .mn-nav-link {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--mocha);
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.3s;
+      position: relative;
+      opacity: 0.85;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mn-nav-link i {
+      font-size: 14px;
+      color: var(--caramel);
+      opacity: 0.8;
+      transition: 0.3s;
+    }
+
+    .mn-nav-link:hover i {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    .mn-nav-link:hover,
+    .mn-nav-link.active {
+      color: var(--caramel);
+      opacity: 1;
+    }
+
+    .mn-nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--caramel);
+    }
+
+    .mn-nav-item {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .mn-arrow-icon {
+      font-size: 10px;
+      margin-left: 2px;
+      transition: 0.3s;
+      opacity: 0.6;
+    }
+
+    .mn-nav-item:hover .mn-arrow-icon {
+      transform: rotate(180deg);
+      color: var(--caramel);
+      opacity: 1;
+    }
+
+    .mn-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #FFFFFF;
+      min-width: 240px;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(198, 156, 109, 0.15);
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .mn-nav-item:hover .mn-dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(5px);
+    }
+
+    .mn-dropdown a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      color: var(--mocha);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: 0.2s;
+      white-space: nowrap;
+      font-family: 'Outfit', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .mn-dropdown a i {
+      color: var(--caramel);
+      width: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .mn-dropdown a:hover {
+      background: rgba(198, 156, 109, 0.08);
+      color: var(--caramel);
+      padding-left: 20px;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+    }
+
+    .mobile-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .mobile-toggle span {
+      width: 28px;
+      height: 2px;
+      background: var(--mocha);
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: #FFFFFF;
+      z-index: 10000;
+      transform: translateX(100%);
+      transition: 0.4s ease;
+      display: flex;
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    .mm-inner {
+      width: 100%;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      overflow-y: auto;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .mm-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: var(--mocha);
+      cursor: pointer;
+    }
+
+    .mm-scroll a {
+      color: var(--mocha);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 10px 0;
+      cursor: pointer;
+    }
+
+    .mm-scroll hr {
+      width: 100%;
+      border: 0;
+      border-top: 1px solid rgba(198, 156, 109, 0.15);
+      margin: 15px 0;
+    }
+
+    .mm-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--caramel);
+      margin-bottom: 5px;
+      display: block;
+      opacity: 0.8;
+    }
+
+    .sub-link {
+      font-size: 15px;
+      margin-left: 20px;
+      opacity: 0.9;
+    }
+
+    @media(max-width: 1300px) {
+      .mn-nav-links {
+        display: none;
+      }
+
+      .mobile-toggle {
+        display: flex;
+      }
+    }
+
+    /* ============================================================
+   HERO — PROFILE SECTION
+   ============================================================ */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(160deg, var(--linen) 0%, var(--cream) 60%);
+      display: flex;
+      align-items: center;
+      padding: 130px 6% 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Soft background circles */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200, 137, 63, .07), transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -150px;
+      left: -150px;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(46, 29, 20, .04), transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 70px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* --- Profile Picture --- */
+    .profile-pic-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .pic-ring {
+      position: relative;
+      width: 200px;
+      height: 200px;
+    }
+
+    .ring-spin {
+      position: absolute;
+      inset: -14px;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(200, 137, 63, .4);
+      animation: spin 18s linear infinite;
+    }
+
+    .ring-spin-2 {
+      position: absolute;
+      inset: -24px;
+      border-radius: 50%;
+      border: 1px solid rgba(200, 137, 63, .12);
+      animation: spin 30s linear infinite reverse;
+    }
+
+    /* SVG Profile Pic Style */
+    .pic-img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: var(--mocha);
+      border: 5px solid var(--card);
+      box-shadow: var(--shadow);
+      position: relative;
+      z-index: 2;
+      padding: 35px;
+      /* Spacing for SVG logo inside */
+    }
+
+    /* Live green dot */
+    .live-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--mocha);
+      box-shadow: var(--shadow);
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, .2);
+      animation: pulse-green 2s ease-in-out infinite;
+    }
+
+    /* --- Hero Text --- */
+    .hero-text {}
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(200, 137, 63, .1);
+      border: 1px solid var(--border);
+      color: var(--caramel);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+
+    .hero-eyebrow i {
+      font-size: 10px;
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 6vw, 5.2rem);
+      font-weight: 600;
+      line-height: 1.0;
+      color: var(--mocha);
+      margin-bottom: 8px;
+    }
+
+    .hero-name span {
+      color: var(--caramel);
+      font-style: italic;
+    }
+
+    .hero-title {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--clay);
+      margin-bottom: 28px;
+    }
+
+    /* What we do — simple one-liner */
+    .hero-line {
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--mocha-mid);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 36px;
+    }
+
+    .hero-line strong {
+      color: var(--mocha);
+      font-weight: 600;
+    }
+
+    /* Numbers row */
+    .stats-row {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 36px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+      width: fit-content;
+    }
+
+    .stat {
+      padding: 20px 36px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+      min-width: 130px;
+    }
+
+    .stat:last-child {
+      border-right: none;
+    }
+
+    .stat .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--mocha);
+      display: block;
+      line-height: 1;
+    }
+
+    .stat .lbl {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      margin-top: 5px;
+      display: block;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-a {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 40px;
+      background: var(--mocha);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: none;
+      border-radius: 100px;
+      transition: all .35s var(--ease);
+      box-shadow: 0 10px 40px rgba(46, 29, 20, .2);
+    }
+
+    .btn-a:hover {
+      background: var(--caramel);
+      transform: translateY(-3px);
+      box-shadow: 0 20px 50px rgba(200, 137, 63, .35);
+    }
+
+    .btn-b {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 40px;
+      background: transparent;
+      border: 1.5px solid rgba(46, 29, 20, .2);
+      color: var(--mocha);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: none;
+      border-radius: 100px;
+      transition: all .35s var(--ease);
+    }
+
+    .btn-b:hover {
+      border-color: var(--caramel);
+      color: var(--caramel);
+      transform: translateY(-3px);
+    }
+
+    /* ============================================================
+   HIGHLIGHTS / STORY CIRCLES
+   ============================================================ */
+    .highlights {
+      padding: 60px 6% 0;
+      background: linear-gradient(to bottom, var(--cream), var(--linen));
+    }
+
+    .hl-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .hl-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      cursor: none;
+    }
+
+    .hl-circle {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: var(--mocha-mid);
+      box-shadow: var(--shadow);
+      transition: all .35s var(--ease);
+      position: relative;
+    }
+
+    .hl-circle::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 1px solid rgba(200, 137, 63, .2);
+      transition: all .35s;
+    }
+
+    .hl-item:hover .hl-circle {
+      border-color: var(--caramel);
+      color: var(--caramel);
+      transform: translateY(-6px) scale(1.08);
+      box-shadow: 0 20px 50px rgba(200, 137, 63, .2);
+    }
+
+    .hl-item:hover .hl-circle::before {
+      border-color: var(--caramel);
+      inset: -10px;
+    }
+
+    .hl-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--clay);
+    }
+
+    /* ============================================================
+   WHAT WE DO — SIMPLE EXPLAINER
+   ============================================================ */
+    .explainer {
+      padding: 120px 6%;
+      background: var(--linen);
+    }
+
+    .explainer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .section-tag::before {
+      content: '';
+      display: block;
+      width: 30px;
+      height: 1px;
+      background: var(--caramel);
+    }
+
+    .section-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      font-weight: 600;
+      line-height: 1.1;
+      color: var(--mocha);
+      margin-bottom: 16px;
+    }
+
+    .section-h2 em {
+      font-style: italic;
+      color: var(--caramel);
+    }
+
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--clay);
+      max-width: 540px;
+      line-height: 1.75;
+      margin-bottom: 64px;
+    }
+
+    .exp-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .exp-card {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 36px 28px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: all .4s var(--ease);
+      cursor: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .exp-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--mocha), var(--caramel));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .5s var(--ease);
+    }
+
+    .exp-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .exp-card:hover::after {
+      transform: scaleX(1);
+    }
+
+    .exp-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem;
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(200, 137, 63, .15);
+      line-height: 1;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .exp-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--mocha), var(--mocha-mid));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--caramel-lt);
+      margin-bottom: 20px;
+      box-shadow: 0 8px 24px rgba(46, 29, 20, .2);
+    }
+
+    .exp-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--mocha);
+      margin-bottom: 12px;
+    }
+
+    .exp-card p {
+      font-size: .9rem;
+      line-height: 1.75;
+      color: var(--clay);
+    }
+
+    /* ============================================================
+   THE VIRAL FORMULA — POST GRID
+   ============================================================ */
+    .formula {
+      padding: 120px 6%;
+      background: var(--cream);
+    }
+
+    .formula-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .post-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 64px;
+    }
+
+    .post-card {
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 4/5;
+      background: var(--linen);
+      box-shadow: var(--shadow);
+      cursor: none;
+      transition: transform .5s var(--ease), box-shadow .5s var(--ease);
+    }
+
+    .post-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .post-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .7s var(--ease), filter .5s;
+      display: block;
+    }
+
+    .post-card:hover .post-img {
+      transform: scale(1.06);
+      filter: brightness(1.05);
+    }
+
+    /* Small tag on bottom of image */
+    .post-badge {
+      position: absolute;
+      bottom: 18px;
+      left: 18px;
+      background: var(--card);
+      padding: 7px 16px;
+      border-radius: 100px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--mocha);
+      box-shadow: 0 4px 16px rgba(46, 29, 20, .12);
+      transition: opacity .3s, transform .3s;
+    }
+
+    .post-card:hover .post-badge {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    /* Hover overlay — simple and readable */
+    .post-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(253, 250, 245, .96);
+      padding: 36px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      opacity: 0;
+      transition: opacity .4s;
+    }
+
+    .post-card:hover .post-overlay {
+      opacity: 1;
+    }
+
+    .ov-icon {
+      font-size: 28px;
+      color: var(--caramel);
+      margin-bottom: 16px;
+    }
+
+    .ov-big {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.2rem;
+      font-weight: 600;
+      color: var(--mocha);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .ov-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      margin-bottom: 20px;
+    }
+
+    .ov-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 18px;
+    }
+
+    .ov-strategy {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--mocha);
+      margin-bottom: 8px;
+    }
+
+    .ov-desc {
+      font-size: 13px;
+      color: var(--clay);
+      line-height: 1.65;
+    }
+
+    /* ============================================================
+   HOW A VIRAL AD WORKS — SIMPLE BREAKDOWN
+   ============================================================ */
+    .anatomy {
+      padding: 120px 6%;
+      background: var(--mocha);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .anatomy::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200, 137, 63, .1), transparent 70%);
+      pointer-events: none;
+    }
+
+    .anatomy-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Left side - text */
+    .anat-text .section-tag {
+      color: var(--caramel-lt);
+    }
+
+    .anat-text .section-tag::before {
+      background: var(--caramel-lt);
+    }
+
+    .anat-text .section-h2 {
+      color: var(--cream);
+    }
+
+    .anat-text .section-h2 em {
+      color: var(--caramel-lt);
+    }
+
+    .anat-text .section-sub {
+      color: rgba(253, 250, 245, .55);
+      max-width: 100%;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 40px;
+    }
+
+    .step {
+      display: flex;
+      gap: 24px;
+      padding: 28px 0;
+      border-bottom: 1px solid rgba(253, 250, 245, .08);
+      transition: all .3s;
+      cursor: none;
+    }
+
+    .step:first-child {
+      border-top: 1px solid rgba(253, 250, 245, .08);
+    }
+
+    .step:hover {
+      padding-left: 10px;
+    }
+
+    .step-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      font-style: italic;
+      color: rgba(200, 137, 63, .3);
+      flex-shrink: 0;
+      line-height: 1;
+      width: 40px;
+      padding-top: 2px;
+    }
+
+    .step:hover .step-num {
+      color: var(--caramel);
+    }
+
+    .step-body h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 6px;
+    }
+
+    .step-body p {
+      font-size: .9rem;
+      color: rgba(253, 250, 245, .5);
+      line-height: 1.65;
+    }
+
+    .step-body .tag {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      border: 1px solid rgba(200, 137, 63, .25);
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+
+    .btn-c {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 40px;
+      background: var(--caramel);
+      color: var(--mocha);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: none;
+      border-radius: 100px;
+      transition: all .35s var(--ease);
+      box-shadow: 0 10px 40px rgba(200, 137, 63, .35);
+    }
+
+    .btn-c:hover {
+      background: var(--caramel-lt);
+      transform: translateY(-3px);
+    }
+
+    /* Right side — phone mockup */
+    .anat-phone {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .phone-shell {
+      width: 280px;
+      border-radius: 42px;
+      border: 8px solid rgba(253, 250, 245, .15);
+      overflow: hidden;
+      box-shadow: 0 40px 100px rgba(0, 0, 0, .4), inset 0 0 0 1px rgba(255, 255, 255, .05);
+      position: relative;
+    }
+
+    .phone-shell img {
+      width: 100%;
+      display: block;
+    }
+
+    /* Glow under phone */
+    .phone-glow {
+      position: absolute;
+      bottom: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 80px;
+      background: radial-gradient(ellipse, rgba(200, 137, 63, .3), transparent 70%);
+      filter: blur(20px);
+    }
+
+    /* ============================================================
+   RESULTS STRIP — SOCIAL PROOF
+   ============================================================ */
+    .results-strip {
+      padding: 80px 6%;
+      background: linear-gradient(135deg, var(--mocha-mid) 0%, var(--mocha) 100%);
+    }
+
+    .strip-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+    }
+
+    .strip-item {
+      padding: 40px 32px;
+      text-align: center;
+      border-right: 1px solid rgba(253, 250, 245, .08);
+      transition: background .3s;
+      cursor: none;
+    }
+
+    .strip-item:last-child {
+      border-right: none;
+    }
+
+    .strip-item:hover {
+      background: rgba(253, 250, 245, .04);
+    }
+
+    .strip-big {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 600;
+      color: var(--cream);
+      display: block;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .strip-big span {
+      color: var(--caramel);
+    }
+
+    .strip-lbl {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(253, 250, 245, .4);
+    }
+
+    .strip-note {
+      font-size: 12px;
+      color: rgba(253, 250, 245, .3);
+      margin-top: 6px;
+      font-style: italic;
+    }
+
+    /* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+    .reviews {
+      padding: 120px 6%;
+      background: var(--linen);
+    }
+
+    .reviews-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 64px;
+    }
+
+    .review-card {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 36px 32px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: all .4s var(--ease);
+      cursor: none;
+      position: relative;
+    }
+
+    .review-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .review-stars {
+      color: var(--caramel);
+      font-size: 14px;
+      letter-spacing: 3px;
+      margin-bottom: 18px;
+    }
+
+    .review-quote {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--mocha);
+      margin-bottom: 24px;
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+    }
+
+    .review-quote::before {
+      content: '"';
+      font-size: 3rem;
+      color: rgba(200, 137, 63, .15);
+      font-family: 'Cormorant Garamond', serif;
+      line-height: 0;
+      vertical-align: -1rem;
+      margin-right: 4px;
+    }
+
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .review-av {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--caramel), var(--mocha));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--cream);
+      flex-shrink: 0;
+    }
+
+    .review-name {
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--mocha);
+      display: block;
+      letter-spacing: .05em;
+    }
+
+    .review-where {
+      font-size: .72rem;
+      color: var(--clay);
+    }
+
+    .review-verified {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* ============================================================
+   FINAL CTA
+   ============================================================ */
+    .cta-section {
+      padding: 160px 6%;
+      background: linear-gradient(160deg, var(--linen) 0%, var(--cream) 100%);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: 'NOIR';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(15rem, 30vw, 28rem);
+      font-weight: 600;
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(200, 137, 63, .05);
+      pointer-events: none;
+      user-select: none;
+      line-height: 1;
+    }
+
+    .cta-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      margin-bottom: 24px;
+    }
+
+    .cta-tag::before,
+    .cta-tag::after {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--caramel);
+    }
+
+    .cta-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 600;
+      color: var(--mocha);
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+
+    .cta-h2 em {
+      font-style: italic;
+      color: var(--caramel);
+    }
+
+    .cta-p {
+      font-size: 1.1rem;
+      color: var(--clay);
+      max-width: 500px;
+      margin: 0 auto 48px;
+      line-height: 1.75;
+    }
+
+    .cta-btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 44px;
+    }
+
+    .trust-row {
+      display: flex;
+      gap: 28px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .trust-badge {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--clay);
+    }
+
+    .trust-badge::before {
+      content: '✓';
+      color: var(--caramel);
+      font-weight: 700;
+    }
+
+    /* ============================================================
+   FOOTER
+   ============================================================ */
+    footer {
+      background: var(--mocha);
+      padding: 80px 6% 100px;
+      /* extra bottom for ticker */
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.8fr 1fr 1fr 1fr;
+      gap: 60px;
+      padding-bottom: 60px;
+      border-bottom: 1px solid rgba(253, 250, 245, .08);
+    }
+
+    .f-brand .logo-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      color: var(--cream);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .f-brand .logo-name span {
+      color: var(--caramel);
+    }
+
+    .f-brand .logo-sub {
+      font-size: 9px;
+      letter-spacing: .32em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      display: block;
+      margin-bottom: 18px;
+    }
+
+    .f-brand .f-desc {
+      font-size: .88rem;
+      color: rgba(253, 250, 245, .38);
+      line-height: 1.75;
+      max-width: 270px;
+      margin-bottom: 24px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+    }
+
+    .social-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .social-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      border: 1px solid rgba(253, 250, 245, .12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(253, 250, 245, .35);
+      font-size: 14px;
+      text-decoration: none;
+      cursor: none;
+      transition: all .3s;
+    }
+
+    .social-btn:hover {
+      border-color: var(--caramel);
+      color: var(--caramel);
+    }
+
+    .f-col h5 {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      margin-bottom: 22px;
+      display: block;
+    }
+
+    .f-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+
+    .f-col a {
+      font-size: .88rem;
+      color: rgba(253, 250, 245, .4);
+      text-decoration: none;
+      cursor: none;
+      transition: color .3s;
+    }
+
+    .f-col a:hover {
+      color: var(--caramel-lt);
+    }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 32px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-bottom p {
+      font-size: .7rem;
+      color: rgba(253, 250, 245, .25);
+      letter-spacing: .06em;
+    }
+
+    .footer-bottom div {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-bottom a {
+      font-size: .7rem;
+      color: rgba(253, 250, 245, .25);
+      text-decoration: none;
+      cursor: none;
+      transition: color .3s;
+    }
+
+    .footer-bottom a:hover {
+      color: var(--caramel);
+    }
+
+    /* ============================================================
+   ANIMATIONS
+   ============================================================ */
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pulse-green {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 3px rgba(34, 197, 94, .2);
+      }
+
+      50% {
+        box-shadow: 0 0 0 6px rgba(34, 197, 94, .1);
+      }
+    }
+
+    @keyframes ticker {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity .9s var(--ease), transform .9s var(--ease);
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: none;
+    }
+
+    .stagger>* {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .85s var(--ease), transform .85s var(--ease);
+    }
+
+    .stagger.in>*:nth-child(1) {
+      opacity: 1;
+      transform: none;
+      transition-delay: .00s;
+    }
+
+    .stagger.in>*:nth-child(2) {
+      opacity: 1;
+      transform: none;
+      transition-delay: .10s;
+    }
+
+    .stagger.in>*:nth-child(3) {
+      opacity: 1;
+      transform: none;
+      transition-delay: .20s;
+    }
+
+    .stagger.in>*:nth-child(4) {
+      opacity: 1;
+      transform: none;
+      transition-delay: .30s;
+    }
+
+    .stagger.in>*:nth-child(5) {
+      opacity: 1;
+      transform: none;
+      transition-delay: .40s;
+    }
+
+    .stagger.in>*:nth-child(6) {
+      opacity: 1;
+      transform: none;
+      transition-delay: .50s;
+    }
+
+    /* ============================================================
+   RESPONSIVE
+   ============================================================ */
+    @media (max-width: 960px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 40px;
+      }
+
+      .profile-pic-wrap {
+        margin: 0 auto;
+      }
+
+      .hero-line {
+        margin: 0 auto 36px;
+      }
+
+      .stats-row {
+        margin: 0 auto 36px;
+      }
+
+      .hero-btns {
+        justify-content: center;
+      }
+
+      .exp-cards {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .post-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .anatomy-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .anat-phone {
+        display: none;
+      }
+
+      .strip-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .review-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="cur-dot" id="cd"></div>
+  <div class="cur-ring" id="cr"></div>
+
+  <div id="progress-bar"></div>
+
+  <header id="master-nav">
+    <div class="nav-container">
+      <a href="home.html" class="nav-brand">
+        <svg class="brand-mark" width="45" height="45" viewBox="0 0 100 100" fill="none">
+          <path d="M50 5C50 5 15 45 15 67C15 86.3 30.7 102 50 102C69.3 102 85 86.3 85 67C85 45 50 5 50 5Z"
+            class="mark-shape" />
+          <text x="50" y="80" font-family="'Playfair Display', serif" font-weight="700" font-size="42" class="mark-text"
+            text-anchor="middle">N</text>
+        </svg>
+        <div class="brand-text-col">
+          <span class="brand-name">NOIR</span>
+          <span class="brand-sub">Digital Studio</span>
+        </div>
+      </a>
+
+      <nav class="mn-nav-links">
+        <a href="home.html" class="mn-nav-link"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="about.html" class="mn-nav-link"><i class="fa-solid fa-circle-info"></i> About</a>
+
+        <div class="mn-nav-item has-dropdown">
+          <span class="mn-nav-link active"><i class="fa-solid fa-layer-group"></i> Services <i
+              class="fa-solid fa-chevron-down mn-arrow-icon"></i></span>
+          <div class="mn-dropdown">
+            <a href="product.html"><i class="fa-solid fa-bottle-droplet"></i> Product Strategy</a>
+            <a href="instagram.html"><i class="fa-brands fa-instagram"></i> Instagram Viral</a>
+            <a href="affiliate.html"><i class="fa-solid fa-users-viewfinder"></i> Affiliate Program</a>
+            <a href="email.html"><i class="fa-regular fa-envelope"></i> Email Marketing</a>
+            <a href="blog.html"><i class="fa-solid fa-pen-nib"></i> Blog Content</a>
+            <a href="calander.html"><i class="fa-regular fa-calendar"></i> Launch Calendar</a>
+            <a href="video-marketing.html"><i class="fa-solid fa-video"></i> Video Marketing</a>
+          </div>
+        </div>
+
+        <div class="mn-nav-item has-dropdown">
+          <span class="mn-nav-link"><i class="fa-solid fa-star"></i> Celebrity <i
+              class="fa-solid fa-chevron-down mn-arrow-icon"></i></span>
+          <div class="mn-dropdown">
+            <a href="celebrity.html"><i class="fa-solid fa-gem"></i> Celebrity Perfumes</a>
+            <a href="campaign.html"><i class="fa-solid fa-film"></i> Campaign Videos</a>
+            <a href="icons.html"><i class="fa-solid fa-id-card"></i> Icon Profiles</a>
+          </div>
+        </div>
+
+        <a href="campaign.html" class="mn-nav-link"><i class="fa-solid fa-clapperboard"></i> Campaigns</a>
+        <a href="blog.html" class="mn-nav-link"><i class="fa-solid fa-newspaper"></i> Blog</a>
+        <a href="product.html" class="mn-nav-link"><i class="fa-solid fa-bag-shopping"></i> Shop</a>
+        <a href="mobile.html" class="mn-nav-link"><i class="fa-solid fa-mobile-screen"></i> App</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="mobile-toggle" onclick="toggleMobileNav()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mm-inner">
+        <div class="mm-head">
+          <span class="brand-name" style="font-size:24px;">NOIR</span>
+          <button class="close-btn" onclick="toggleMobileNav()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="mm-scroll">
+          <a href="home.html"><i class="fa-solid fa-house"></i> Home</a>
+          <a href="about.html"><i class="fa-solid fa-circle-info"></i> About</a>
+          <hr>
+          <span class="mm-label">Services</span>
+          <a href="product.html" class="sub-link"><i class="fa-solid fa-bottle-droplet"></i> Product</a>
+          <a href="instagram.html" class="sub-link" style="color:var(--caramel);"><i class="fa-brands fa-instagram"></i>
+            Instagram</a>
+          <a href="affiliate.html" class="sub-link"><i class="fa-solid fa-users"></i> Affiliates</a>
+          <a href="email.html" class="sub-link"><i class="fa-regular fa-envelope"></i> Email</a>
+          <hr>
+          <span class="mm-label">Talent</span>
+          <a href="celebrity.html" class="sub-link"><i class="fa-solid fa-star"></i> Celebrity</a>
+          <a href="campaign.html" class="sub-link"><i class="fa-solid fa-film"></i> Campaigns</a>
+          <hr>
+          <a href="blog.html"><i class="fa-solid fa-newspaper"></i> Blog</a>
+          <a href="product.html"><i class="fa-solid fa-bag-shopping"></i> Shop</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+
+      <div class="profile-pic-wrap">
+        <div class="pic-ring">
+          <div class="ring-spin"></div>
+          <div class="ring-spin-2"></div>
+          <svg viewBox="0 0 100 100" class="pic-img" style="padding: 25px; background: var(--mocha);">
+            <path d="M50 5C50 5 15 45 15 67C15 86.3 30.7 102 50 102C69.3 102 85 86.3 85 67C85 45 50 5 50 5Z"
+              fill="var(--caramel)" />
+            <text x="50" y="80" font-family="'Playfair Display', serif" font-weight="700" font-size="42"
+              fill="var(--mocha)" text-anchor="middle">N</text>
+          </svg>
+        </div>
+        <div class="live-badge">
+          <div class="live-dot"></div>
+          Open for Projects
+        </div>
+      </div>
+
+      <div class="hero-text">
+        <div class="hero-eyebrow">
+          <i class="fa-solid fa-gem"></i>
+          Luxury Growth Studio
+        </div>
+
+        <h1 class="hero-name">
+          Noir <span>Agency</span>
+          <i class="fa-solid fa-circle-check" style="font-size:2rem;color:var(--caramel);vertical-align:middle;"></i>
+        </h1>
+        <p class="hero-title">We Make Perfume Go Viral</p>
+
+        <p class="hero-line">
+          We take perfume brands and turn them into <strong>internet sensations.</strong>
+          Better content. More customers. Real results — not just pretty numbers.
+        </p>
+
+        <div class="stats-row">
+          <div class="stat">
+            <span class="num">$12.5M</span>
+            <span class="lbl">Revenue Made</span>
+          </div>
+          <div class="stat">
+            <span class="num">450M</span>
+            <span class="lbl">Total Views</span>
+          </div>
+          <div class="stat">
+            <span class="num">85+</span>
+            <span class="lbl">Viral Hits</span>
+          </div>
+        </div>
+
+        <div class="hero-btns">
+          <a href="email.html" class="btn-a">
+            <i class="fa-solid fa-envelope"></i> Work With Us
+          </a>
+          <a href="affiliate.html" class="btn-b">
+            <i class="fa-solid fa-handshake"></i> Partner Program
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="highlights">
+    <div class="hl-inner stagger">
+      <div class="hl-item">
+        <div class="hl-circle"><i class="fa-solid fa-gem"></i></div>
+        <span class="hl-label">Luxury</span>
+      </div>
+      <div class="hl-item">
+        <div class="hl-circle"><i class="fa-solid fa-chart-line"></i></div>
+        <span class="hl-label">Results</span>
+      </div>
+      <div class="hl-item">
+        <div class="hl-circle"><i class="fa-solid fa-film"></i></div>
+        <span class="hl-label">Reels</span>
+      </div>
+      <div class="hl-item">
+        <div class="hl-circle"><i class="fa-solid fa-users"></i></div>
+        <span class="hl-label">Clients</span>
+      </div>
+      <div class="hl-item">
+        <div class="hl-circle"><i class="fa-solid fa-star"></i></div>
+        <span class="hl-label">Awards</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="explainer">
+    <div class="explainer-inner">
+      <div class="reveal">
+        <p class="section-tag">What We Actually Do</p>
+        <h2 class="section-h2">Four things that turn<br>a brand into a <em>bestseller.</em></h2>
+        <p class="section-sub">We keep it simple. No jargon, no fluff. Here's exactly how we make your perfume brand
+          impossible to ignore.</p>
+      </div>
+      <div class="exp-cards stagger">
+        <div class="exp-card">
+          <span class="exp-num">01</span>
+          <div class="exp-icon"><i class="fa-solid fa-video"></i></div>
+          <h3>We Make the Video</h3>
+          <p>We shoot and edit short videos that stop people from scrolling. The first 3 seconds are everything — and we
+            nail them every time.</p>
+        </div>
+        <div class="exp-card">
+          <span class="exp-num">02</span>
+          <div class="exp-icon"><i class="fa-solid fa-bullseye"></i></div>
+          <h3>We Run the Ads</h3>
+          <p>We put your content in front of the right people. Not random clicks — real buyers who already want what
+            you're selling.</p>
+        </div>
+        <div class="exp-card">
+          <span class="exp-num">03</span>
+          <div class="exp-icon"><i class="fa-solid fa-heart"></i></div>
+          <h3>We Build the Hype</h3>
+          <p>Waitlists, launches, sold-out drops. We create demand before the product is even available. People love
+            what they can't have yet.</p>
+        </div>
+        <div class="exp-card">
+          <span class="exp-num">04</span>
+          <div class="exp-icon"><i class="fa-solid fa-chart-bar"></i></div>
+          <h3>We Track Everything</h3>
+          <p>You always know what's working. Simple reports. Real numbers. No hiding behind "impressions" when what you
+            want is sales.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="formula">
+    <div class="formula-inner">
+      <div class="reveal">
+        <p class="section-tag">The Viral Formula</p>
+        <h2 class="section-h2">Hover any post to see<br>the <em>strategy behind it.</em></h2>
+        <p class="section-sub">Every post we make has a reason. Every choice — the color, the speed, the angle — is
+          designed to make people stop, watch, and buy.</p>
+      </div>
+      <div class="post-grid stagger">
+
+        <div class="post-card">
+          <img class="post-img"
+            src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?auto=format&fit=crop&w=800&q=80"
+            alt="Viral perfume content">
+          <div class="post-badge">🔥 3.2M Views</div>
+          <div class="post-overlay">
+            <div class="ov-icon"><i class="fa-solid fa-eye"></i></div>
+            <div class="ov-big">3.2M</div>
+            <div class="ov-label">Organic Views</div>
+            <div class="ov-divider"></div>
+            <p class="ov-strategy">Strategy: Visual ASMR</p>
+            <p class="ov-desc">We used slow, satisfying visuals to trigger the brain's pleasure center. People watched
+              it twice. Then they bought it.</p>
+          </div>
+        </div>
+
+        <div class="post-card">
+          <img class="post-img"
+            src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=800&q=80"
+            alt="Perfume launch strategy">
+          <div class="post-badge">💰 450% ROAS</div>
+          <div class="post-overlay">
+            <div class="ov-icon"><i class="fa-solid fa-sack-dollar"></i></div>
+            <div class="ov-big">450%</div>
+            <div class="ov-label">Return on Ad Spend</div>
+            <div class="ov-divider"></div>
+            <p class="ov-strategy">Strategy: Color Psychology</p>
+            <p class="ov-desc">Deep gold tones feel like wealth. People click because they want to belong to this world.
+              That desire is what we sell.</p>
+          </div>
+        </div>
+
+        <div class="post-card">
+          <img class="post-img"
+            src="https://images.unsplash.com/photo-1585218356057-dc251d5c92ee?auto=format&fit=crop&w=800&q=80"
+            alt="Sold out perfume campaign">
+          <div class="post-badge">⚡ Sold Out in 12min</div>
+          <div class="post-overlay">
+            <div class="ov-icon"><i class="fa-solid fa-fire"></i></div>
+            <div class="ov-big">$50K</div>
+            <div class="ov-label">Revenue in 48 Hours</div>
+            <div class="ov-divider"></div>
+            <p class="ov-strategy">Strategy: Scarcity Launch</p>
+            <p class="ov-desc">We built a 10,000-person waitlist before launch day. When it dropped, it was gone in 12
+              minutes. "Sold Out" is now their best ad.</p>
+          </div>
+        </div>
+
+        <div class="post-card">
+          <img class="post-img"
+            src="https://images.unsplash.com/photo-1616084403167-275d2729e246?auto=format&fit=crop&w=800&q=80"
+            alt="Perfume ritual content">
+          <div class="post-badge">📱 98% Watch Rate</div>
+          <div class="post-overlay">
+            <div class="ov-icon"><i class="fa-solid fa-magnet"></i></div>
+            <div class="ov-big">98%</div>
+            <div class="ov-label">Video Completion</div>
+            <div class="ov-divider"></div>
+            <p class="ov-strategy">Strategy: Micro-Pacing</p>
+            <p class="ov-desc">We cut every 1.5 seconds. Fast enough to stay exciting. Slow enough to absorb. People
+              watched the whole thing without realizing it.</p>
+          </div>
+        </div>
+
+        <div class="post-card">
+          <img class="post-img"
+            src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?auto=format&fit=crop&w=400&q=80"
+            alt="Brand awareness perfume">
+          <div class="post-badge">💎 12K Saves</div>
+          <div class="post-overlay">
+            <div class="ov-icon"><i class="fa-solid fa-share-nodes"></i></div>
+            <div class="ov-big">12K</div>
+            <div class="ov-label">Saves & Shares</div>
+            <div class="ov-divider"></div>
+            <p class="ov-strategy">Strategy: Lifestyle FOMO</p>
+            <p class="ov-desc">People saved it because they wanted to show it to someone. They shared it to say, "This
+              is my taste." That's priceless brand reach.</p>
+          </div>
+        </div>
+
+        <div class="post-card">
+          <img class="post-img"
+            src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=400&q=80"
+            alt="Perfume ritual education">
+          <div class="post-badge">🛍️ Education = Sales</div>
+          <div class="post-overlay">
+            <div class="ov-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+            <div class="ov-big">+82%</div>
+            <div class="ov-label">Conversion Lift</div>
+            <div class="ov-divider"></div>
+            <p class="ov-strategy">Strategy: The Daily Ritual</p>
+            <p class="ov-desc">We showed people HOW to wear the perfume — morning routine, evening out, gifting. When
+              you teach, you remove doubt. No doubt = more sales.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="anatomy">
+    <div class="anatomy-inner">
+
+      <div class="anat-text reveal">
+        <p class="section-tag">The Simple Breakdown</p>
+        <h2 class="section-h2">Why some ads get<br>1M views. And some<br>get <em>12.</em></h2>
+        <p class="section-sub" style="margin-bottom:44px;">It comes down to three seconds. Here's the exact structure of
+          every high-performing ad we've ever made.</p>
+
+        <div class="steps">
+          <div class="step">
+            <span class="step-num">01</span>
+            <div class="step-body">
+              <h4>The Hook — First 3 Seconds</h4>
+              <p>If you don't stop the scroll in 3 seconds, you've lost them. We use movement, contrast, or curiosity to
+                make stopping feel involuntary.</p>
+              <span class="tag">Stops the Scroll</span>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">02</span>
+            <div class="step-body">
+              <h4>The Story — Seconds 3 to 15</h4>
+              <p>Now we make them feel something. We show them a world they want to live in, or teach them something
+                that makes the product feel essential.</p>
+              <span class="tag">Builds Desire</span>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">03</span>
+            <div class="step-body">
+              <h4>The Action — After 15 Seconds</h4>
+              <p>One clear instruction. "Shop now." "Join the waitlist." "Get yours." Confusion kills sales. Clarity
+                creates them.</p>
+              <span class="tag">Drives Sales</span>
+            </div>
+          </div>
+        </div>
+
+        <a href="email.html" class="btn-c">
+          <i class="fa-solid fa-arrow-right"></i> Get a Free Audit
+        </a>
+      </div>
+
+      <div class="anat-phone reveal">
+        <div class="phone-shell" style="border: none; box-shadow: none; background: transparent;">
+          <img src="noir_insta.jpg" alt="Viral Strategy"
+            style="border-radius: 40px; box-shadow: 0 30px 80px rgba(46, 29, 20, 0.4);">
+        </div>
+        <div class="phone-glow"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="results-strip">
+    <div class="strip-inner stagger">
+      <div class="strip-item">
+        <span class="strip-big">$<span>12.5</span>M</span>
+        <span class="strip-lbl">Revenue Generated</span>
+        <span class="strip-note">For our clients</span>
+      </div>
+      <div class="strip-item">
+        <span class="strip-big"><span>450</span>M</span>
+        <span class="strip-lbl">Total Views</span>
+        <span class="strip-note">Across all platforms</span>
+      </div>
+      <div class="strip-item">
+        <span class="strip-big"><span>85</span>+</span>
+        <span class="strip-lbl">Viral Videos</span>
+        <span class="strip-note">1M+ views each</span>
+      </div>
+      <div class="strip-item">
+        <span class="strip-big"><span>4.9</span>★</span>
+        <span class="strip-lbl">Client Rating</span>
+        <span class="strip-note">From 60+ brands</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="reviews">
+    <div class="reviews-inner">
+      <div class="reveal">
+        <p class="section-tag">What Our Clients Say</p>
+        <h2 class="section-h2">Real words from<br>real <em>brands we grew.</em></h2>
+        <p class="section-sub">We let the results do the talking. Here's what happened after brands trusted us with
+          their growth.</p>
+      </div>
+      <div class="review-grid stagger">
+
+        <div class="review-card">
+          <div class="review-verified"><i class="fa-solid fa-circle-check"></i> Verified</div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-quote">Before NOIR, our reels got maybe 500 views. Their first video for us hit 2.3 million.
+            We sold out our entire stock in one weekend. I still can't believe it happened.</p>
+          <div class="review-author">
+            <div class="review-av">A</div>
+            <div>
+              <span class="review-name">Aisha Rahman</span>
+              <span class="review-where">Founder · Luma Perfumes, Dubai</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-verified"><i class="fa-solid fa-circle-check"></i> Verified</div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-quote">The team explained every decision in plain English. No agency buzzwords, no confusion.
+            Just clear strategy and content that actually worked. Our Instagram grew from 4K to 41K followers in 3
+            months.</p>
+          <div class="review-author">
+            <div class="review-av" style="background:linear-gradient(135deg,var(--mocha-mid),var(--mocha))">K</div>
+            <div>
+              <span class="review-name">Karan Mehta</span>
+              <span class="review-where">CEO · Veloura Studio, Mumbai</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-verified"><i class="fa-solid fa-circle-check"></i> Verified</div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-quote">We launched our new collection with NOIR running everything — the content, the ads,
+            the hype build. It sold out in 12 minutes. We had to turn away orders. That has never happened to us before.
+          </p>
+          <div class="review-author">
+            <div class="review-av"
+              style="background:linear-gradient(135deg,var(--caramel),var(--caramel-lt));color:var(--mocha)">S</div>
+            <div>
+              <span class="review-name">Sara Okonkwo</span>
+              <span class="review-where">Creative Director · Dusk&amp;Dawn, Lagos</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="cta-inner reveal">
+      <p class="cta-tag">Ready to Grow?</p>
+      <h2 class="cta-h2">Your brand deserves<br>to be the one<br>people <em>can't forget.</em></h2>
+      <p class="cta-p">We only take on 4 new clients per month. If you want your perfume brand to be next — let's talk
+        now, before the spot is gone.</p>
+      <div class="cta-btns">
+        <a href="email.html" class="btn-a" style="font-size:13px;padding:18px 52px;">
+          <i class="fa-solid fa-envelope"></i> Book a Free Call
+        </a>
+        <a href="affiliate.html" class="btn-b" style="font-size:13px;padding:18px 52px;">
+          <i class="fa-solid fa-handshake"></i> Partner With Us
+        </a>
+      </div>
+      <div class="trust-row">
+        <span class="trust-badge">Free Strategy Call</span>
+        <span class="trust-badge">No Long Contracts</span>
+        <span class="trust-badge">Results in 30 Days</span>
+        <span class="trust-badge">Only 4 Spots/Month</span>
+      </div>
+
+      <div
+        style="margin-top:44px;display:inline-flex;align-items:center;gap:10px;background:var(--mocha);color:var(--caramel-lt);padding:14px 32px;border-radius:100px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;">
+        <span
+          style="width:8px;height:8px;border-radius:50%;background:#ef4444;animation:pulse-green 1.5s infinite;"></span>
+        2 of 4 spots still open this month
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="f-brand">
+        <span class="logo-name">NOI<span>R</span></span>
+        <span class="logo-sub">Digital Studio</span>
+        <p class="f-desc">We take perfume brands and make them impossible to ignore. Content. Ads. Results. That's it.
+        </p>
+        <div class="social-row">
+          <a href="#" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-btn"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#" class="social-btn"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="#" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="f-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#">Content Creation</a></li>
+          <li><a href="#">Paid Advertising</a></li>
+          <li><a href="#">Brand Strategy</a></li>
+          <li><a href="#">Launch Planning</a></li>
+          <li><a href="#">Viral Campaigns</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="#">Our Work</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="email.html">Hire Us</a></li>
+          <li><a href="affiliate.html">Partner Program</a></li>
+          <li><a href="#">Free Audit</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">@noirdigitalstudio</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 NOIR Digital Studio. All rights reserved.</p>
+      <div>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="ticker-wrap">
+    <div class="ticker-inner">
+      <span class="ticker-item">🚀 Client Win <span class="hi">+$15k in 48 hrs</span></span>
+      <span class="ticker-dot">◆</span>
+      <span class="ticker-item">📈 New Reel <span class="hi">hit 1M Views</span></span>
+      <span class="ticker-dot">◆</span>
+      <span class="ticker-item">💎 Strategy <span class="hi">"Noir Gold" up 300%</span></span>
+      <span class="ticker-dot">◆</span>
+      <span class="ticker-item">⚡ Launch: <span class="hi">Sold Out in 12 Minutes</span></span>
+      <span class="ticker-dot">◆</span>
+      <span class="ticker-item">🌍 Now serving <span class="hi">60+ perfume brands worldwide</span></span>
+      <span class="ticker-dot">◆</span>
+      <span class="ticker-item">🚀 Client Win <span class="hi">+$15k in 48 hrs</span></span>
+      <span class="ticker-dot">◆</span>
+      <span class="ticker-item">📈 New Reel <span class="hi">hit 1M Views</span></span>
+      <span class="ticker-dot">◆</span>
+      <span class="ticker-item">💎 Strategy <span class="hi">"Noir Gold" up 300%</span></span>
+      <span class="ticker-dot">◆</span>
+      <span class="ticker-item">⚡ Launch: <span class="hi">Sold Out in 12 Minutes</span></span>
+      <span class="ticker-dot">◆</span>
+      <span class="ticker-item">🌍 Now serving <span class="hi">60+ perfume brands worldwide</span></span>
+      <span class="ticker-dot">◆</span>
+    </div>
+  </div>
+
+  <script>
+    // ── Cursor ──────────────────────────────────
+    const cd = document.getElementById('cd');
+    const cr = document.getElementById('cr');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cd.style.left = mx + 'px'; cd.style.top = my + 'px';
+    });
+    (function tick() {
+      rx += (mx - rx) * .1; ry += (my - ry) * .1;
+      cr.style.left = rx + 'px'; cr.style.top = ry + 'px';
+      requestAnimationFrame(tick);
+    })();
+    document.querySelectorAll('a, button, .post-card, .exp-card, .hl-item, .review-card, .step').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('on-cta'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('on-cta'));
+    });
+
+    // ── Scroll Progress + Nav ──────────────────────────
+    const bar = document.getElementById('progress-bar');
+    window.addEventListener('scroll', () => {
+      const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+      bar.style.width = pct + '%';
+      const nav = document.getElementById('master-nav');
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // ── Mobile Nav Toggle ───────────────────────────
+    function toggleMobileNav() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    // ── Scroll Reveal ───────────────────────────
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal, .stagger').forEach(el => obs.observe(el));
+  </script>
+</body>
+
+</html>
