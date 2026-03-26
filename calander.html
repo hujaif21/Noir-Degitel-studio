@@ -593,26 +593,28 @@
     }
 
     .milestone-list {
-      max-width: 800px;
+      max-width: 1200px;
       margin: 0 auto;
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 20px;
     }
 
     .milestone-item {
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      align-items: flex-start;
       background: var(--white);
-      padding: 25px 30px;
+      padding: 30px;
       border-radius: 4px;
       border: 1px solid var(--beige);
       transition: .4s;
+      position: relative;
     }
 
     .milestone-item:hover {
       border-color: var(--caramel);
-      transform: translateX(10px);
+      transform: translateY(-8px);
       box-shadow: 0 10px 30px rgba(62, 47, 43, 0.05);
     }
 
@@ -623,13 +625,15 @@
       text-transform: uppercase;
       letter-spacing: 2px;
       color: var(--caramel);
-      width: 100px;
-      flex-shrink: 0;
+      margin-bottom: 20px;
     }
 
     .ms-icon {
-      width: 50px;
-      height: 50px;
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      width: 45px;
+      height: 45px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -637,8 +641,6 @@
       background: rgba(201, 164, 108, 0.1);
       color: var(--caramel);
       font-size: 18px;
-      margin-right: 25px;
-      flex-shrink: 0;
     }
 
     .ms-icon.evt-email {
@@ -653,21 +655,25 @@
 
     .ms-content {
       flex-grow: 1;
+      width: 100%;
     }
 
     .ms-content h4 {
       font-size: 20px;
       color: var(--mocha);
-      margin-bottom: 5px;
+      margin-bottom: 10px;
+      padding-right: 40px;
     }
 
     .ms-content p {
       font-size: 14px;
       color: #666;
-      margin: 0;
+      margin: 0 0 25px 0;
+      line-height: 1.6;
     }
 
     .ms-status {
+      margin-top: auto;
       font-size: 10px;
       font-family: 'Manrope', sans-serif;
       text-transform: uppercase;
@@ -677,8 +683,7 @@
       border-radius: 50px;
       background: rgba(62, 47, 43, 0.05);
       color: var(--mocha);
-      margin-left: 20px;
-      flex-shrink: 0;
+      display: inline-block;
     }
 
     .ms-status.pending {
@@ -1117,8 +1122,8 @@
 
   <section class="milestones container">
     <div class="sec-head reveal">
-      <p>Critical Dates</p>
-      <h2>Key Deliverables</h2>
+      <p>Social Strategy</p>
+      <h2>7-Day Instagram Launch Plan</h2>
     </div>
 
     <div class="milestone-list reveal delay-1">
@@ -1126,42 +1131,68 @@
         <div class="ms-date">Day 01</div>
         <div class="ms-icon evt-reel"><i class="fa-solid fa-film"></i></div>
         <div class="ms-content">
-          <h4>Cinematic Teaser Drop (IG/TikTok)</h4>
-          <p>Cross-platform release of the 15-second visual mood board. Establishing the aesthetic foundation of silent
-            luxury.</p>
+          <h4>Video Teaser</h4>
+          <p>A short 15-second video highlighting the perfume's vibe without revealing the actual bottle.</p>
         </div>
         <div class="ms-status">Completed</div>
       </div>
 
       <div class="milestone-item">
-        <div class="ms-date">Day 10</div>
-        <div class="ms-icon evt-email"><i class="fa-solid fa-envelope-open-text"></i></div>
+        <div class="ms-date">Day 02</div>
+        <div class="ms-icon evt-ad"><i class="fa-solid fa-images"></i></div>
         <div class="ms-content">
-          <h4>The VIP "Inner Circle" Email</h4>
-          <p>Exclusive access for our most loyal clients. Early scent profiling and a closely guarded, priority
-            pre-order link.</p>
+          <h4>Ingredient Spotlight</h4>
+          <p>A multi-image carousel post showing the main ingredients used to build the perfume's unique scent.</p>
+        </div>
+        <div class="ms-status">Completed</div>
+      </div>
+
+      <div class="milestone-item">
+        <div class="ms-date">Day 03</div>
+        <div class="ms-icon evt-email"><i class="fa-solid fa-droplet"></i></div>
+        <div class="ms-content">
+          <h4>Bottle Silhouette</h4>
+          <p>A dark, shadowy outline of the perfume bottle to build excitement, ending with a guessing poll.</p>
         </div>
         <div class="ms-status pending">Pending</div>
       </div>
 
       <div class="milestone-item">
-        <div class="ms-date">Day 15</div>
-        <div class="ms-icon evt-ad"><i class="fa-solid fa-bullhorn"></i></div>
+        <div class="ms-date">Day 04</div>
+        <div class="ms-icon evt-ad"><i class="fa-solid fa-feather-pointed"></i></div>
         <div class="ms-content">
-          <h4>Authority Ad Campaign Rollout</h4>
-          <p>Deploying retargeting ads featuring close-up ingredient textures and compelling user-generated validation.
-          </p>
+          <h4>Scent Breakdown</h4>
+          <p>An easy-to-read text post explaining the top, middle, and base notes so customers know what to expect.</p>
         </div>
         <div class="ms-status pending">Pending</div>
       </div>
 
       <div class="milestone-item">
-        <div class="ms-date">Day 21</div>
+        <div class="ms-date">Day 05</div>
         <div class="ms-icon evt-reel"><i class="fa-solid fa-eye"></i></div>
         <div class="ms-content">
-          <h4>Global Launch & Influencer Unboxing</h4>
-          <p>Synchronized posting from 20+ Tier-1 fragrance influencers. The day the secret becomes a worldwide
-            phenomenon.</p>
+          <h4>The Big Reveal</h4>
+          <p>A high-quality video fully showing the perfume bottle from all angles with premium lighting.</p>
+        </div>
+        <div class="ms-status pending">Pending</div>
+      </div>
+
+      <div class="milestone-item">
+        <div class="ms-date">Day 06</div>
+        <div class="ms-icon evt-ad"><i class="fa-solid fa-wind"></i></div>
+        <div class="ms-content">
+          <h4>Longevity Highlight</h4>
+          <p>A carousel post proving the fragrance lasts all day, aimed at building trust before launch.</p>
+        </div>
+        <div class="ms-status pending">Pending</div>
+      </div>
+
+      <div class="milestone-item">
+        <div class="ms-date">Day 07</div>
+        <div class="ms-icon evt-email"><i class="fa-solid fa-bag-shopping"></i></div>
+        <div class="ms-content">
+          <h4>Launch Day Post</h4>
+          <p>The product is live! Shopping tags are added so customers can buy directly from Instagram.</p>
         </div>
         <div class="ms-status pending">Pending</div>
       </div>
@@ -1180,18 +1211,17 @@
         <div class="post-card reveal delay-1">
           <div class="card-img-wrapper">
             <div class="status-badge approved"><i class="fa-solid fa-circle-check"></i> Approved</div>
-            <img src="https://images.unsplash.com/photo-1547887538-e3a2f32cb1cc?auto=format&fit=crop&w=800&q=80"
-              class="card-img" alt="Luxury minimalist texture">
+            <img src="brand21.webp" class="card-img" alt="Luxury perfume bottle">
           </div>
           <div class="card-body">
             <div class="meta-row">
               <span>Instagram Reel</span>
               <span><i class="fa-regular fa-clock"></i> Day 05 • 09:00 AM</span>
             </div>
-            <h3 class="concept-title">The Scent Manifesto</h3>
+            <h3 class="concept-title">Brand Awareness Ad</h3>
             <div class="caption-preview">
-              "Luxury isn't loud. It's an aura you leave behind. 🥀 Introducing a fragrance that redefines
-              presence—where raw nature meets high art. Stop competing for attention. Start commanding rooms."
+              "Experience true elegance. 🥀 Introducing our finest fragrance yet, crafted for those who want to stand
+              out globally. Pre-order now."
             </div>
             <div class="hashtags">#noirdigital #quietluxury #signaturefragrance</div>
           </div>
@@ -1204,18 +1234,18 @@
         <div class="post-card reveal delay-2">
           <div class="card-img-wrapper">
             <div class="status-badge pending"><i class="fa-solid fa-clock"></i> Pending</div>
-            <img src="https://images.unsplash.com/photo-1596462502278-27bfdd403cc2?auto=format&fit=crop&w=800&q=80"
-              class="card-img" alt="Perfume mist">
+            <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=800&q=80"
+              class="card-img" alt="Premium fragrance">
           </div>
           <div class="card-body">
             <div class="meta-row">
               <span>TikTok Story</span>
               <span><i class="fa-regular fa-clock"></i> Day 12 • 05:00 PM</span>
             </div>
-            <h3 class="concept-title">The Emotive Note</h3>
+            <h3 class="concept-title">Benefits-Focused Video</h3>
             <div class="caption-preview">
-              "The industry's biggest mistake? Selling ingredients instead of emotion. 🌿 Don't tell me it smells like
-              bergamot; show me the clarity of the morning it evokes."
+              "Start your day with clarity. 🌿 Our latest scent blends fresh bergamot and earthy woods to keep you
+              feeling confident."
             </div>
             <div class="hashtags">#fragrancebusiness #perfumeaddict #scentprofile</div>
           </div>
@@ -1228,18 +1258,17 @@
         <div class="post-card reveal delay-3">
           <div class="card-img-wrapper">
             <div class="status-badge approved"><i class="fa-solid fa-circle-check"></i> Approved</div>
-            <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=80"
-              class="card-img" alt="Digital Design">
+            <img src="combo.webp" class="card-img" alt="Aesthetic scent notes">
           </div>
           <div class="card-body">
             <div class="meta-row">
               <span>Carousel Post</span>
               <span><i class="fa-regular fa-clock"></i> Day 18 • 06:00 PM</span>
             </div>
-            <h3 class="concept-title">Anatomy of Sillage</h3>
+            <h3 class="concept-title">Product Education Post</h3>
             <div class="caption-preview">
-              "Crafted not just to be smelled, but to be remembered. Swipe to deconstruct the 14-hour sillage of our
-              base notes. We don't just extract essence; we perfectly preserve memory. ⏳"
+              "Ever wonder why some perfumes fade? Swipe to learn how our unique formula ensures 14 hours of continuous
+              freshness. ⏳"
             </div>
             <div class="hashtags">#perfumery #sillage #sustainableluxury</div>
           </div>
